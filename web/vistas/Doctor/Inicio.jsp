@@ -98,7 +98,7 @@
                         <div class="pull-left info">
                             <p>Bienvenido, <script>document.write(formatUserName('${usuario.nombreUsuario}'));</script></p>
                             <!-- Status -->
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                            <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
                         </div>
                     </div>
 
