@@ -4,9 +4,11 @@
  */
 package Modelo;
 
-
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.sql.ResultSet;
-
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,7 +20,7 @@ public class DAOUSUARIO extends Conexion {
         Usuario usu = null;
 
         ResultSet rs = null;
-        String sql = "SELECT U.IDUSUARIO, C.NOMBRECARGO FROM usuario "
+        String sql = "SELECT U.IDUSUARIO, C.NOMBRECARGO, U.IDCARGO FROM usuario "
                 + "U INNER JOIN CARGO C ON U.IDCARGO = C.IDCARGO "
                 + "WHERE U.ESTADO = 1 AND U.NOMBREUSUARIO =  '" + user.getNombreUsuario() + "'"
                 + "AND U.CLAVE = '" + user.getClave() + "'";
@@ -32,14 +34,230 @@ public class DAOUSUARIO extends Conexion {
                 usu.setNombreUsuario(user.getNombreUsuario());
                 usu.setCargo(new Cargo());
                 usu.getCargo().setNombreCargo(rs.getString("NOMBRECARGO"));
+                usu.getCargo().setCodigo(rs.getInt("IDCARGO"));
                 usu.setEstado(true);
             }
             rs.close();
         } catch (Exception e) {
-            System.out.println("Error "+ e.getMessage());
-        }finally{
-           this.cerrar(false);
+            System.out.println("Error " + e.getMessage());
+        } finally {
+            this.cerrar(false);
         }
         return usu;
+
     }
+
+    public Usuario identificarConCifrado(Usuario user) throws Exception {
+        Usuario usu = null;
+        ResultSet rs = null;
+
+        try {
+            // Cifrar la clave proporcionada por el usuario
+            String claveCifrada = cifrarClave(user.getClave());
+            
+
+            // Construir la consulta SQL con la clave cifrada
+            String sql = "SELECT U.IDUSUARIO, C.NOMBRECARGO, U.IDCARGO FROM usuario "
+                    + "U INNER JOIN CARGO C ON U.IDCARGO = C.IDCARGO "
+                    + "WHERE U.ESTADO = 1 AND U.NOMBREUSUARIO =  '" + user.getNombreUsuario() + "'"
+                    + "AND U.CLAVE = '" + claveCifrada + "'";
+
+            // Ejecutar la consulta SQL
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+
+            // Procesar el resultado de la consulta
+            if (rs.next() == true) {
+                usu = new Usuario();
+                usu.setId_usuario(rs.getInt("IDUSUARIO"));
+                usu.setNombreUsuario(user.getNombreUsuario());
+                usu.setCargo(new Cargo());
+                usu.getCargo().setNombreCargo(rs.getString("NOMBRECARGO"));
+                usu.getCargo().setCodigo(rs.getInt("IDCARGO"));
+                usu.setEstado(true);
+            }
+        } catch (Exception e) {
+            System.out.println("Error " + e.getMessage());
+        } finally {
+            // Cerrar recursos
+            if (rs != null) {
+                rs.close();
+            }
+            this.cerrar(false);
+        }
+
+        return usu;
+    }
+
+    public String cifrarClave(String clave) {
+        try {
+            // Obtener instancia de MessageDigest para MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            // Calcular el hash de la clave
+            md.update(clave.getBytes());
+            // Convertir el hash a hexadecimal
+            byte[] digest = md.digest();
+            BigInteger bigInt = new BigInteger(1, digest);
+            String hash = bigInt.toString(16);
+            // Truncar el hash a 10 caracteres
+            if (hash.length() > 10) {
+                hash = hash.substring(0, 10);
+            }
+            return hash;
+        } catch (Exception ex) {
+            System.err.println("Error al cifrar la clave: " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public Usuario obtenerDoctor(int Especialidad, int Residencia) throws Exception {
+        Usuario doc = null;
+        ResultSet rs = null;
+        String sql = "SELECT IDUSUARIO, NOMBREUSUARIO "
+                + "FROM usuario "
+                + "WHERE IDCARGO = 3 "
+                + "AND ID_ESPECIALIDAD = " + Especialidad + " "
+                + "AND ID_RESIDENCIA = " + Residencia + " "
+                + "LIMIT 1";
+        System.out.println(sql);
+        try {
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+            if (rs.next() == true) {
+                doc = new Usuario();
+                doc.setId_usuario(rs.getInt("IDUSUARIO"));
+                doc.setNombreUsuario("NOMBREUSUARIO");
+            }
+            rs.close();
+
+            this.cerrar(true);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+        }
+        return doc;
+    }
+
+    public List<Usuario> listarUsuarios() throws Exception {
+        List<Usuario> usuarios;
+        Usuario usu;
+        ResultSet rs = null;
+        String sql = "SELECT U.IDUSUARIO, U.NOMBREUSUARIO, U.CLAVE, U.ESTADO, C.NOMBRECARGO FROM usuario U INNER JOIN cargo C ON C.IDCARGO = U.IDCARGO ORDER BY U.IDUSUARIO";
+
+        try {
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+            usuarios = new ArrayList<>();
+            while (rs.next() == true) {
+                usu = new Usuario();
+                usu.setId_usuario(rs.getInt("IDUSUARIO"));
+                usu.setNombreUsuario(rs.getString("NOMBREUSUARIO"));
+                usu.setClave(rs.getString("CLAVE"));
+                usu.setEstado(rs.getBoolean("ESTADO"));
+                usu.setCargo(new Cargo());
+                usu.getCargo().setNombreCargo(rs.getString("NOMBRECARGO"));
+                usuarios.add(usu);
+            }
+
+            this.cerrar(true);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+        }
+        return usuarios;
+    }
+
+    public void registrarUsuarios(Usuario usu) throws Exception {
+        String sql;
+        String claveCifrada = cifrarClave(usu.getClave());
+        usu.setClave(claveCifrada);
+        sql = "INSERT INTO Usuario (NOMBREUSUARIO, CLAVE, ESTADO, IDCARGO) "
+                + "VALUES ('" + usu.getNombreUsuario() + "', '"
+                + usu.getClave() + "', "
+                + (usu.isEstado() == true ? "1" : "0")
+                + ", " + usu.getCargo().getCodigo() + ")";
+        try {
+            this.conectar(false);
+            this.ejecutarOrden(sql);
+            this.cerrar(true);
+        } catch (Exception e) {
+            this.cerrar(false);
+            throw e;
+        }
+    }
+
+    public Usuario leerUsuario(Usuario usu) throws Exception {
+        Usuario usus = null;
+        ResultSet rs = null;
+        String sql = "SELECT U.IDUSUARIO, U.NOMBREUSUARIO, U.CLAVE, U.ESTADO, U.IDCARGO "
+                + "FROM usuario U WHERE U.IDUSUARIO = " + usu.getId_usuario();
+
+        try {
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+            if (rs.next() == true) {
+                usus = new Usuario();
+                usus.setId_usuario(rs.getInt("IDUSUARIO"));
+                usus.setNombreUsuario(rs.getString("NOMBREUSUARIO"));
+                usus.setClave(rs.getString("CLAVE"));
+                usus.setEstado(rs.getBoolean("ESTADO"));
+                usus.setCargo(new Cargo());
+                usus.getCargo().setCodigo(rs.getInt("IDCARGO"));
+            }
+            this.cerrar(true);
+        } catch (Exception e) {
+            this.cerrar(false);
+            throw e;
+        } finally {
+        }
+        return usus;
+    }
+
+    public void actualizarUsuarios(Usuario usu) throws Exception {
+        String claveCifrada = cifrarClave(usu.getClave());
+        usu.setClave(claveCifrada);
+        String sql = "UPDATE usuario SET NOMBREUSUARIO = '"
+                + usu.getNombreUsuario() + "', CLAVE = '"
+                + usu.getClave() + "', ESTADO = "
+                + (usu.isEstado() == true ? "1" : "0")
+                + ", IDCARGO = "
+                + usu.getCargo().getCodigo()
+                + " WHERE IDUSUARIO = " + usu.getId_usuario();
+        try {
+            this.conectar(false);
+            this.ejecutarOrden(sql);
+            this.cerrar(true);
+        } catch (Exception e) {
+            this.cerrar(false);
+            throw e;
+        }
+    }
+
+    public void eliminarUsuario(Usuario usu) throws Exception {
+        String sql = "DELETE FROM USUARIO"
+                + " WHERE IDUSUARIO = " + usu.getId_usuario();
+        try {
+            this.conectar(false);
+            this.ejecutarOrden(sql);
+            this.cerrar(true);
+        } catch (Exception e) {
+            this.cerrar(false);
+            throw e;
+        }
+    }
+
+    public void cambiarVigencia(Usuario usus) throws Exception {
+        String sql = "UPDATE usuario SET estado = "
+                + (usus.isEstado() == true ? "1" : "0")
+                + " WHERE idusuario = " + usus.getId_usuario();
+        try {
+            this.conectar(false);
+            this.ejecutarOrden(sql);
+            this.cerrar(true);
+        } catch (Exception e) {
+            this.cerrar(false);
+            throw e;
+        }
+    }
+
 }
