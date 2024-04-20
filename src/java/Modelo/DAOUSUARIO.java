@@ -4,8 +4,9 @@
  */
 package Modelo;
 
-import java.math.BigInteger;
+
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +54,7 @@ public class DAOUSUARIO extends Conexion {
 
         try {
             // Cifrar la clave proporcionada por el usuario
-            String claveCifrada = cifrarClave(user.getClave());
-            
-
+            String claveCifrada = cifrarClave(user.getClave());            
             // Construir la consulta SQL con la clave cifrada
             String sql = "SELECT U.IDUSUARIO, C.NOMBRECARGO, U.IDCARGO FROM usuario "
                     + "U INNER JOIN CARGO C ON U.IDCARGO = C.IDCARGO "
@@ -89,23 +88,24 @@ public class DAOUSUARIO extends Conexion {
         return usu;
     }
 
-    public String cifrarClave(String clave) {
+    public static String cifrarClave(String clave) {
         try {
-            // Obtener instancia de MessageDigest para MD5
+            // Obtener la instancia del algoritmo de hash MD5
             MessageDigest md = MessageDigest.getInstance("MD5");
+            // Convertir la clave a un arreglo de bytes
+            byte[] bytes = clave.getBytes();
             // Calcular el hash de la clave
-            md.update(clave.getBytes());
-            // Convertir el hash a hexadecimal
-            byte[] digest = md.digest();
-            BigInteger bigInt = new BigInteger(1, digest);
-            String hash = bigInt.toString(16);
-            // Truncar el hash a 10 caracteres
-            if (hash.length() > 10) {
-                hash = hash.substring(0, 10);
+            byte[] hash = md.digest(bytes);
+            // Convertir el hash de bytes a una representación hexadecimal
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hash) {
+                // Formatear cada byte como un dígito hexadecimal
+                sb.append(String.format("%02x", b & 0xff));
             }
-            return hash;
-        } catch (Exception ex) {
-            System.err.println("Error al cifrar la clave: " + ex.getMessage());
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            // Manejar la excepción si el algoritmo MD5 no está disponible
+            e.printStackTrace();
             return null;
         }
     }

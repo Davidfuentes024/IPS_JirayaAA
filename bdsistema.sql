@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-04-2024 a las 07:09:43
+-- Tiempo de generación: 20-04-2024 a las 23:44:37
 -- Versión del servidor: 8.0.17
 -- Versión de PHP: 7.3.10
 
@@ -141,7 +141,7 @@ INSERT INTO `sede` (`IDSEDE`, `NOMBRESEDE`, `ESTADO`) VALUES
 CREATE TABLE `usuario` (
   `IDUSUARIO` int(11) NOT NULL,
   `NOMBREUSUARIO` varchar(20) DEFAULT NULL,
-  `CLAVE` varchar(10) DEFAULT NULL,
+  `CLAVE` varchar(50) DEFAULT NULL,
   `ESTADO` bit(1) DEFAULT NULL,
   `IDCARGO` int(11) DEFAULT NULL,
   `ID_ESPECIALIDAD` int(11) DEFAULT NULL,
@@ -153,39 +153,39 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`IDUSUARIO`, `NOMBREUSUARIO`, `CLAVE`, `ESTADO`, `IDCARGO`, `ID_ESPECIALIDAD`, `ID_RESIDENCIA`) VALUES
-(1, 'CAMILO', '202cb962ac', b'1', 1, NULL, NULL),
-(2, 'MARIOR', '550c4a2e57', b'1', 2, NULL, NULL),
-(3, 'ALEXANDER', 'bcbe3365e6', b'1', 2, NULL, NULL),
-(13, 'Marito23', 'e3ceb5881a', b'1', 3, NULL, NULL),
-(38, 'Pedro', '202cb962ac', b'1', 3, 1, 1),
-(39, 'Juan', '250cf8b51c', b'1', 3, 2, 1),
-(40, 'Luis', '68053af292', b'1', 3, 3, 1),
-(41, 'Maria', 'df6d2338b2', b'1', 3, 4, 1),
-(42, 'Ana', '698d51a19d', b'1', 3, 1, 2),
-(43, 'Carlos', 'bcbe3365e6', b'1', 3, 2, 2),
-(44, 'Elena', '310dcbbf4c', b'1', 3, 3, 2),
-(45, 'Andres', '550a141f12', b'1', 3, 4, 2),
-(46, 'Laura', '15de21c670', b'1', 3, 1, 3),
-(47, 'Santiago', 'fae0b27c45', b'1', 3, 2, 3),
-(48, 'Camila', 'f1c1592588', b'1', 3, 3, 3),
-(49, 'Daniel', '0a113ef6b6', b'1', 3, 4, 3),
-(50, 'Valentina', 'b706835de7', b'1', 3, 1, 4),
-(51, 'Diego', 'c6f057b865', b'1', 3, 2, 4),
-(52, 'Paula', '698d51a19d', b'1', 3, 3, 4),
-(53, 'Felipe', 'bcbe3365e6', b'1', 3, 4, 4),
-(54, 'Sofia', '310dcbbf4c', b'1', 3, 1, 5),
-(55, 'Andrea', '550a141f12', b'1', 3, 2, 5),
-(56, 'Julian', '15de21c670', b'1', 3, 3, 5),
-(57, 'David', 'fae0b27c45', b'1', 3, 4, 5),
-(58, 'Isabella', 'f1c1592588', b'1', 3, 1, 6),
-(59, 'Mateo', '0a113ef6b6', b'1', 3, 2, 6),
-(60, 'Natalia', 'b706835de7', b'1', 3, 3, 6),
-(61, 'Alejandro', 'c6f057b865', b'1', 3, 4, 6),
-(62, 'Valeria', '202cb962ac', b'1', 3, 1, 7),
-(63, 'Lucas', '289dff0766', b'1', 3, 2, 7),
-(64, 'Mariana', 'd81f9c1be2', b'1', 3, 3, 7),
-(65, 'Gabriela', '250cf8b51c', b'1', 3, 4, 7),
-(66, 'JUANDAV', 'caf1a3dfb5', b'1', 1, NULL, NULL);
+(1, 'CAMILO', '202cb962ac59075b964b07152d234b70', b'1', 1, NULL, NULL),
+(2, 'MARIOR', '250cf8b51c773f3f8dc8b4be867a9a02', b'1', 2, NULL, NULL),
+(3, 'ALEXANDER', 'bcbe3365e6ac95ea2c0343a2395834dd', b'1', 2, NULL, NULL),
+(13, 'Marito23', '698d51a19d8a121ce581499d7b701668', b'1', 3, NULL, NULL),
+(38, 'Pedro', 'bcbe3365e6ac95ea2c0343a2395834dd', b'1', 3, 1, 1),
+(39, 'Juan', '310dcbbf4cce62f762a2aaa148d556bd', b'1', 3, 2, 1),
+(40, 'Luis', '550a141f12de6341fba65b0ad0433500', b'1', 3, 3, 1),
+(41, 'Maria', '15de21c670ae7c3f6f3f1f37029303c9', b'1', 3, 4, 1),
+(42, 'Ana', 'fae0b27c451c728867a567e8c1bb4e53', b'1', 3, 1, 2),
+(43, 'Carlos', 'f1c1592588411002af340cbaedd6fc33', b'1', 3, 2, 2),
+(44, 'Elena', '0a113ef6b61820daa5611c870ed8d5ee', b'1', 3, 3, 2),
+(45, 'Andres', 'b706835de79a2b4e80506f582af3676a', b'1', 3, 4, 2),
+(46, 'Laura', 'c6f057b86584942e415435ffb1fa93d4', b'1', 3, 1, 3),
+(47, 'Santiago', '698d51a19d8a121ce581499d7b701668', b'1', 3, 2, 3),
+(48, 'Camila', 'bcbe3365e6ac95ea2c0343a2395834dd', b'1', 3, 3, 3),
+(49, 'Daniel', '310dcbbf4cce62f762a2aaa148d556bd', b'1', 3, 4, 3),
+(50, 'Valentina', 'b706835de79a2b4e80506f582af3676a', b'1', 3, 1, 4),
+(51, 'Diego', '15de21c670ae7c3f6f3f1f37029303c9', b'1', 3, 2, 4),
+(52, 'Paula', 'fae0b27c451c728867a567e8c1bb4e53', b'1', 3, 3, 4),
+(53, 'Felipe', 'f1c1592588411002af340cbaedd6fc33', b'1', 3, 4, 4),
+(54, 'Sofia', '0a113ef6b61820daa5611c870ed8d5ee', b'1', 3, 1, 5),
+(55, 'Andrea', 'b706835de79a2b4e80506f582af3676a', b'1', 3, 2, 5),
+(56, 'Julian', 'c6f057b86584942e415435ffb1fa93d4', b'1', 3, 3, 5),
+(57, 'David', '698d51a19d8a121ce581499d7b701668', b'1', 3, 4, 5),
+(58, 'Isabella', 'bcbe3365e6ac95ea2c0343a2395834dd', b'1', 3, 1, 6),
+(59, 'Mateo', '310dcbbf4cce62f762a2aaa148d556bd', b'1', 3, 2, 6),
+(60, 'Natalia', '550a141f12de6341fba65b0ad0433500', b'1', 3, 3, 6),
+(61, 'Alejandro', '15de21c670ae7c3f6f3f1f37029303c9', b'1', 3, 4, 6),
+(62, 'Valeria', 'fae0b27c451c728867a567e8c1bb4e53', b'1', 3, 1, 7),
+(63, 'Lucas', 'f1c1592588411002af340cbaedd6fc33', b'1', 3, 2, 7),
+(64, 'Mariana', '0a113ef6b61820daa5611c870ed8d5ee', b'1', 3, 3, 7),
+(65, 'Gabriela', 'b706835de79a2b4e80506f582af3676a', b'1', 3, 4, 7),
+(66, 'JUANDAV', 'caf1a3dfb505ffed0d024130f58c5cfa', b'1', 1, NULL, NULL);
 
 --
 -- Índices para tablas volcadas
