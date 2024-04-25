@@ -7,16 +7,20 @@ import Modelo.Consultorio;
 import Modelo.DAOCONSULTORIO;
 import Modelo.DAOCARGO;
 import Modelo.DAOCITA;
+import Modelo.DAOHISTORIAL;
 import Modelo.DAOHORA;
+import Modelo.DAOPERSONA;
 import Modelo.DAOSEDE;
 import Modelo.DAOUSUARIO;
+import Modelo.HistorialMedico;
 import Modelo.Hora;
+import Modelo.Persona;
 import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
-import java.sql.ResultSet;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,14 +47,11 @@ public class srvUsuario extends HttpServlet {
                     case "listarUsuarios":
                         listarUsuarios(request, response);
                         break;
-                    case "listarCitasD":
-                        listarCitasD(request, response);
-                        break;
-                    case "listarCitasA":
-                        listarCitasA(request, response);
+                    case "listarPersonas":
+                        listarPersonas(request, response);
                         break;
                     case "listarCitas":
-                        listarCitas(request, response);
+                        listarCitasD(request, response);
                         break;
                     case "nuevo":
                         presentarFormulario(request, response);
@@ -64,8 +65,15 @@ public class srvUsuario extends HttpServlet {
                     case "leerUsuario":
                         presentarUsuario(request, response);
                         break;
+
+                    case "leerCita":
+                        presentarCita(request, response);
+                        break;
                     case "actualizarUsuario":
                         actualizarUsuario(request, response);
+                        break;
+                    case "actualizarCita":
+                        actualizarCita(request, response);
                         break;
                     case "eliminarUsuario":
                         eliminarUsuario(request, response);
@@ -84,12 +92,22 @@ public class srvUsuario extends HttpServlet {
                         break;
                     case "inicioPaciente":
                         iniciopaciente(request, response);
+                    case "historialMedicoPaciente":
+                        historialMedicoPaciente(request, response);
+                        break;
+                    case "historialMedico":
+                        historialMedico(request, response);
+                        break;
+                    case "exportarReporteMedico":
+                        exportarReporteMedico(request, response);
                         break;
                     default:
                         response.sendRedirect("identificar.jsp");
                 }
             } else if (request.getParameter("cambiar") != null) {
                 cambiarEstado(request, response);
+            } else if (request.getParameter("cambiarEstadoCita") != null) {
+                cambiarEstadoCita(request, response);
             } else {
                 response.sendRedirect("identificar.jsp");
             }
@@ -187,112 +205,61 @@ public class srvUsuario extends HttpServlet {
         return u;
     }
 
-    private void listarCitas(HttpServletRequest request, HttpServletResponse response) {
-        DAOCITA dao;
-        Usuario usu;
-        List<Cita> cits;
-
-        if (request.getParameter("codi") != null) {
-            dao = new DAOCITA();
-            cits = null;
-            usu = new Usuario();
-            usu.setId_usuario(Integer.parseInt(request.getParameter("codi")));
-            usu.setCargo(new Cargo());
-
-            usu.getCargo().setCodigo(Integer.parseInt(request.getParameter("carg")));
-            try {
-
-                cits = dao.listarCitas(usu);
-
-                request.setAttribute("citas", cits);
-
-            } catch (Exception e) {
-                request.setAttribute("msje", "No se pudo listar las citas" + e.getMessage());
-            } finally {
-                dao = null;
-            }
-            try {
-                this.getServletConfig().getServletContext()
-                        .getRequestDispatcher("/vistas/Paciente/Citas.jsp").forward(request, response);
-            } catch (Exception ex) {
-                request.setAttribute("msje", "No se puedo realizar la petición" + ex.getMessage());
-            }
-        } else {
-            request.setAttribute("msje", "No se tiene el parámetro necesario");
-        }
-
-    }
-
     private void listarCitasD(HttpServletRequest request, HttpServletResponse response) {
         DAOCITA dao;
-        Usuario usu;
+        HttpSession session;
         List<Cita> cits;
+        session = request.getSession();
+        Usuario usu = (Usuario) session.getAttribute("usuario");
 
-        if (request.getParameter("codi") != null) {
-            dao = new DAOCITA();
-            cits = null;
-            usu = new Usuario();
-            usu.setId_usuario(Integer.parseInt(request.getParameter("codi")));
-            usu.setCargo(new Cargo());
+        dao = new DAOCITA();
+        cits = null;
+        try {
 
-            usu.getCargo().setCodigo(Integer.parseInt(request.getParameter("carg")));
-            try {
+            cits = dao.listarCitas(usu);
 
-                cits = dao.listarCitas(usu);
+            request.setAttribute("citas", cits);
 
-                request.setAttribute("citas", cits);
-
-            } catch (Exception e) {
-                request.setAttribute("msje", "No se pudo listar las citas" + e.getMessage());
-            } finally {
-                dao = null;
-            }
-            try {
+        } catch (Exception e) {
+            request.setAttribute("msje", "No se pudo listar las citas" + e.getMessage());
+        } finally {
+            dao = null;
+        }
+        try {
+            if (usu.getCargo().getCodigo() == 1) {
+                this.getServletConfig().getServletContext()
+                        .getRequestDispatcher("/vistas/Admin/Citas.jsp").forward(request, response);
+            } else if (usu.getCargo().getCodigo() == 2) {
+                this.getServletConfig().getServletContext()
+                        .getRequestDispatcher("/vistas/Paciente/Citas.jsp").forward(request, response);
+            } else if (usu.getCargo().getCodigo() == 3) {
                 this.getServletConfig().getServletContext()
                         .getRequestDispatcher("/vistas/Doctor/Citas.jsp").forward(request, response);
-            } catch (Exception ex) {
-                request.setAttribute("msje", "No se puedo realizar la petición" + ex.getMessage());
             }
-        } else {
-            request.setAttribute("msje", "No se tiene el parámetro necesario");
+
+        } catch (Exception ex) {
+            request.setAttribute("msje", "No se puedo realizar la petición" + ex.getMessage());
         }
 
     }
 
-    private void listarCitasA(HttpServletRequest request, HttpServletResponse response) {
-        DAOCITA dao;
-        Usuario usu;
-        List<Cita> cits;
-
-        if (request.getParameter("codi") != null) {
-            dao = new DAOCITA();
-            cits = null;
-            usu = new Usuario();
-            usu.setId_usuario(Integer.parseInt(request.getParameter("codi")));
-            usu.setCargo(new Cargo());
-
-            usu.getCargo().setCodigo(Integer.parseInt(request.getParameter("carg")));
-            try {
-
-                cits = dao.listarCitas(usu);
-
-                request.setAttribute("citas", cits);
-
-            } catch (Exception e) {
-                request.setAttribute("msje", "No se pudo listar las citas" + e.getMessage());
-            } finally {
-                dao = null;
-            }
-            try {
-                this.getServletConfig().getServletContext()
-                        .getRequestDispatcher("/vistas/Admin/Citas.jsp").forward(request, response);
-            } catch (Exception ex) {
-                request.setAttribute("msje", "No se puedo realizar la petición" + ex.getMessage());
-            }
-        } else {
-            request.setAttribute("msje", "No se tiene el parámetro necesario");
+    private void listarPersonas(HttpServletRequest request, HttpServletResponse response) {
+        DAOPERSONA dao = new DAOPERSONA();
+        List<Persona> personas = null;
+        try {
+            personas = dao.listarPersonas();
+            request.setAttribute("personas", personas);
+        } catch (Exception e) {
+            request.setAttribute("msje", "No se pudo listar las personas: " + e.getMessage());
+        } finally {
+            dao = null;
         }
-
+        try {
+            this.getServletConfig().getServletContext()
+                    .getRequestDispatcher("/vistas/Admin/Personas.jsp").forward(request, response);
+        } catch (Exception ex) {
+            request.setAttribute("msje", "No se pudo realizar la petición: " + ex.getMessage());
+        }
     }
 
     private void listarUsuarios(HttpServletRequest request, HttpServletResponse response) {
@@ -555,6 +522,46 @@ public class srvUsuario extends HttpServlet {
         }
     }
 
+    private void presentarCita(HttpServletRequest request, HttpServletResponse response) {
+        DAOCITA dao;
+        Cita cit;
+        if (request.getParameter("cod") != null) {
+
+            cit = new Cita();
+            cit.setCodigo(Integer.parseInt(request.getParameter("cod")));
+
+            dao = new DAOCITA();
+            try {
+                cit = dao.leerCita(cit);
+
+                if (cit != null) {
+                    request.setAttribute("citN", cit);
+                } else {
+                    request.setAttribute("msje", "No se encontró la cita");
+                }
+            } catch (Exception e) {
+                request.setAttribute("msje", "No se pudo acceder a la base de datos" + e.getMessage());
+            }
+        } else {
+            request.setAttribute("msje", "No se tiene el parámetro necesario");
+        }
+
+        try {
+            this.cargarSedes(request);
+
+            this.cargarConsultorios(request);
+            this.cargarHoras(request, response);
+
+            this.getServletConfig().getServletContext()
+                    .getRequestDispatcher("/vistas/Paciente/ActualizarCita.jsp").forward(request, response);
+
+        } catch (Exception e) {
+
+            request.setAttribute("msje", "No se pudo cargar la vista");
+
+        }
+    }
+
     private void actualizarUsuario(HttpServletRequest request, HttpServletResponse response) {
         DAOUSUARIO daoUsu;
         Usuario usus = null;
@@ -587,14 +594,42 @@ public class srvUsuario extends HttpServlet {
                 request.setAttribute("usuario", usus);
 
             }
+        }
+    }
+
+    private void actualizarCita(HttpServletRequest request, HttpServletResponse response) {
+        DAOCITA dao;
+        Cita cit = null;
+        Date date;
+        Time tim;
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        System.out.println("idCita " + request.getParameter("idCita"));
+        if (request.getParameter("idCita") != null
+                && request.getParameter("fecha") != null
+                && request.getParameter("hora") != null) {
+
+            cit = new Cita();
+            cit.setCodigo(Integer.parseInt(request.getParameter("idCita")));
+            System.out.println("");
+            System.out.println(cit.getCodigo());
+            date = Date.valueOf(request.getParameter("fecha"));
+            cit.setFecha(date);
+
+            tim = Time.valueOf(request.getParameter("hora"));
+
+            cit.setHora(tim);
+
+            dao = new DAOCITA();
             try {
-                this.cargarCargos(request);
-                this.getServletConfig().getServletContext().
-                        getRequestDispatcher("/vistas/Admin/ActualizarUsuario.jsp"
-                        ).forward(request, response);
-            } catch (Exception ex) {
-                request.setAttribute("msje", "No se pudo realizar la operacion" + ex.getMessage());
+                dao.actualizarCitas(cit);
+                response.sendRedirect("srvUsuario?accion=listarCitas&codi=" + usuario.getId_usuario() + "&carg=" + usuario.getCargo().getCodigo());
+            } catch (Exception e) {
+                request.setAttribute("msje",
+                        "No se pudo actualizar la cita" + e.getMessage());
+                //request.setAttribute("usuario", cit);
+
             }
+
         }
 
     }
@@ -639,6 +674,30 @@ public class srvUsuario extends HttpServlet {
         this.listarUsuarios(request, response);
     }
 
+    private void cambiarEstadoCita(HttpServletRequest request, HttpServletResponse response) {
+        DAOCITA dao;
+        Cita cit;
+        try {
+            dao = new DAOCITA();
+            cit = new Cita();
+
+            if (request.getParameter("cambiarEstadoCita").equals("activar")) {
+                cit.setEstado(true);
+            } else {
+                cit.setEstado(false);
+            }
+            if (request.getParameter("cod") != null) {
+                cit.setCodigo(Integer.parseInt(request.getParameter("cod")));
+                dao.cambiarVigencia(cit);
+            } else {
+                request.setAttribute("msje", "No se obtuvo el id de la cita");
+            }
+        } catch (Exception e) {
+            request.setAttribute("msje", e.getMessage());
+        }
+        this.listarCitasD(request, response);
+    }
+
     private void inicioDoc(HttpServletRequest request, HttpServletResponse response) {
         try {
             this.getServletConfig().getServletContext()
@@ -664,6 +723,94 @@ public class srvUsuario extends HttpServlet {
         } catch (Exception ex) {
             request.setAttribute("msje", "No se puedo realizar la petición" + ex.getMessage());
         }
+    }
+
+    private void historialMedico(HttpServletRequest request, HttpServletResponse response) {
+        DAOUSUARIO dao;
+        
+        Usuario usus;
+        if (request.getParameter("codi") != null) {
+            usus = new Usuario();
+            usus.setId_usuario(Integer.parseInt(request.getParameter("codi")));
+
+            dao = new DAOUSUARIO();
+            try {
+                usus = dao.leerUsuario(usus);
+                if (usus != null) {
+                    request.setAttribute("usuarioN", usus);
+                } else {
+                    request.setAttribute("msje", "No se encontró el usuario");
+                }
+            } catch (Exception e) {
+                request.setAttribute("msje", "No se pudo acceder a la base de datos" + e.getMessage());
+            }
+        } else {
+            request.setAttribute("msje", "No se tiene el parámetro necesario");
+        }
+        try {
+
+            this.getServletConfig().getServletContext().
+                    getRequestDispatcher("/vistas/Doctor/HistorialMedico.jsp"
+                    ).forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("msje", "No se pudo realizar la operacion" + e.getMessage());
+        }
+    }
+
+    private void historialMedicoPaciente(HttpServletRequest request, HttpServletResponse response) {
+
+        DAOPERSONA daoPersona;
+        Persona persona;
+        DAOHISTORIAL dao2;
+        
+        // Verificar si se proporcionó el parámetro "cod" en la solicitud
+        if (request.getParameter("codi") != null) {
+            // Crear un objeto Persona con el ID proporcionado en el parámetro "cod"
+            persona = new Persona();
+            persona.setUsuario(new Usuario());
+            persona.getUsuario().setId_usuario(Integer.parseInt(request.getParameter("codi")));
+            // Crear una instancia del DAO de Persona
+            daoPersona = new DAOPERSONA();
+            try {
+                // Leer los datos de la persona usando el método leerPersona
+                persona = daoPersona.leerPersona(persona);
+
+                // Verificar si se encontró la persona en la base de datos
+                if (persona != null) {
+                    // Establecer el atributo "personaN" en el request para enviar los datos de la persona a la vista
+                    dao2 = new DAOHISTORIAL();
+                    List<HistorialMedico> historial = null;
+                    historial = dao2.listarHistorialesPorPersona(persona);
+                    request.setAttribute("personaN", persona);
+                    request.setAttribute("historiales", historial);
+                } else {
+                    // Establecer un mensaje de error si no se encontró la persona
+                    request.setAttribute("msje", "No se encontró la persona");
+                }
+            } catch (Exception e) {
+                // Manejar excepciones si ocurre un error al acceder a la base de datos
+                request.setAttribute("msje", "No se pudo acceder a la base de datos: " + e.getMessage());
+            }
+        } else {
+            // Establecer un mensaje de error si no se proporcionó el parámetro "cod"
+            request.setAttribute("msje", "No se proporcionó el parámetro necesario");
+        }
+        
+        
+
+        try {
+
+            this.getServletConfig().getServletContext().
+                    getRequestDispatcher("/vistas/Paciente/HistorialMedico.jsp"
+                    ).forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("msje", "No se pudo realizar la operacion" + e.getMessage());
+        }
+    }
+
+    private void exportarReporteMedico(HttpServletRequest request, HttpServletResponse response) throws
+            ServletException, IOException {
+
     }
 
 }

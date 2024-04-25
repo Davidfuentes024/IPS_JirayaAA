@@ -75,7 +75,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-right">
-                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default btn-flat">Cerrar Session</a>
+                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -102,7 +102,7 @@
                         </div>
                     </div>
 
-                   
+
 
                     <!-- Sidebar Menu -->
                     <ul class="sidebar-menu" data-widget="tree">
@@ -117,9 +117,10 @@
                             </a>
                             <ul class="treeview-menu">                                
                                 <li><a href="srvUsuario?accion=listarUsuarios"><i class="fa fa-address-card"></i>Administrar Usuarios</a></li>
+                                <li><a href="srvUsuario?accion=listarPersonas"><i class="fa fa-users"></i>Administrar Personas</a></li>
                                 <li><a href="srvUsuario?accion=nuevo"><i class="fa fa-user-plus"></i>Nuevo Usuario</a></li>
                             </ul>
-                            
+
                         </li>
                         <li class="treeview">
                             <a href="#"><i class="fa fa-heart"></i> <span>Citas</span>
@@ -133,16 +134,11 @@
 
                                 <!-- Mostrar enlace "Nueva Cita" solo para Pacientes -->                                
 
-                                <li><a href="<c:url value="srvUsuario">
-                                           <c:param name="accion" value="listarCitasA" />
-
-                                           <c:param name="codi" value="${usuario.id_usuario}" />
-                                           <c:param name="carg" value="${usuario.cargo.codigo}" />
-                                       </c:url>"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
+                                <li><a href="srvUsuario?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
 
                             </ul>
                         </li>
-                       
+
                     </ul>
                     <!-- /.sidebar-menu -->
                 </section>
@@ -152,20 +148,21 @@
             <!-- Content Wrapper. Contains page content -->
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
-                <section class="content-header">
-                    <h1>Página Usuarios</h1>
-                </section>
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <a href="srvUsuario?accion=nuevo" class="btn btn-success">
-                        <i class="fa fa-plus"></i> Nuevo Usuario </a>
-
-                    <ol class="breadcrumb">
+                    <h1>Página Usuarios</h1>
+                    <div class="margin-bottom">                                                          
+                    </div>
+                    <ol class="breadcrumb ">
                         <li><a href="srvUsuario?accion=inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
                         <li class="active">Administrar Usuarios</li>
                     </ol>
+                    <div> <!-- Agregar espacio -->
+                        <a href="srvUsuario?accion=nuevo" class="btn btn-success">
+                            <i class="fa fa-plus"></i> Nuevo Usuario 
+                        </a>
+                    </div>
                 </section>
-
                 <section class="content">
                     <div class="box">    
                         <div class="box-header with-border">             
@@ -176,7 +173,7 @@
                                 <table class="table table-bordered table-striped dataTable table-hover" id="tablaUsuarios" class="display">
                                     <thead>
                                         <tr>
-                                            
+
                                             <th>Usuario</th>
                                             <th>Clave</th>
                                             <th>Estado</th>
@@ -186,7 +183,7 @@
                                     </thead>
                                     <c:forEach var="user" items="${usuarios}" varStatus="iteracion">                                                    
                                         <tr>
-                                            
+
                                             <td>${user.nombreUsuario}</td>
                                             <td>${user.clave}</td>
                                             <c:if test="${user.estado == true}">
@@ -215,7 +212,7 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 <!-- ELIMINAR USUARIOS -->
-                                                
+
 
                                             </td>
                                         </tr>                                                    
@@ -254,7 +251,7 @@
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap 3.3.7 -->
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        
+
         <!-- AdminLTE App -->
         <script src="dist/js/adminlte.min.js"></script>
         <script src="bower_components/datatables.net/js/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -262,9 +259,9 @@
         <script src="swetalert/sweetalert.js" type="text/javascript"></script>
         <script src="js/funcionesUsuario.js" type="text/javascript"></script>
         <script>
-            $(document).ready(function () {
-                $('#tablaUsuarios').DataTable();
-            });
+                                $(document).ready(function () {
+                                    $('#tablaUsuarios').DataTable();
+                                });
         </script>
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
              Both of these plugins are recommended to enhance the

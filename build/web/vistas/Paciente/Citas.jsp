@@ -80,9 +80,15 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-right">
-                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default btn-flat">Cerrar Session</a>
+                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default">Cerrar Sesion</a>
+                                        </div>
+                                        <div class="pull-left">
+                                            <a href="#" class="btn btn-primary ">Ver mi Perfil</a>
                                         </div>
                                     </li>
+
+
+
                                 </ul>
                             </li>
                         </ul>
@@ -106,7 +112,7 @@
                             <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
                         </div>
 
-                        
+
 
                     </div>
 
@@ -130,12 +136,7 @@
                                 <!-- Mostrar enlace "Nueva Cita" solo para Pacientes -->
                                 <li><a href="srvUsuario?accion=nuevaCita"><i class="fa fa-heart"></i>Nueva Cita</a></li>
 
-                                <li><a href="<c:url value="srvUsuario">
-                                           <c:param name="accion" value="listarCitas" />
-
-                                           <c:param name="codi" value="${usuario.id_usuario}" />
-                                           <c:param name="carg" value="${usuario.cargo.codigo}" />
-                                       </c:url>"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
+                                <li><a href="srvUsuario?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
 
                             </ul>
                         </li>
@@ -166,7 +167,7 @@
                 <section class="content">
                     <div class="box">    
                         <div class="box-header with-border">             
-                            <h3 class="box-title">Listado de Citas</h3>
+                            <h3 class="box-title">Listado de Citas activas</h3>
                         </div>
                         <div class="box-body">
                             <div class="table-responsive" >                                 
@@ -181,21 +182,111 @@
                                             <th>Descripción</th> 
                                             <th>Sede</th> 
                                             <th>Consultorio</th> 
+                                            <th>Acciones</th> 
                                         </tr>
                                     </thead>
-                                    <c:forEach var="cit" items="${citas}" varStatus="iteracion">                                                    
+                                    <c:forEach var="cit" items="${citas}" varStatus="iteracion">      
+                                        <c:if test="${cit.estado eq true}">
+                                            <tr>
+
+                                                <td>${cit.fecha}</td>
+                                                <td>${cit.hora}</td>                                            
+                                                <td>${cit.paciente.nombreUsuario}</td>  
+                                                <td>${cit.doctor.nombreUsuario}</td>
+                                                <td>${cit.descripcion}</td>
+                                                <td>${cit.sede.nombreSede}</td>
+                                                <td>${cit.consultorio.nombreConsultorio}</td>
+                                                <td><a href="<c:url value="srvUsuario">
+                                                           <c:param name="accion" value="leerCita" />
+                                                           <c:param name="cod" value="${cit.codigo}" />
+                                                       </c:url>"><button type="button" class="btn btn-warning" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
+                                                            <i class="fa fa-pencil"></i></button></a>
+                                                    <a 
+                                                        href="<c:url value="srvUsuario">
+                                                            <c:param name="accion" value="historialMedicoPaciente" />
+                                                            <c:param name="codi" value="${cit.paciente.id_usuario}" />
+                                                        </c:url>"><button type="button" class="btn btn-primary" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
+                                                            <i class="fa fa-clipboard"></i></button></a>
+                                                    <!-- DESACTIVAR / ACTIVAR CITAS -->
+                                                    <c:choose>
+                                                        <c:when test="${cit.estado == true}">
+                                                            <input type="hidden" id="item" value="${cit.codigo}">
+                                                            <a id="desactivarUsuario" class="btn btn-success"  data-toggle="tooltip" title="Desactivar" data-original-title="Desactivar">
+                                                                <i class="fa fa-check"></i></a>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                            <input type="hidden" id="item" value="${cit.codigo}">
+                                                            <a id="activarUsuario"  class="btn btn-danger" data-toggle="tooltip" title="Activar" data-original-title="Activar">
+                                                                <i class="fa fa-remove"></i></a>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                </td>
+
+
+                                            </tr> 
+                                        </c:if>
+                                    </c:forEach>                                               
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <!--Pie de página-->
+                        </div>
+                        <!-- /.box-footer-->
+                    </div>
+                    <div class="box">    
+                        <div class="box-header with-border">             
+                            <h3 class="box-title">Listado de Citas inactivas</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="table-responsive" >                                 
+                                <table class="table table-bordered table-striped dataTable table-hover" id="tablaCitas2" class="display">
+                                    <thead>
                                         <tr>
 
-                                            <td>${cit.fecha}</td>
-                                            <td>${cit.hora}</td>                                            
-                                            <td>${cit.paciente.nombreUsuario}</td>
-                                            <td>${cit.doctor.nombreUsuario}</td>
-                                            <td>${cit.descripcion}</td>
-                                            <td>${cit.sede.nombreSede}</td>
-                                            <td>${cit.consultorio.nombreConsultorio}</td>
+                                            <th>Fecha</th>
+                                            <th>Hora</th>
+                                            <th>Paciente</th>
+                                            <th>Doctor</th>
+                                            <th>Descripción</th> 
+                                            <th>Sede</th> 
+                                            <th>Consultorio</th> 
+                                            <th>Acciones</th> 
+                                        </tr>
+                                    </thead>
+                                    <c:forEach var="cit" items="${citas}" varStatus="iteracion">   
+                                        <c:if test="${cit.estado eq false}">
+                                            <tr>
+
+                                                <td>${cit.fecha}</td>
+                                                <td>${cit.hora}</td>                                            
+                                                <td>${cit.paciente.nombreUsuario}</td>  
+                                                <td>${cit.doctor.nombreUsuario}</td>
+                                                <td>${cit.descripcion}</td>
+                                                <td>${cit.sede.nombreSede}</td>
+                                                <td>${cit.consultorio.nombreConsultorio}</td>
+                                                <td><a 
+                                                        href="srvUsuario?accion=historialMedicoPaciente"><button type="button" class="btn btn-primary" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
+                                                            <i class="fa fa-clipboard"></i></button></a>
+                                                    <!-- DESACTIVAR / ACTIVAR CITAS -->
+                                                    <c:choose>
+                                                        <c:when test="${cit.estado == true}">
+                                                            <input type="hidden" id="item" value="${cit.codigo}">
+                                                            <a id="desactivarUsuario"  class="btn btn-success"  data-toggle="tooltip" title="Desactivar" data-original-title="Desactivar">
+                                                                <i class="fa fa-check"></i></a>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                            <input type="hidden" id="item" value="${cit.codigo}">
+                                                            <a id="activarUsuario" class="btn btn-danger" data-toggle="tooltip" title="Activar" data-original-title="Activar">
+                                                                <i class="fa fa-remove"></i></a>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                </td>
 
 
-                                        </tr>                                                    
+                                            </tr> 
+                                        </c:if>
                                     </c:forEach>                                               
                                 </table>
                             </div>
@@ -238,9 +329,14 @@
         <script src="swetalert/sweetalert.js" type="text/javascript"></script>
         <script src="js/funcionesUsuario.js" type="text/javascript"></script>
         <script>
-                            $(document).ready(function () {
-                                $('#tablaCitas').DataTable();
-                            });
+                                $(document).ready(function () {
+                                    $('#tablaCitas').DataTable();
+                                });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('#tablaCitas2').DataTable();
+            });
         </script>
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
              Both of these plugins are recommended to enhance the

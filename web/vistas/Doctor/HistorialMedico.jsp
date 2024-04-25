@@ -1,0 +1,288 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+    if (session.getAttribute("usuario") != null) {
+%>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Sistema IPS PRO AA| Inicio</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+        <!-- Theme style -->
+        <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
+
+
+        <link href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="swetalert/sweetalert.css" rel="stylesheet" type="text/css"/>
+        <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+              page. However, you can choose any other skin. Make sure you
+              apply the skin class to the body tag so the changes take effect. -->
+        <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <script>
+            function formatUserName(userName) {
+                return userName.charAt(0).toUpperCase() + userName.slice(1).toLowerCase();
+            }
+        </script>
+        <style>
+            .nombre-usuario {
+                font-size: 1.69em;
+            }
+            .historial {
+                font-size: 1.2em;
+            }
+        </style>
+
+    </head>
+
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+
+            <!-- Main Header -->
+            <header class="main-header">
+                <a href="srvUsuario?accion=inicioDoctor" class="logo">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini"><b></b>AA</span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg"><b>Sistema </b>IPS Pro AA</span>
+                </a>
+
+                <!-- Header Navbar -->
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                    <!-- Navbar Right Menu -->
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <!-- User Account Menu -->
+                            <li class="dropdown user user-menu">
+                                <!-- Menu Toggle Button -->
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <!-- The user image in the navbar-->
+
+                                    <img src="dist/img/59613224-el-doctor-avatar-perfil-aisló-el-icono-gráfico-del-ejemplo-del-vector.jpg" class="user-image" alt="User Image">
+                                    <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                    <span class="hidden-xs"><script>document.write(formatUserName('${usuario.nombreUsuario}'));</script></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- The user image in the menu -->
+                                    <li class="user-header">
+                                        <img src="dist/img/59613224-el-doctor-avatar-perfil-aisló-el-icono-gráfico-del-ejemplo-del-vector.jpg"" class="img-circle" alt="User Image">
+
+                                        <p>                    
+                                            Bienvenido - <script>document.write(formatUserName('${usuario.nombreUsuario}'));</script>
+                                            <small>Usted es, <script>document.write(formatUserName('${usuario.cargo.nombreCargo}/a'));</script></small>
+                                        </p>
+                                    </li>
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div class="pull-right">
+                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
+
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+
+                    <!-- Sidebar user panel (optional) -->
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <img src="dist/img/59613224-el-doctor-avatar-perfil-aisló-el-icono-gráfico-del-ejemplo-del-vector.jpg"" class="img-circle" alt="User Image">
+                        </div>
+                        <div class="pull-left info">
+                            <p>Bienvenido, <script>document.write(formatUserName('${usuario.nombreUsuario}'));</script></p>
+                            <!-- Status -->
+                            <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+                        </div>
+                    </div>
+
+                    <!-- search form (Optional) -->
+
+
+                    <!-- /.search form -->
+
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu" data-widget="tree">
+                        <li class="header">INICIO</li>
+                        <!-- Optionally, you can add icons to the links -->
+                        <li class=""><a href="srvUsuario?accion=inicioDoctor"><i class="fa fa-link"></i> <span>Panel Administrativo</span></a></li>
+
+                        <li class="active treeview">
+                            <a href="#"><i class="fa fa-heart"></i> <span>Citas</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <!--<li><a href="srvUsuario?accion=nuevaCita"><i class="fa fa-heart"></i>Nueva Cita</a></li>-->
+
+                                <li><a href="srvUsuario?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- /.sidebar-menu -->
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <section class="content-header">
+                    <h1>Página Historial Médico</h1>
+                    <ol class="breadcrumb">
+                        <li><a href="srvUsuario?accion=inicioDoctor"><i class="fa fa-dashboard"></i> Inicio</a></li>
+                        <li class="active">Administrar Cita</li>
+                    </ol>
+                </section>
+
+                <section class="content">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Nombre Completo</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p class="nombre-usuario"><script>document.write(formatUserName('${usuarioN.nombreUsuario}'));</script> Apellido1 Apellido2</p>
+                                </div>
+
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Detalles Personales</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><strong>Lugar de Nacimiento:</strong> prueba ${paciente.lugarNacimiento}</p>
+                                            <p><strong>Género:</strong> prueba ${paciente.genero}</p>
+                                            <p><strong>Dirección:</strong> prueba${paciente.direccion}</p>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <p><strong>Edad:</strong> prueba${paciente.edad}</p>
+                                            <p><strong>Tipo de Sangre:</strong> prueba${paciente.tipoSangre}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Información Adicional</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><strong>Email:</strong> prueba@kmi.com</p>
+                                            <p><strong>Número:</strong> prueba${paciente.numero}</p>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <p><strong>Ocupación:</strong> prueba${paciente.ocupacion}</p>
+                                            <p><strong>Estado Civil:</strong> Prueba</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Motivo de la Cita</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <textarea class="form-control" rows="3" id="motivo" name="motivo" placeholder="Escribe el motivo de la cita aquí..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Historial</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p class="historial"> Este texto contendrá un historial por defecto vacío pero conforme las citas y consultas pasen tendrá la concatenación de las observaciones previas (?)</p>
+                                </div>
+
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Observaciones</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <textarea class="form-control" rows="3" id="motivo" name="motivo" placeholder="Escribe las observaciones aquí..."></textarea>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+
+            <!-- /.content-wrapper -->
+
+            <!-- Main Footer -->
+            <footer class="main-footer">
+                <!-- To the right -->
+                <div class="pull-right hidden-xs">
+                    Universidad Pontificia Bolivariana
+                </div>
+                <!-- Default to the left -->
+                <strong>IPS PRO &copy; 2024 <a href="https://github.com/CratosCamilo" target="_blank">KMI</a>.</strong> Todos los derechos reservados.
+            </footer>
+
+            <div class="control-sidebar-bg"></div>
+        </div>
+        <!-- ./wrapper -->
+
+        <!-- REQUIRED JS SCRIPTS -->
+
+        <!-- jQuery 3 -->
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap 3.3.7 -->
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="dist/js/adminlte.min.js"></script>
+        <script src="bower_components/datatables.net/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
+        <script src="swetalert/sweetalert.js" type="text/javascript"></script>
+        <script src="js/funcionesUsuario.js" type="text/javascript"></script>
+        <script>
+                                        $(document).ready(function () {
+                                            $('#tablaCitas').DataTable();
+                                        });
+        </script>
+        <!-- Optionally, you can add Slimscroll and FastClick plugins.
+             Both of these plugins are recommended to enhance the
+             user experience. -->
+    </body>
+</html>
+<%
+    } else {
+        response.sendRedirect("identificar.jsp");
+    }
+%>

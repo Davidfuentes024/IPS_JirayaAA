@@ -37,7 +37,7 @@
 
             <!-- Main Header -->
             <header class="main-header">
-                <a href="#" class="logo">
+                <a href="srvUsuario?accion=inicio" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b></b>AA</span>
                     <!-- logo for regular state and mobile devices -->
@@ -75,7 +75,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-right">
-                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default btn-flat">Cerrar Session</a>
+                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -102,7 +102,7 @@
                         </div>
                     </div>
 
-                   
+
 
                     <!-- Sidebar Menu -->
                     <ul class="sidebar-menu" data-widget="tree">
@@ -117,9 +117,10 @@
                             </a>
                             <ul class="treeview-menu">                                
                                 <li><a href="srvUsuario?accion=listarUsuarios"><i class="fa fa-address-card"></i>Administrar Usuarios</a></li>
+                                <li><a href="srvUsuario?accion=listarPersonas"><i class="fa fa-users"></i>Administrar Personas</a></li>
                                 <li><a href="srvUsuario?accion=nuevo"><i class="fa fa-user-plus"></i>Nuevo Usuario</a></li>
                             </ul>
-                            
+
                         </li>
                         <li class="treeview">
                             <a href="#"><i class="fa fa-heart"></i> <span>Citas</span>
@@ -128,11 +129,16 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-cart-arrow-down"></i>Nueva Cita</a></li>
-                                <li><a href="#"><i class="fa fa-tags"></i>Administrar Citas</a></li>
+
+                                <!-- Mostrar enlace "Nueva Cita" solo para Pacientes -->
+
+                                <!-- Mostrar enlace "Nueva Cita" solo para Pacientes -->                                
+
+                                <li><a href="srvUsuario?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
+
                             </ul>
                         </li>
-                       
+
                     </ul>
                     <!-- /.sidebar-menu -->
                 </section>
@@ -141,15 +147,81 @@
 
             <!-- Content Wrapper. Contains page content -->
             <!-- Content Wrapper. Contains page content -->
-           
-            
-            
-            
-            
-            
-            
-            
-            
+            <div class="content-wrapper">
+                
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>Página Personas</h1>
+                    <ol class="breadcrumb">
+                        <li><a href="srvUsuario?accion=inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
+                        <li class="active">Administrar Personas</li>
+                    </ol>
+
+                </section>
+
+                <section class="content">
+                    <div class="box">    
+                        <div class="box-header with-border">             
+                            <h3 class="box-title">Listado de Personas</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="table-responsive" >                                 
+                                <table class="table table-bordered table-striped dataTable table-hover" id="tablaPersonas" class="display">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre Completo</th>
+                                            <th>Tipo de Sangre</th>
+                                            <th>Género</th>
+                                            <th>Edad</th>
+                                            <th>Lugar de Nacimiento</th>
+                                            <th>Email</th>
+                                            <th>Número de Teléfono</th>
+                                            <th>Dirección</th>
+                                            <th>Ocupación</th>
+                                            <th>Estado Civil</th>
+                                            <th>Número de Documento</th>
+                                            <th>Acciones</th> 
+                                        </tr>
+                                    </thead>
+                                    <c:forEach var="persona" items="${personas}" varStatus="iteracion">                                                    
+                                        <tr>
+                                            <td>${persona.nombre_completo}</td>
+                                            <td>${persona.tipo_sangre}</td>
+                                            <td>${persona.genero}</td>
+                                            <td>${persona.edad}</td>
+                                            <td>${persona.lugar_nacimiento}</td>
+                                            <td>${persona.email}</td>
+                                            <td>${persona.numero_telefono}</td>
+                                            <td>${persona.direccion}</td>
+                                            <td>${persona.ocupacion}</td>
+                                            <td>${persona.estado_civil}</td>
+                                            <td>${persona.numero_documento}</td>
+                                            <td>
+                                                <a href="<c:url value="srvUsuario">
+                                                       <c:param name="accion" value="leerPersona" />
+                                                       <c:param name="cod" value="${persona.id_persona}" />
+                                                   </c:url>"><button type="button" class="btn btn-warning" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
+                                                        <i class="fa fa-pencil"></i></button></a>
+
+                                            </td>
+                                        </tr>                                                    
+                                    </c:forEach>                                               
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <!--Pie de página-->
+                        </div>
+                        <!-- /.box-footer-->
+                    </div>
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+
+            <!-- /.content-wrapper -->
+
             <!-- /.content-wrapper -->
 
             <!-- Main Footer -->
@@ -172,7 +244,7 @@
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap 3.3.7 -->
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        
+
         <!-- AdminLTE App -->
         <script src="dist/js/adminlte.min.js"></script>
         <script src="bower_components/datatables.net/js/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -180,9 +252,9 @@
         <script src="swetalert/sweetalert.js" type="text/javascript"></script>
         <script src="js/funcionesUsuario.js" type="text/javascript"></script>
         <script>
-            $(document).ready(function () {
-                $('#tablaUsuarios').DataTable();
-            });
+                                $(document).ready(function () {
+                                    $('#tablaPersonas').DataTable();
+                                });
         </script>
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
              Both of these plugins are recommended to enhance the

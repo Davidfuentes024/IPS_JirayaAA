@@ -142,7 +142,9 @@ public class DAOUSUARIO extends Conexion {
         List<Usuario> usuarios;
         Usuario usu;
         ResultSet rs = null;
-        String sql = "SELECT U.IDUSUARIO, U.NOMBREUSUARIO, U.CLAVE, U.ESTADO, C.NOMBRECARGO FROM usuario U INNER JOIN cargo C ON C.IDCARGO = U.IDCARGO ORDER BY U.IDUSUARIO";
+        String sql = "SELECT U.IDUSUARIO, U.NOMBREUSUARIO, U.CLAVE, U.ESTADO, "
+                + "C.NOMBRECARGO FROM usuario U INNER JOIN cargo C "
+                + "ON C.IDCARGO = U.IDCARGO ORDER BY U.IDUSUARIO";
 
         try {
             this.conectar(false);
@@ -212,6 +214,8 @@ public class DAOUSUARIO extends Conexion {
         }
         return usus;
     }
+    
+    
 
     public void actualizarUsuarios(Usuario usu) throws Exception {
         String claveCifrada = cifrarClave(usu.getClave());

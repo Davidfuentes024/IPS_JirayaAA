@@ -75,7 +75,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-right">
-                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default btn-flat">Cerrar Session</a>
+                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -124,12 +124,7 @@
                                 <!-- Mostrar enlace "Nueva Cita" solo para Pacientes -->
                                 <li><a href="srvUsuario?accion=nuevaCita"><i class="fa fa-heart"></i>Nueva Cita</a></li>
 
-                                <li><a href="<c:url value="srvUsuario">
-                                           <c:param name="accion" value="listarCitas" />
-
-                                           <c:param name="codi" value="${usuario.id_usuario}" />
-                                           <c:param name="carg" value="${usuario.cargo.codigo}" />
-                                       </c:url>"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
+                                <li><a href="srvUsuario?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
 
                             </ul>
                         </li>
@@ -246,7 +241,7 @@
                             </div>
                             <!-- /.box-body -->
                             <div class="box-footer">
-                                <a href="srvUsuario?accion=listarUsuarios" class="btn btn-danger"><i class="fa fa-close red"></i>Cancelar</a>
+                                <a href="srvUsuario?accion=listarCitas" class="btn btn-danger"><i class="fa fa-close red"></i>Cancelar</a>
                                 <button type="submit" id="" name="btnRegistrar" value="Registrar" class="btn btn-success" onclick="return validarFormulario();"><i class="fa fa-floppy-o"></i> Agendar</button>
                             </div>
                             <!-- /.box-footer -->

@@ -4,8 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/DAOHORA.java</file>
+            <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/META-INF/context.xml</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/Consultorio.java</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Admin/ActualizarUsuario.jsp</file>
+            <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/conf/MANIFEST.MF</file>
+            <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Paciente/ActualizarCita.jsp</file>
+            <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/HistorialMedico.java</file>
+            <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/DAOPERSONA.java</file>
+            <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/DAOHISTORIAL.java</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Admin/Inicio.jsp</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/DAOCARGO.java</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/identificar.jsp</file>
@@ -15,22 +21,27 @@
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Paciente/NuevaCita.jsp</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/Parametro.java</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/Usuario.java</file>
+            <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/Persona.java</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Doctor/Citas.jsp</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/mensaje.jsp</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Controlador/srvUsuario.java</file>
-            <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Admin/plantillaAdmin.jsp</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/DAOSEDE.java</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Paciente/Inicio.jsp</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/swetalert/sweetalert.js</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/Hora.java</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Admin/NuevoUsuario.jsp</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Admin/Usuarios.jsp</file>
+            <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Admin/plantilla.jsp</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/Cargo.java</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/DAOCONSULTORIO.java</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/js/funcionesUsuario.js</file>
+            <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Paciente/HistorialMedico.jsp</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/DAOCITA.java</file>
+            <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Doctor/HistorialMedico.jsp</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/DAOUSUARIO.java</file>
+            <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/reportesJasper/img/icono.jpg</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/Conexion.java</file>
+            <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Admin/Personas.jsp</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/Sede.java</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Doctor/Inicio.jsp</file>
         </group>

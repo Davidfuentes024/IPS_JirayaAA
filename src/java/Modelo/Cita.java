@@ -77,6 +77,16 @@ public class Cita {
     public void setConsultorio(Consultorio consultorio) {
         this.consultorio = consultorio;
     }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+    
+    private boolean estado;
     private int codigo;
     private Date fecha;
     private Time hora;

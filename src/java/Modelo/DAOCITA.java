@@ -10,8 +10,8 @@ public class DAOCITA extends Conexion {
         List<Cita> citas;
         Cita cit;
         ResultSet rs = null;
-        String sql = "SELECT U.IDCITAS, U.FECHA, U.HORA, U.DESCRIPCION, "
-                + "C.NOMBREUSUARIO, D.NOMBREUSUARIO, S.NOMBRESEDE, "
+        String sql = "SELECT U.IDCITAS, U.FECHA, U.HORA, U.DESCRIPCION, U.ESTADO, "
+                + "U.PACIENTE_ID, C.NOMBREUSUARIO, D.NOMBREUSUARIO, S.NOMBRESEDE, "
                 + "P.NOMBRECONSULTORIO FROM citas U INNER JOIN "
                 + "usuario C ON C.IDUSUARIO = U.PACIENTE_ID INNER JOIN usuario "
                 + "D ON D.IDUSUARIO = U.DOCTOR_ID INNER JOIN sede S ON S.IDSEDE "
@@ -24,7 +24,7 @@ public class DAOCITA extends Conexion {
         } else {
             
         }
-
+        
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
@@ -35,7 +35,9 @@ public class DAOCITA extends Conexion {
                 cit.setFecha(rs.getDate("FECHA"));
                 cit.setHora(rs.getTime("HORA"));
                 cit.setDescripcion(rs.getString("DESCRIPCION"));
+                cit.setEstado(rs.getBoolean("ESTADO"));
                 cit.setPaciente(new Usuario());
+                cit.getPaciente().setId_usuario(rs.getInt("PACIENTE_ID"));
                 cit.getPaciente().setNombreUsuario(rs.getString("C.NOMBREUSUARIO"));
                 cit.setDoctor(new Usuario());
                 cit.getDoctor().setNombreUsuario(rs.getString("D.NOMBREUSUARIO"));
@@ -83,16 +85,17 @@ public class DAOCITA extends Conexion {
 
         ResultSet rs = null;
         String sql;
-
-        sql = "SELECT U.IDCITAS, U.FECHA, U.HORA, U.DESCRIPCION, C.NOMBREUSUARIO,"
-                + " D.NOMBREUSUARIO, S.NOMBRESEDE, P.NOMBRECONSULTORIO,"
+        
+        sql = "SELECT U.IDCITAS, U.FECHA, U.HORA, U.DESCRIPCION, U.IDSEDE, "
+                + "U.IDCONSULTORIO, C.NOMBREUSUARIO,"
+                + " D.NOMBREUSUARIO, S.NOMBRESEDE, P.NOMBRECONSULTORIO"
                 + " FROM citas U "
                 + "INNER JOIN usuario C ON C.IDUSUARIO = U.PACIENTE_ID "
                 + "INNER JOIN usuario D ON D.IDUSUARIO = U.DOCTOR_ID "
                 + "INNER JOIN sede S ON S.IDSEDE = U.IDSEDE "
                 + "INNER JOIN consultorio P ON P.IDCONSULTORIO = U.IDCONSULTORIO "
                 + "WHERE U.IDCITAS = " + cit.getCodigo();
-
+        System.out.println(sql);
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
@@ -107,10 +110,14 @@ public class DAOCITA extends Conexion {
                 cits.setDoctor(new Usuario());
                 cits.getDoctor().setNombreUsuario(rs.getString("NOMBREUSUARIO"));
                 cits.setSede(new Sede());
+                cits.getSede().setCodigo(rs.getInt("IDSEDE"));
+                
                 cits.getSede().setNombreSede(rs.getString("NOMBRESEDE"));
                 cits.setConsultorio(new Consultorio());
+                cits.getConsultorio().setCodigo(rs.getInt("IDCONSULTORIO"));
                 cits.getConsultorio().setNombreConsultorio(rs.getString("NOMBRECONSULTORIO"));
             }
+            
             this.cerrar(true);
         } catch (Exception e) {
             this.cerrar(false);
@@ -122,13 +129,23 @@ public class DAOCITA extends Conexion {
 
     public void actualizarCitas(Cita cit) throws Exception {
         String sql = "UPDATE citas SET FECHA = '" + cit.getFecha() + "', "
-                + "HORA = '" + cit.getHora() + "', "
-                + "DESCRIPCION = '" + cit.getDescripcion() + "', "
-                + "PACIENTE_ID = " + cit.getPaciente().getId_usuario() + ", "
-                + "DOCTOR_ID = " + cit.getDoctor().getId_usuario() + ", "
-                + "IDSEDE = " + cit.getSede().getCodigo() + ", "
-                + "IDCONSULTORIO = " + cit.getConsultorio().getCodigo() + " "
+                + "HORA = '" + cit.getHora() + "' "                
                 + "WHERE IDCITAS = " + cit.getCodigo();
+        System.out.println(sql);
+        try {
+            this.conectar(false);
+            this.ejecutarOrden(sql);
+            this.cerrar(true);
+        } catch (Exception e) {
+            this.cerrar(false);
+            throw e;
+        }
+    }
+    
+    public void cambiarVigencia(Cita cit) throws Exception {
+        String sql = "UPDATE citas SET estado = "
+                + (cit.isEstado() == true ? "1" : "0")
+                + " WHERE IDCITAS = " + cit.getCodigo();
         try {
             this.conectar(false);
             this.ejecutarOrden(sql);

@@ -26,13 +26,15 @@ public class DAOHORA extends Conexion {
         if (sede.getCodigo() == 0 || consultorio.getCodigo() == 0) {
             return new ArrayList<>();
         }
-        String sql2 = "SELECT C.HORA FROM citas C "
+        String sql = "SELECT C.HORA FROM citas C "
                 + "WHERE C.FECHA = '" + date + "' "
                 + "AND C.IDSEDE = '" + sede.getCodigo() + "' "
-                + "AND C.IDCONSULTORIO = '" + consultorio.getCodigo() + "'";        
+                + "AND C.IDCONSULTORIO = '" + consultorio.getCodigo() + "' "
+                + "AND C.ESTADO";       
+        System.out.println(sql);
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos(sql2);
+            rs = this.ejecutarOrdenDatos(sql);
             horasOcupadas = new ArrayList<>();
             int count = 0;
             while (rs.next() == true) {

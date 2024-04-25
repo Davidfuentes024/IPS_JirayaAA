@@ -18,14 +18,25 @@
         <!-- Google Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <!-- Custom Styles -->
+        <style>
+            body {
+                background-color: #007fa2;
+            }
+            .login-box .login-logo img {
+                max-width: 100%; /* Ajustar el ancho máximo de la imagen al 100% del contenedor */
+                height: auto; /* Permitir que la altura de la imagen se ajuste automáticamente */
+                display: block; /* Para evitar cualquier espacio adicional debajo de la imagen */
+                margin: 0 auto; /* Centrar la imagen horizontalmente */
+            }
 
+        </style>
     </head>
-    <body class="hold-transition login-page">
+    <body class="hold-transition login-page" style="background-color: #007fa2;">
         <!-- Contenedor principal -->
         <div class="wrapper">
             <div class="login-box">
                 <div class="login-logo">
-                    <a href="#"><b>Sistema </b>IPS PRO AA</a>
+                    <img src="dist/img/logo2.jpg" alt="Logo">
                 </div>
                 <!-- /.login-logo -->
                 <div class="login-box-body">
@@ -58,7 +69,7 @@
 
                     <div class="social-auth-links text-center">
                         <p>- Verificación Credenciales -</p>
-                        <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-info"></i> Mensaje: ${msje}</a>
+                        <a href="#" class="btn btn-block btn-social btn-facebook btn-flat" style="background-color: #007fa2;"><i class="fa fa-info"></i> Mensaje: ${msje}</a>
                     </div>
                     <footer class="main-footer-kmi">
                         <strong>IPS PRO &copy; 2024 <a href="https://github.com/CratosCamilo" target="_blank">KMI</a>.</strong> Todos los derechos reservados.

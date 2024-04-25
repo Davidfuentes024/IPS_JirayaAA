@@ -29,10 +29,11 @@
                 return userName.charAt(0).toUpperCase() + userName.slice(1).toLowerCase();
             }
         </script>
+        
     </head>
 
-    <body class="hold-transition skin-blue sidebar-mini">
-        <div class="wrapper">
+    <body class="hold-transition skin-blue sidebar-mini" >
+        <div class="wrapper" style="background-color: #007fa2;">
 
             <!-- Main Header -->
             <header class="main-header">
@@ -75,7 +76,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-right">
-                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default btn-flat">Cerrar Session</a>
+                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -120,23 +121,19 @@
                             <ul class="treeview-menu">
                                 <!--<li><a href="srvUsuario?accion=nuevaCita"><i class="fa fa-heart"></i>Nueva Cita</a></li>-->
 
-                                <li><a href="<c:url value="srvUsuario">
-                                           <c:param name="accion" value="listarCitasD" />
-
-                                           <c:param name="codi" value="${usuario.id_usuario}" />
-                                           <c:param name="carg" value="${usuario.cargo.codigo}" />
-                                       </c:url>"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
+                                <li><a href="srvUsuario?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
 
                             </ul>
                         </li>
                     </ul>
+                    
                     <!-- /.sidebar-menu -->
                 </section>
                 <!-- /.sidebar -->
             </aside>
 
             <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
+            <div class="content-wrapper" >
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
@@ -152,12 +149,7 @@
                 <section class="content">
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
-                        <div class="col-lg-3 col-xs-6" style="cursor: pointer;" onclick="window.location.href = '<c:url value="srvUsuario">
-                                           <c:param name="accion" value="listarCitasD" />
-
-                                           <c:param name="codi" value="${usuario.id_usuario}" />
-                                           <c:param name="carg" value="${usuario.cargo.codigo}" />
-                                       </c:url>'">
+                        <div class="col-lg-3 col-xs-6" style="cursor: pointer;" onclick="window.location.href = 'srvUsuario?accion=listarCitas'">
                             <!-- small box -->
                             <div class="small-box bg-aqua">
                                 <div class="inner">
@@ -171,11 +163,14 @@
                                 <button class="small-box-footer" style="border: none; background: none;"></button>
                             </div>
                         </div>
-
+                        
 
                         <!-- ./col -->
 
                 </section>
+                <div style="text-align: center;">
+        <img src="dist/img/logo5.png" alt="Logo" style="display: block; margin: 0 auto;">
+    </div>
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
