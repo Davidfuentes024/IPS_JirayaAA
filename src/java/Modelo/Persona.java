@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
 import java.sql.Date;
@@ -44,14 +40,6 @@ public class Persona {
         this.genero = genero;
     }
 
-    public String getEdad() {
-        return edad;
-    }
-
-    public void setEdad(String edad) {
-        this.edad = edad;
-    }
-
     public String getLugar_nacimiento() {
         return lugar_nacimiento;
     }
@@ -60,13 +48,7 @@ public class Persona {
         this.lugar_nacimiento = lugar_nacimiento;
     }
 
-    public Date getFecha_nacimiento() {
-        return fecha_nacimiento;
-    }
-
-    public void setFecha_nacimiento(Date fecha_nacimiento) {
-        this.fecha_nacimiento = fecha_nacimiento;
-    }
+    
 
     public String getEmail() {
         return email;
@@ -116,8 +98,6 @@ public class Persona {
         this.numero_documento = numero_documento;
     }
 
-   
-
     public Usuario getUsuario() {
         return usuario;
     }
@@ -125,19 +105,25 @@ public class Persona {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public Date getEdad() {
+        return edad;
+    }
+
+    public void setEdad(Date edad) {
+        this.edad = edad;
+    }
     private int id_persona;
     private String nombre_completo;
     private String tipo_sangre;
     private String genero;
-    private String edad;
+    private Date edad;
     private String lugar_nacimiento;
-    private Date fecha_nacimiento; 
     private String email;
     private String numero_telefono;
     private String direccion;
     private String ocupacion;
     private String estado_civil;
     private String numero_documento;
-    
-    private Usuario usuario;    
+    private Usuario usuario;
 }

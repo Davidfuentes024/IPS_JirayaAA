@@ -101,15 +101,12 @@
                             <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
                         </div>
                     </div>
-
-
-
                     <!-- Sidebar Menu -->
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">INICIO</li>
                         <!-- Optionally, you can add icons to the links -->
                         <li class=""><a href="srvUsuario?accion=inicio"><i class="fa fa-link"></i> <span>Panel Administrativo</span></a></li>
-                        <li class=" treeview">
+                        <li class="active treeview">
                             <a href="#"><i class="glyphicon glyphicon-th-large"></i> <span>Registros</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
@@ -122,7 +119,7 @@
                             </ul>
 
                         </li>
-                        <li class="active treeview">
+                        <li class="treeview">
                             <a href="#"><i class="fa fa-heart"></i> <span>Citas</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
@@ -138,171 +135,139 @@
 
                             </ul>
                         </li>
-
                     </ul>
                     <!-- /.sidebar-menu -->
                 </section>
                 <!-- /.sidebar -->
             </aside>
-
             <!-- Content Wrapper. Contains page content -->
             <!-- Content Wrapper. Contains page content -->
-
-
-
             <div class="content-wrapper">
                 <section class="content-header">
-                    <h1>
-                        Página Citas
-
-                    </h1>
+                    <a href="srvUsuario?accion=listarUsuarios" class="btn btn-default">
+                        <i class="fa fa-align-justify"></i> Ver listado</a> 
                     <ol class="breadcrumb">
                         <li><a href="srvUsuario?accion=inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
-                        <li class="active">Administrar Cita</li>
+                        <li class="active">Nuevo Usuario</li>
                     </ol>
                 </section>
-                <!-- Content Header (Page header) -->
-
 
                 <section class="content">
-                    <div class="box">    
-                        <div class="box-header with-border">             
-                            <h3 class="box-title">Listado de Citas activas</h3>
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <i class="fa fa-edit"></i> <h3 class="box-title">Registrar Nuevo Usuario y Persona</h3>  
                         </div>
-                        <div class="box-body">
-                            <div class="table-responsive" >                                 
-                                <table class="table table-bordered table-striped dataTable table-hover" id="tablaCitas" class="display">
-                                    <thead>
-                                        <tr>
+                        <form class="form-horizontal" action="srvUsuario?accion=actualizarPersona" method="post">
+                            <input type="hidden" name="codigo" value="${personaN.id_persona}">
+                            <div class="box-body">                               
+                                <!-- Campos para la Persona -->
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Nombre Completo</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <input id="nombreCompleto" type="text" class="form-control" placeholder="Ejemplo: Juan Pérez" name="txtNombreCompleto" maxlength="50" value="${personaN.nombre_completo}" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Tipo de Sangre</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-tint"></i></span>
+                                        <input id="tipoSangre" type="text" class="form-control" placeholder="Ejemplo: O+" name="txtTipoSangre" maxlength="5"value="${personaN.tipo_sangre}" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Género</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-venus-mars"></i></span>
+                                        <select class="form-control" name="cboGenero" required>
+                                            <option value="">Seleccione el género</option>
+                                            <c:forEach var="genero" items="${generos}">
+                                                <c:choose>
+                                                    <c:when test="${genero eq personaN.genero}">
+                                                        <option value="${genero}" selected>${genero}</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${genero}">${genero}</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
 
-                                            <th>Fecha</th>
-                                            <th>Hora</th>
-                                            <th>Paciente</th>
-                                            <th>Doctor</th>
-                                            <th>Descripción</th> 
-                                            <th>Sede</th> 
-                                            <th>Consultorio</th> 
-                                            <th>Acciones</th> 
-                                        </tr>
-                                    </thead>
-                                    <c:forEach var="cit" items="${citas}" varStatus="iteracion">      
-                                        <c:if test="${cit.estado eq true}">
-                                            <tr>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Fecha de Nacimiento</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input id="fechaNacimiento" type="date" class="form-control" name="txtFechaNacimiento" value="${personaN.edad}" required>
+                                    </div>
+                                </div>
+                                <!-- Otros campos para la Persona -->
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Lugar de Nacimiento</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                        <input id="lugarNacimiento" type="text" class="form-control" placeholder="Ejemplo: Bucaramanga" name="txtLugarNacimiento" maxlength="50"value="${personaN.lugar_nacimiento}" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Correo Electrónico</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                        <input id="correoElectronico" type="email" class="form-control" placeholder="Ejemplo: usuario@gmail.com" name="txtCorreoElectronico" maxlength="50"value="${personaN.email}" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Número de Teléfono</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                        <input id="numeroTelefono" type="tel" class="form-control" placeholder="Ejemplo: 1234567890" name="txtNumeroTelefono" maxlength="15"value="${personaN.numero_telefono}" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Dirección</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                        <input id="direccion" type="text" class="form-control" placeholder="Ejemplo: Calle 123 #456" name="txtDireccion" maxlength="100"value="${personaN.direccion}" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Ocupación</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
+                                        <input id="ocupacion" type="text" class="form-control" placeholder="Ejemplo: Estudiante" name="txtOcupacion" maxlength="50"value="${personaN.ocupacion}" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Estado Civil</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <select class="form-control" name="cboEstadoCivil" required>
+                                            <option value="">Seleccione el estado civil</option>
+                                            <c:forEach var="estadoCivil" items="${estadosCiviles}">
+                                                <option value="${estadoCivil}" ${estadoCivil eq personaN.estado_civil ? 'selected' : ''}>${estadoCivil}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
 
-                                                <td>${cit.fecha}</td>
-                                                <td>${cit.hora}</td>                                            
-                                                <td><script>document.write(formatUserName('${cit.paciente.nombreUsuario}'));</script></td>  
-                                                <td><script>document.write(formatUserName('${cit.doctor.nombreUsuario}'));</script></td>  
-                                                <td>${cit.descripcion}</td>
-                                                <td><script>document.write(formatUserName('${cit.sede.nombreSede}'));</script></td>
-                                                <td><script>document.write(formatUserName('${cit.consultorio.nombreConsultorio}'));</script></td>
-                                                <td><a 
-                                                        href="<c:url value="srvUsuario">
-                                                            <c:param name="accion" value="historialMedicoPaciente" />
-                                                            <c:param name="codi" value="${cit.paciente.id_usuario}" />
-                                                        </c:url>"><button type="button" class="btn btn-primary" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
-                                                            <i class="fa fa-clipboard"></i></button></a>
-                                                    <!-- DESACTIVAR / ACTIVAR CITAS -->
-                                                    <c:choose>
-                                                        <c:when test="${cit.estado == true}">
-                                                            <input type="hidden" id="item" value="${cit.codigo}">
-                                                            <a id="desactivarUsuario" href="srvUsuario?cambiarEstadoCita=desactivar&cod=${cit.codigo}" class="btn btn-success"  data-toggle="tooltip" title="Desactivar" data-original-title="Desactivar">
-                                                                <i class="fa fa-check"></i></a>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                            <input type="hidden" id="item" value="${cit.codigo}">
-                                                            <a id="activarUsuario" href="srvUsuario?cambiarEstadoCita=activar&cod=${cit.codigo}" class="btn btn-danger" data-toggle="tooltip" title="Activar" data-original-title="Activar">
-                                                                <i class="fa fa-remove"></i></a>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                </td>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Número de Documento</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-id-card"></i></span>
+                                        <input id="numeroDocumento" type="text" class="form-control" placeholder="Ejemplo: 1234567890" name="txtNumeroDocumento" maxlength="20"value="${personaN.numero_documento}" required>
+                                    </div>
+                                </div>
 
-
-                                            </tr> 
-                                        </c:if>
-                                    </c:forEach>                                               
-                                </table>
                             </div>
-                        </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                            <!--Pie de página-->
-                        </div>
-                        <!-- /.box-footer-->
-                    </div>
-                    <div class="box">    
-                        <div class="box-header with-border">             
-                            <h3 class="box-title">Listado de Citas inactivas</h3>
-                        </div>
-                        <div class="box-body">
-                            <div class="table-responsive" >                                 
-                                <table class="table table-bordered table-striped dataTable table-hover" id="tablaCitas2" class="display">
-                                    <thead>
-                                        <tr>
-
-                                            <th>Fecha</th>
-                                            <th>Hora</th>
-                                            <th>Paciente</th>
-                                            <th>Doctor</th>
-                                            <th>Descripción</th> 
-                                            <th>Sede</th> 
-                                            <th>Consultorio</th> 
-                                            <th>Acciones</th> 
-                                        </tr>
-                                    </thead>
-                                    <c:forEach var="cit" items="${citas}" varStatus="iteracion">   
-                                        <c:if test="${cit.estado eq false}">
-                                            <tr>
-
-                                                <td>${cit.fecha}</td>
-                                                <td>${cit.hora}</td>                                            
-                                                <td>${cit.paciente.nombreUsuario}</td>  
-                                                <td>${cit.doctor.nombreUsuario}</td>
-                                                <td>${cit.descripcion}</td>
-                                                <td>${cit.sede.nombreSede}</td>
-                                                <td>${cit.consultorio.nombreConsultorio}</td>
-                                                <td><a 
-                                                        href="<c:url value="srvUsuario">
-                                                            <c:param name="accion" value="historialMedicoPaciente" />
-                                                            <c:param name="codi" value="${cit.paciente.id_usuario}" />
-                                                        </c:url>"><button type="button" class="btn btn-primary" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
-                                                            <i class="fa fa-clipboard"></i></button></a>
-                                                    <!-- DESACTIVAR / ACTIVAR CITAS -->
-                                                    <c:choose>
-                                                        <c:when test="${cit.estado == true}">
-                                                            <input type="hidden" id="item" value="${cit.codigo}">
-                                                            <a id="desactivarUsuario" href="srvUsuario?cambiarEstadoCita=desactivar&cod=${cit.codigo}" class="btn btn-success"  data-toggle="tooltip" title="Desactivar" data-original-title="Desactivar">
-                                                                <i class="fa fa-check"></i></a>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                            <input type="hidden" id="item" value="${cit.codigo}">
-                                                            <a id="activarUsuario" href="srvUsuario?cambiarEstadoCita=activar&cod=${cit.codigo}" class="btn btn-danger" data-toggle="tooltip" title="Activar" data-original-title="Activar">
-                                                                <i class="fa fa-remove"></i></a>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                </td>
-
-
-                                            </tr> 
-                                        </c:if>
-                                    </c:forEach>                                               
-                                </table>
+                            <div class="box-footer">
+                                <a href="srvUsuario?accion=actualizarPersona" class="btn btn-danger"><i class="fa fa-close red"></i> Cancelar</a>                                
+                                <button type="submit" id="" name="btnRegistrar" value="Actualizar" class="btn btn-success" onclick="return validarFormulario();"><i class="fa fa-floppy-o" ></i> Actualizar</button>
                             </div>
-                        </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                            <!--Pie de página-->
-                        </div>
-                        <!-- /.box-footer-->
+                        </form>
                     </div>
-                </section>
-                <!-- /.content -->
+                </section> 
             </div>
-
-
-
-
-
             <!-- /.content-wrapper -->
 
             <!-- Main Footer -->
@@ -318,7 +283,6 @@
             <div class="control-sidebar-bg"></div>
         </div>
         <!-- ./wrapper -->
-
         <!-- REQUIRED JS SCRIPTS -->
 
         <!-- jQuery 3 -->
@@ -333,14 +297,9 @@
         <script src="swetalert/sweetalert.js" type="text/javascript"></script>
         <script src="js/funcionesUsuario.js" type="text/javascript"></script>
         <script>
-                                                    $(document).ready(function () {
-                                                        $('#tablaCitas').DataTable();
-                                                    });
-        </script>
-        <script>
-            $(document).ready(function () {
-                $('#tablaCitas2').DataTable();
-            });
+                                    $(document).ready(function () {
+                                        $('#tablaUsuarios').DataTable();
+                                    });
         </script>
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
              Both of these plugins are recommended to enhance the

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
 import java.sql.ResultSet;
@@ -23,7 +19,7 @@ public class DAOPERSONA extends Conexion {
                 + "u.NOMBRE_COMPLETO, "
                 + "u.TIPO_SANGRE, "
                 + "u.GENERO, "
-                + "u.EDAD, "
+                + "u.fecha_nacimiento, "
                 + "u.LUGAR_NACIMIENTO, "
                 + "u.EMAIL, "
                 + "u.NUMERO_TELEFONO, "
@@ -44,7 +40,7 @@ public class DAOPERSONA extends Conexion {
                 person.setNombre_completo(rs.getString("NOMBRE_COMPLETO"));
                 person.setTipo_sangre(rs.getString("TIPO_SANGRE"));
                 person.setGenero(rs.getString("GENERO"));
-                person.setEdad(rs.getString("EDAD"));
+                person.setEdad(rs.getDate("fecha_nacimiento"));
                 person.setLugar_nacimiento(rs.getString("LUGAR_NACIMIENTO"));
                 person.setEmail(rs.getString("EMAIL"));
                 person.setNumero_telefono(rs.getString("NUMERO_TELEFONO"));
@@ -71,7 +67,7 @@ public class DAOPERSONA extends Conexion {
                 + "p.NOMBRE_COMPLETO, "
                 + "p.TIPO_SANGRE, "
                 + "p.GENERO, "
-                + "p.EDAD, "
+                + "p.fecha_nacimiento, "
                 + "p.LUGAR_NACIMIENTO, "
                 + "p.EMAIL, "
                 + "p.NUMERO_TELEFONO, "
@@ -92,7 +88,7 @@ public class DAOPERSONA extends Conexion {
                 persona.setNombre_completo(rs.getString("NOMBRE_COMPLETO"));
                 persona.setTipo_sangre(rs.getString("TIPO_SANGRE"));
                 persona.setGenero(rs.getString("GENERO"));
-                persona.setEdad(rs.getString("EDAD"));
+                persona.setEdad(rs.getDate("fecha_nacimiento"));
                 persona.setLugar_nacimiento(rs.getString("LUGAR_NACIMIENTO"));
                 persona.setEmail(rs.getString("EMAIL"));
                 persona.setNumero_telefono(rs.getString("NUMERO_TELEFONO"));
@@ -111,4 +107,72 @@ public class DAOPERSONA extends Conexion {
         }
         return personas;
     }
+
+    public String obtenerNombre(Usuario usuario) throws Exception {
+        String nombreCompleto = null;
+        ResultSet rs = null;
+        String sql = "SELECT NOMBRE_COMPLETO "
+                + "FROM PERSONA "
+                + "WHERE IDUSUARIO = " + usuario.getId_usuario();
+        try {
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+            while (rs.next()) {
+                nombreCompleto = rs.getString("NOMBRE_COMPLETO");
+            }
+            this.cerrar(true);
+        } catch (Exception e) {
+            this.cerrar(false);
+            throw e;
+        }
+
+        return nombreCompleto;
+    }
+
+    public void registrarPersonas(Persona persona) throws Exception {
+        String sql;
+
+        sql = "INSERT INTO Persona (nombre_completo, tipo_sangre, genero, fecha_nacimiento, lugar_nacimiento, "
+                + "email, numero_telefono, direccion, ocupacion, estado_civil, numero_documento, IDUSUARIO) "
+                + "VALUES ('" + persona.getNombre_completo() + "', '" + persona.getTipo_sangre() + "', '"
+                + persona.getGenero() + "', '" + persona.getEdad() + "', '"
+                + persona.getLugar_nacimiento() + "', '" + persona.getEmail() + "', '"
+                + persona.getNumero_telefono() + "', '" + persona.getDireccion() + "', '"
+                + persona.getOcupacion() + "', '" + persona.getEstado_civil() + "', '"
+                + persona.getNumero_documento() + "', '" + persona.getUsuario().getId_usuario() + "')";
+
+        try {
+            this.conectar(false);
+            this.ejecutarOrden(sql);
+            this.cerrar(true);
+        } catch (Exception e) {
+            this.cerrar(false);
+            throw e;
+        }
+    }
+
+    public void actualizarPersona(Persona persona) throws Exception {
+        String sql = "UPDATE Persona SET "
+                + "nombre_completo='" + persona.getNombre_completo() + "', "
+                + "tipo_sangre='" + persona.getTipo_sangre() + "', "
+                + "genero='" + persona.getGenero() + "', "
+                + "fecha_nacimiento='" + persona.getEdad() + "', "
+                + "lugar_nacimiento='" + persona.getLugar_nacimiento() + "', "
+                + "email='" + persona.getEmail() + "', "
+                + "numero_telefono='" + persona.getNumero_telefono() + "', "
+                + "direccion='" + persona.getDireccion() + "', "
+                + "ocupacion='" + persona.getOcupacion() + "', "
+                + "estado_civil='" + persona.getEstado_civil() + "', "
+                + "numero_documento='" + persona.getNumero_documento() + "' "
+                + "WHERE IDPERSONA=" + persona.getId_persona();
+        try {
+            this.conectar(false);
+            this.ejecutarOrden(sql);
+            this.cerrar(true);
+        } catch (Exception e) {
+            this.cerrar(false);
+            throw e;
+        }
+    }
+
 }

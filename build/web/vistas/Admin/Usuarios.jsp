@@ -60,7 +60,7 @@
                                     <!-- The user image in the navbar-->
                                     <img src="dist/img/sticker-png-login-icon-system-administrator-user-user-profile-icon-design-avatar-face-head.png" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs"> <script>document.write(formatUserName('${usuario.nombreUsuario}'));</script></span>
+                                    <span class="hidden-xs">${nombre}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
@@ -163,13 +163,13 @@
                         </a>
                     </div>
                 </section>
-                <section class="content">
-                    <div class="box">    
-                        <div class="box-header with-border">             
+                <section class="content col-md-12">
+                    <div class="box ">    
+                        <div class="box-header with-border ">             
                             <h3 class="box-title">Listado de Usuarios</h3>
                         </div>
-                        <div class="box-body">
-                            <div class="table-responsive" >                                 
+                        <div class="box-body ">
+                            <div class="table-responsive " >                                 
                                 <table class="table table-bordered table-striped dataTable table-hover" id="tablaUsuarios" class="display">
                                     <thead>
                                         <tr>

@@ -59,7 +59,7 @@
                                     <!-- The user image in the navbar-->
                                     <img src="dist/img/sticker-png-login-icon-system-administrator-user-user-profile-icon-design-avatar-face-head.png" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs"> <script>document.write(formatUserName('${usuario.nombreUsuario}'));</script></span>
+                                    <span class="hidden-xs">${nombre}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
@@ -147,99 +147,154 @@
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <section class="content-header">
-
-
                     <a href="srvUsuario?accion=listarUsuarios" class="btn btn-default">
                         <i class="fa fa-align-justify"></i> Ver listado</a> 
-
-
                     <ol class="breadcrumb">
                         <li><a href="srvUsuario?accion=inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
                         <li class="active">Nuevo Usuario</li>
                     </ol>
                 </section>
-                <script>
-                    // Función para validar que todos los campos obligatorios estén llenos
-                    function validarFormulario() {
-                        // Obtener referencia a los campos obligatorios
-                        var camposObligatorios = document.querySelectorAll('input[required], select[required]');
-
-                        // Verificar cada campo obligatorio
-                        for (var i = 0; i < camposObligatorios.length; i++) {
-                            if (camposObligatorios[i].value === "0" || camposObligatorios[i].value === "") {
-                                // Si algún campo obligatorio está vacío, mostrar un mensaje y detener el envío del formulario
-                                alert("Por favor, complete todos los campos obligatorios.");
-                                return false; // Detener el envío del formulario
-                            }
-                        }
-                        // Si todos los campos obligatorios están llenos, permitir el envío del formulario
-                        return true;
-                    }
-                </script>
-
 
                 <section class="content">
                     <div class="box">
                         <div class="box-header with-border">
-                            <i class="fa fa-edit"></i> <h3 class="box-title">Registrar Nuevo Usuario</h3>  
+                            <i class="fa fa-edit"></i> <h3 class="box-title">Registrar Nuevo Usuario y Persona</h3>  
                         </div>
                         <form class="form-horizontal" action="srvUsuario?accion=registrar" method="post">
                             <div class="box-body">
+                                <!-- Campos para el Usuario -->
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Nombre Usuario</label>
                                     <div class="col-sm-4 input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                        <input id="nombre" type="text" class="form-control" placeholder="Ejem: Alexander" name="txtNombre" maxlength="20"
-                                               value="" required>
+                                        <input id="nombreUsuario" type="text" class="form-control" placeholder="Ejemplo: Alexander" name="txtNombreUsuario" maxlength="20" value="" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Clave</label>
                                     <div class="col-sm-4 input-group">
                                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                        <input id="nombre" type="password" class="form-control" placeholder="Ejem: $%Ale!**" name="txtClave" maxlength="10"
-                                               value="" required>
+                                        <input id="clave" type="password" class="form-control" placeholder="Ejemplo: $%Ale!**" name="txtClave" maxlength="10" value="" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Cargo</label>
                                     <div class="col-sm-4 input-group">
                                         <span class="input-group-addon"><i class="fa fa-tags"></i></span>
-                                        <select class="form-control"  name="cboCargo" autofocus=""  required>
+                                        <select class="form-control" name="cboCargo" autofocus="" required>
                                             <option value="0">Seleccione un cargo</option>
                                             <c:forEach items="${cargos}" var="car">
                                                 <option value="${car.codigo}"  
-                                                        <c:if test="${car.codigo == 
-                                                                      usuario.cargo.codigo}">
-                                                              selected
+                                                        <c:if test="${car.codigo == usuario.cargo.codigo}">
+                                                            selected
                                                         </c:if>
                                                         >${car.nombreCargo}</option>
                                             </c:forEach>
                                         </select>
                                     </div>                                  
                                 </div>
+                                
+
+                                <!-- Campos para la Persona -->
                                 <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="chkEstado" checked="" > Activo
-                                            </label>
-                                        </div>
+                                    <label class="col-sm-2 control-label">Nombre Completo</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <input id="nombreCompleto" type="text" class="form-control" placeholder="Ejemplo: Juan Pérez" name="txtNombreCompleto" maxlength="50" required>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- /.box-body -->
-                            <div class="box-footer">
-                                <a href="srvUsuario?accion=listarUsuarios" class="btn btn-danger"><i class="fa fa-close red"></i>Cancelar</a>                                
-                                <button type="submit" id="" name="btnRegistrar" value="Registrar" class="btn btn-success" onclick="return validarFormulario();"><i class="fa fa-floppy-o" ></i> Registrar</button>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Tipo de Sangre</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-tint"></i></span>
+                                        <input id="tipoSangre" type="text" class="form-control" placeholder="Ejemplo: O+" name="txtTipoSangre" maxlength="5">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Género</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-venus-mars"></i></span>
+                                        <select class="form-control" name="cboGenero" required>
+                                            <option value="">Seleccione el género</option>
+                                            <option value="Masculino">Masculino</option>
+                                            <option value="Femenino">Femenino</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Fecha de Nacimiento</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input id="fechaNacimiento" type="date" class="form-control" name="txtFechaNacimiento" required>
+                                    </div>
+                                </div>
+                                <!-- Otros campos para la Persona -->
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Lugar de Nacimiento</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                        <input id="lugarNacimiento" type="text" class="form-control" placeholder="Ejemplo: Bucaramanga" name="txtLugarNacimiento" maxlength="50">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Correo Electrónico</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                        <input id="correoElectronico" type="email" class="form-control" placeholder="Ejemplo: usuario@gmail.com" name="txtCorreoElectronico" maxlength="50">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Número de Teléfono</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                        <input id="numeroTelefono" type="tel" class="form-control" placeholder="Ejemplo: 1234567890" name="txtNumeroTelefono" maxlength="15">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Dirección</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                        <input id="direccion" type="text" class="form-control" placeholder="Ejemplo: Calle 123 #456" name="txtDireccion" maxlength="100">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Ocupación</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
+                                        <input id="ocupacion" type="text" class="form-control" placeholder="Ejemplo: Estudiante" name="txtOcupacion" maxlength="50">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Estado Civil</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-heart"></i></span>
+                                        <select class="form-control" name="cboEstadoCivil">
+                                            <option value="">Seleccione el estado civil</option>
+                                            <option value="Soltero(a)">Soltero(a)</option>
+                                            <option value="Casado(a)">Casado(a)</option>
+                                            <option value="Divorciado(a)">Divorciado(a)</option>
+                                            <option value="Viudo(a)">Viudo(a)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Número de Documento</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-id-card"></i></span>
+                                        <input id="numeroDocumento" type="text" class="form-control" placeholder="Ejemplo: 1234567890" name="txtNumeroDocumento" maxlength="20">
+                                    </div>
+                                </div>
 
                             </div>
-                            <!-- /.box-footer -->
+                            <div class="box-footer">
+                                <a href="srvUsuario?accion=listarUsuarios" class="btn btn-danger"><i class="fa fa-close red"></i> Cancelar</a>                                
+                                <button type="submit" id="" name="btnRegistrar" value="Registrar" class="btn btn-success" onclick="return validarFormulario();"><i class="fa fa-floppy-o" ></i> Registrar</button>
+                            </div>
                         </form>
                     </div>
                 </section> 
-
             </div>
+
             <!-- /.content-wrapper -->
 
             <!-- Main Footer -->

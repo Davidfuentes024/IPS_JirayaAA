@@ -59,7 +59,7 @@
                                     <!-- The user image in the navbar-->
                                     <img src="dist/img/sticker-png-login-icon-system-administrator-user-user-profile-icon-design-avatar-face-head.png" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs"><script>document.write(formatUserName('${usuario.nombreUsuario}'));</script></span>
+                                    <span class="hidden-xs">${nombre}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
@@ -165,8 +165,8 @@
                             <!-- small box -->
                             <div class="small-box bg-aqua">
                                 <div class="inner">
-                                    <h3>Registros</h3>
-                                    <p>Usuarios</p>
+                                    <h3>Usuarios</h3>
+                                    <p>Administrar</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-person-stalker"></i>
@@ -178,10 +178,10 @@
                         <!-- ./col -->
                         <div class="col-lg-3 col-xs-6" style="cursor: pointer;" onclick="window.location.href = 'srvUsuario?accion=listarCitas'">
                             <!-- small box -->
-                            <div class="small-box bg-red">
+                            <div class="small-box bg-aqua">
                                 <div class="inner">
                                     <h3>Citas</h3>
-                                    <p>Administrar Citas</p>
+                                    <p>Administrar</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-heart"></i>
@@ -190,13 +190,47 @@
                                 <button class="small-box-footer" style="border: none; background: none;"></button>
                             </div>
                         </div>
+                        <div class="col-lg-3 col-xs-6" style="cursor: pointer; " onclick="window.location.href = 'srvUsuario?accion=listarPersonas'">
+                            <!-- small box -->
+                            <div class="small-box bg-aqua" >
+                                <div class="inner">
+                                    <h3>Personas</h3>
+                                    <p>Administrar</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-person-stalker"></i>
+                                </div>
+                                <!-- Cambiamos el enlace <a> por un botón <button> -->
+                                <button class="small-box-footer" style="border: none; background: none;"> </button>
+                            </div>
+                        </div>
+
 
                         <!-- ./col -->
 
                         <!-- ./col -->
                     </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-6" style="cursor: pointer;" onclick="window.location.href = 'srvUsuario?accion=nuevo'">
+                            <!-- small box -->
+                            <div class="small-box bg-aqua">
+                                <div class="inner">
+                                    <h3>Usuarios</h3>
+                                    <p>Crear</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-person-add"></i>
+                                </div>
+                                <!-- Cambiamos el enlace <a> por un botón <button> -->
+                                <button class="small-box-footer" style="border: none; background: none;"> </button>
+                            </div>
+                        </div>
+                    </div>
                 </section>
                 <!-- /.content -->
+                <div style="text-align: center;">
+                    <img src="dist/img/logo5.png" alt="Logo" style="display: block; margin: 0 auto;">
+                </div>
             </div>
             <!-- /.content-wrapper -->
 

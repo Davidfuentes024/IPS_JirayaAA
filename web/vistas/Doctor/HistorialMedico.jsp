@@ -34,7 +34,7 @@
         </script>
         <style>
             .nombre-usuario {
-                font-size: 1.69em;
+                font-size: 1.5em;
             }
             .historial {
                 font-size: 1.2em;
@@ -48,7 +48,7 @@
 
             <!-- Main Header -->
             <header class="main-header">
-                <a href="srvUsuario?accion=inicioDoctor" class="logo">
+                <a href="srvUsuario?accion=inicio" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b></b>AA</span>
                     <!-- logo for regular state and mobile devices -->
@@ -72,7 +72,7 @@
 
                                     <img src="dist/img/59613224-el-doctor-avatar-perfil-aisló-el-icono-gráfico-del-ejemplo-del-vector.jpg" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs"><script>document.write(formatUserName('${usuario.nombreUsuario}'));</script></span>
+                                    <span class="hidden-xs">${nombre}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
@@ -123,7 +123,7 @@
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">INICIO</li>
                         <!-- Optionally, you can add icons to the links -->
-                        <li class=""><a href="srvUsuario?accion=inicioDoctor"><i class="fa fa-link"></i> <span>Panel Administrativo</span></a></li>
+                        <li class=""><a href="srvUsuario?accion=inicio"><i class="fa fa-link"></i> <span>Panel Administrativo</span></a></li>
 
                         <li class="active treeview">
                             <a href="#"><i class="fa fa-heart"></i> <span>Citas</span>
@@ -149,7 +149,7 @@
                 <section class="content-header">
                     <h1>Página Historial Médico</h1>
                     <ol class="breadcrumb">
-                        <li><a href="srvUsuario?accion=inicioDoctor"><i class="fa fa-dashboard"></i> Inicio</a></li>
+                        <li><a href="srvUsuario?accion=inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
                         <li class="active">Administrar Cita</li>
                     </ol>
                 </section>
@@ -157,16 +157,19 @@
                 <section class="content">
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-8">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Nombre Completo</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <p class="nombre-usuario"><script>document.write(formatUserName('${usuarioN.nombreUsuario}'));</script> Apellido1 Apellido2</p>
+                                    <p class="nombre-usuario"> ${personaN.nombre_completo}</p>
                                 </div>
-
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Detalles Personales</h3>
@@ -174,21 +177,19 @@
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <p><strong>Lugar de Nacimiento:</strong> prueba ${paciente.lugarNacimiento}</p>
-                                            <p><strong>Género:</strong> prueba ${paciente.genero}</p>
-                                            <p><strong>Dirección:</strong> prueba${paciente.direccion}</p>
+                                            <p><strong>Lugar de Nacimiento:</strong> ${personaN.lugar_nacimiento}</p>
+                                            <p><strong>Género:</strong> ${personaN.genero}</p>
+                                            <p><strong>Dirección:</strong> ${personaN.direccion}</p>
                                         </div>
                                         <div class="col-md-6 ">
-                                            <p><strong>Edad:</strong> prueba${paciente.edad}</p>
-                                            <p><strong>Tipo de Sangre:</strong> prueba${paciente.tipoSangre}</p>
-
+                                            <p><strong>Fecha de Nacimiento:</strong> ${personaN.edad}</p>
+                                            <p><strong>Tipo de Sangre:</strong> ${personaN.tipo_sangre}</p>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
+
                         <div class="col-md-4">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -197,51 +198,86 @@
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <p><strong>Email:</strong> prueba@kmi.com</p>
-                                            <p><strong>Número:</strong> prueba${paciente.numero}</p>
+                                            <p><strong>Email:</strong> ${personaN.email}</p>
+                                            <p><strong>Número:</strong> ${personaN.numero_telefono}</p>
+                                            <p><strong>No Identificación:</strong> ${personaN.numero_documento}</p>
                                         </div>
                                         <div class="col-md-6 ">
-                                            <p><strong>Ocupación:</strong> prueba${paciente.ocupacion}</p>
-                                            <p><strong>Estado Civil:</strong> Prueba</p>
+                                            <p><strong>Ocupación:</strong> ${personaN.ocupacion}</p>
+                                            <p><strong>Estado Civil:</strong> ${personaN.estado_civil}</p>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Motivo de la Cita</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <textarea class="form-control" rows="3" id="motivo" name="motivo" placeholder="Escribe el motivo de la cita aquí..."></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Historial</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <p class="historial"> Este texto contendrá un historial por defecto vacío pero conforme las citas y consultas pasen tendrá la concatenación de las observaciones previas (?)</p>
-                                </div>
-
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Observaciones</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <textarea class="form-control" rows="3" id="motivo" name="motivo" placeholder="Escribe las observaciones aquí..."></textarea>
-                                </div>
-
-                            </div>
-
                         </div>
                     </div>
 
+
+                    <div class="row">            
+                        <div class="col-md-8">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Historiales Médicos</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table id="historial-table" class="table table-bordered table-striped table-sortable">
+                                            <thead>
+                                                <tr>
+
+                                                    <th data-defaultsort="asc">Fecha</th>
+                                                    <th>Motivo de la Cita</th>
+                                                    <th>Observación</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Aquí iteramos sobre la lista de historiales -->
+                                                <c:forEach var="historial" items="${historiales}">
+                                                    <tr>
+
+                                                        <td>${historial.fecha}</td>
+                                                        <td>${historial.motivo_cita}</td>
+                                                        <td>${historial.observacion}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form action="srvUsuario?accion=insertarHistorial" method="post">    
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Motivo de la Cita</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <textarea class="form-control" rows="1" id="motivo" name="motivo" placeholder="Escribe el motivo de la cita aquí..."required></textarea>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Observaciones</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <textarea class="form-control" rows="3" id="observaciones" name="observaciones" placeholder="Escribe las observaciones aquí..."required></textarea>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="codigo" value="${personaN.id_persona}">
+                                <input type="hidden" name="codig" value="${personaN.usuario.id_usuario}">
+                                <button type="submit" class="btn btn-primary">Agregar Historial Médico</button>
+                                <a href="srvUsuario?accion=listarCitas" class="btn btn-default">
+                                    <i></i> Ver listado</a> 
+                            </form>
+                        </div>
+                    </div>
                 </section>
+
             </div>
+
+
+
 
             <!-- /.content-wrapper -->
 
@@ -272,9 +308,9 @@
         <script src="swetalert/sweetalert.js" type="text/javascript"></script>
         <script src="js/funcionesUsuario.js" type="text/javascript"></script>
         <script>
-                                        $(document).ready(function () {
-                                            $('#tablaCitas').DataTable();
-                                        });
+                                $(document).ready(function () {
+                                    $('#historial-table').DataTable();
+                                });
         </script>
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
              Both of these plugins are recommended to enhance the

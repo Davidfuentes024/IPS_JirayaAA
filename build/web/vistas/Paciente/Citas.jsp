@@ -39,7 +39,7 @@
 
             <!-- Main Header -->
             <header class="main-header">
-                <a href="srvUsuario?accion=inicioPaciente" class="logo">
+                <a href="srvUsuario?accion=inicio" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b></b>AA</span>
                     <!-- logo for regular state and mobile devices -->
@@ -63,7 +63,7 @@
                                     <!-- The user image in the navbar-->
                                     <img src="dist/img/1430453.png" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs"><script>document.write(formatUserName('${usuario.nombreUsuario}'));</script></span>
+                                    <span class="hidden-xs">${nombre}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
@@ -83,7 +83,10 @@
                                             <a href="srvUsuario?accion=cerrar" class="btn btn-default">Cerrar Sesion</a>
                                         </div>
                                         <div class="pull-left">
-                                            <a href="#" class="btn btn-primary ">Ver mi Perfil</a>
+                                            <a href="<c:url value="srvUsuario">
+                                                            <c:param name="accion" value="historialMedicoPaciente" />
+                                                            <c:param name="codi" value="${usuario.id_usuario}" />
+                                                        </c:url>" class="btn btn-primary ">Ver mi Perfil</a>                                             
                                         </div>
                                     </li>
 
@@ -122,7 +125,7 @@
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">INICIO</li>
                         <!-- Optionally, you can add icons to the links -->
-                        <li class=""><a href="srvUsuario?accion=inicioPaciente"><i class="fa fa-link"></i> <span>Panel Administrativo</span></a></li>
+                        <li class=""><a href="srvUsuario?accion=inicio"><i class="fa fa-link"></i> <span>Panel Administrativo</span></a></li>
                         <li class="active treeview">
                             <a href="#"><i class="fa fa-heart"></i> <span>Citas</span>
                                 <span class="pull-right-container">
@@ -157,7 +160,7 @@
                         <i class="fa fa-plus"></i> Nueva Cita </a>
 
                     <ol class="breadcrumb">
-                        <li><a href="srvUsuario?accion=inicioPaciente"><i class="fa fa-dashboard"></i> Inicio</a></li>
+                        <li><a href="srvUsuario?accion=inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
                         <li class="active">Administrar Citas</li>
                     </ol>
                 </section>
@@ -191,11 +194,11 @@
 
                                                 <td>${cit.fecha}</td>
                                                 <td>${cit.hora}</td>                                            
-                                                <td>${cit.paciente.nombreUsuario}</td>  
-                                                <td>${cit.doctor.nombreUsuario}</td>
+                                                <td><script>document.write(formatUserName('${cit.paciente.nombreUsuario}'));</script></td>  
+                                                <td><script>document.write(formatUserName('${cit.doctor.nombreUsuario}'));</script></td>  
                                                 <td>${cit.descripcion}</td>
-                                                <td>${cit.sede.nombreSede}</td>
-                                                <td>${cit.consultorio.nombreConsultorio}</td>
+                                                <td><script>document.write(formatUserName('${cit.sede.nombreSede}'));</script></td>
+                                                <td><script>document.write(formatUserName('${cit.consultorio.nombreConsultorio}'));</script></td>
                                                 <td><a href="<c:url value="srvUsuario">
                                                            <c:param name="accion" value="leerCita" />
                                                            <c:param name="cod" value="${cit.codigo}" />

@@ -59,7 +59,7 @@
                                     <!-- The user image in the navbar-->
                                     <img src="dist/img/sticker-png-login-icon-system-administrator-user-user-profile-icon-design-avatar-face-head.png" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs"><script>document.write(formatUserName('${usuario.nombreUsuario}'));</script></span>
+                                    <span class="hidden-xs">${nombre}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
@@ -150,19 +150,12 @@
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <section class="content-header">
-                    <div class="row">
-                        <div class="col-xs-12 col-md-3">
-                        </div>
-                        <div class="col-md-3 hidden-xs"></div>
-                        <div class="col-xs-2 col-md-1">
-                        </div>
-                        <div class="col-xs-10 col-md-5 ">
-                            <div class="btn-group pull-right">
-                                <a href="srvUsuario?accion=listarUsuarios" class="btn btn-default">
-                                    <i class="fa fa-align-justify"></i> Ver listado</a>                                              
-                            </div>
-                        </div>
-                    </div>
+                    <a href="srvUsuario?accion=listarUsuarios" class="btn btn-default">
+                        <i class="fa fa-align-justify"></i> Ver listado</a> 
+                    <ol class="breadcrumb">
+                        <li><a href="srvUsuario?accion=inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
+                        <li class="active">Actualizar Usuario</li>
+                    </ol>
                 </section>
                 <section class="content">
                     <div class="box">
@@ -177,7 +170,7 @@
                                     <div class="col-sm-4 input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                         <input id="nombre" type="text" class="form-control" placeholder="Ejem: Alexander" name="txtNombre" maxlength="10"
-                                               value="${usuarioN.nombreUsuario}">
+                                               value="${usuarioN.nombreUsuario}" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -185,7 +178,7 @@
                                     <div class="col-sm-4 input-group">
                                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                                         <input id="nombre" type="password" class="form-control" placeholder="Ejem: $%Ale!**" name="txtClave" maxlength="10"
-                                               value="${usuarioN.clave}">
+                                               value="${usuarioN.clave}" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -212,7 +205,7 @@
                                                 <input type="checkbox" name="chkEstado" 
                                                        <c:out value="${usuarioN.estado == false ?
                                                                        'unchecked' : 'checked'}"
-                                                              default="" />>Activo
+                                                              default="" /> >Activo
                                             </label>
                                         </div>
                                     </div>

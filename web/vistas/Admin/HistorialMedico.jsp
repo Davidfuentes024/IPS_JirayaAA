@@ -1,3 +1,5 @@
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalDateTime"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
@@ -60,7 +62,7 @@
                                     <!-- The user image in the navbar-->
                                     <img src="dist/img/sticker-png-login-icon-system-administrator-user-user-profile-icon-design-avatar-face-head.png" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs"> <script>document.write(formatUserName('${usuario.nombreUsuario}'));</script></span>
+                                    <span class="hidden-xs">${nombre}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
@@ -147,7 +149,147 @@
 
             <!-- Content Wrapper. Contains page content -->
             <!-- Content Wrapper. Contains page content -->
-            
+            <div class="content-wrapper">
+                <section class="content-header">
+                    <h1>Página Historial Médico</h1>
+
+                    <ol class="breadcrumb">
+                        <li><a href="srvUsuario?accion=inicioDoctor"><i class="fa fa-dashboard"></i> Inicio</a></li>
+                        <li class="active">Administrar Cita</li>
+                    </ol>
+
+                </section>
+
+                <section class="content">
+                    <a href="srvUsuario?accion=listarCitas" class="btn btn-default">
+                        <i class="fa fa-align-justify"></i> Ver listado</a> 
+                    <div class="form-group">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Nombre Completo</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p class="nombre-usuario">${personaN.nombre_completo}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Número Identificación</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p class="nombre-usuario">${personaN.numero_documento}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Fecha y hora de emisión</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <%
+                                        LocalDateTime fechaYHoraActual = LocalDateTime.now();
+                                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy 'a las' hh:mm a");
+                                        String fechaYHoraFormateada = fechaYHoraActual.format(formatter);
+                                    %>
+                                    <p class="fecha-hora"><%= fechaYHoraFormateada%></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Detalles Personales</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><strong>Tipo de Sangre:</strong> ${personaN.tipo_sangre}</p>
+                                            <p><strong>Género:</strong> ${personaN.genero}</p>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <p><strong>Fecha de Nacimiento:</strong> ${personaN.edad}</p>
+                                            <p><strong>Ocupación:</strong> ${personaN.ocupacion}</p>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p><strong>Lugar de Nacimiento:</strong> ${personaN.lugar_nacimiento}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Información Adicional</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p><strong>Email:</strong> ${personaN.email}</p>
+
+                                        </div>
+                                        <div class="col-md-6">
+
+                                            <p><strong>Número:</strong> ${personaN.numero_telefono}</p>
+                                            <p><strong>Dirección:</strong> ${personaN.direccion}</p>
+                                        </div>
+                                        <div class="col-md-6 ">
+
+                                            <p><strong>Estado Civil:</strong> ${personaN.estado_civil}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Historiales Médicos</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table id="historial-table" class="table table-bordered table-striped table-sortable">
+                                            <thead>
+                                                <tr>
+
+                                                    <th data-defaultsort="asc">Fecha</th>
+                                                    <th>Motivo de la Cita</th>
+                                                    <th>Observación</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Aquí iteramos sobre la lista de historiales -->
+                                                <c:forEach var="historial" items="${historiales}">
+                                                    <tr>
+
+                                                        <td>${historial.fecha}</td>
+                                                        <td>${historial.motivo_cita}</td>
+                                                        <td>${historial.observacion}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </section>
+
+            </div>
             <!-- /.content-wrapper -->
 
             <!-- Main Footer -->
@@ -179,7 +321,7 @@
         <script src="js/funcionesUsuario.js" type="text/javascript"></script>
         <script>
                                 $(document).ready(function () {
-                                    $('#tablaUsuarios').DataTable();
+                                    $('#historial-table').DataTable();
                                 });
         </script>
         <!-- Optionally, you can add Slimscroll and FastClick plugins.

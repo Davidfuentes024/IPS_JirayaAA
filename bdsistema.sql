@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-04-2024 a las 23:44:37
+-- Tiempo de generación: 26-04-2024 a las 07:54:52
 -- Versión del servidor: 8.0.17
 -- Versión de PHP: 7.3.10
 
@@ -57,33 +57,43 @@ CREATE TABLE `citas` (
   `DOCTOR_ID` int(11) DEFAULT NULL,
   `DESCRIPCION` text CHARACTER SET utf8 COLLATE utf8_general_ci,
   `IDSEDE` int(11) NOT NULL,
-  `IDCONSULTORIO` int(11) DEFAULT NULL
+  `IDCONSULTORIO` int(11) DEFAULT NULL,
+  `ESTADO` bit(1) NOT NULL DEFAULT b'1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `citas`
 --
 
-INSERT INTO `citas` (`IDCITAS`, `FECHA`, `HORA`, `PACIENTE_ID`, `DOCTOR_ID`, `DESCRIPCION`, `IDSEDE`, `IDCONSULTORIO`) VALUES
-(3, '2024-04-15', '10:00:00', 2, 13, 'Consulta médica de rutina', 1, 2),
-(4, '2024-04-15', '12:00:00', 3, 13, 'Consulta médica de rutina', 1, 2),
-(5, '2024-04-18', '08:15:00', 2, 13, 'Consulta psicología', 2, 4),
-(6, '2024-04-15', '11:00:00', 2, 13, 'Consulta médica de rutina', 1, 1),
-(7, '2024-04-15', '11:00:00', 2, 13, 'Consulta médica de rutina', 2, 2),
-(8, '2024-04-15', '11:00:00', 2, 13, 'Consulta médica de rutina', 2, 1),
-(9, '2024-04-26', '09:00:00', 3, 39, 'Consulta médica', 2, 1),
-(10, '2024-04-19', '14:00:00', 3, 49, 'Consulta médica', 4, 3),
-(11, '2024-04-24', '09:00:00', 3, 43, 'Consulta médica', 2, 2),
-(12, '2024-04-26', '09:30:00', 3, 39, 'Consulta médica', 2, 1),
-(13, '2024-04-25', '08:30:00', 3, 50, 'Consulta médica', 1, 4),
-(14, '2024-04-19', '08:30:00', 3, 42, 'Consulta médica', 1, 2),
-(15, '2024-04-24', '08:30:00', 3, 41, 'Consulta médica', 4, 1),
-(16, '2024-04-25', '08:30:00', 3, 38, 'Consulta médica', 1, 1),
-(17, '2024-04-20', '08:30:00', 3, 50, 'Consulta médica', 1, 4),
-(18, '2024-04-25', '13:00:00', 3, 41, 'Consulta médica', 1, 4),
-(19, '2024-04-26', '12:30:00', 3, 59, 'Consulta médica', 6, 2),
-(20, '2024-05-25', '09:30:00', 3, 61, 'Consulta médica', 6, 4),
-(21, '2024-04-30', '10:00:00', 3, 62, 'Consulta médica', 7, 1);
+INSERT INTO `citas` (`IDCITAS`, `FECHA`, `HORA`, `PACIENTE_ID`, `DOCTOR_ID`, `DESCRIPCION`, `IDSEDE`, `IDCONSULTORIO`, `ESTADO`) VALUES
+(3, '2024-04-15', '10:00:00', 2, 13, 'Consulta médica de rutina', 1, 2, b'0'),
+(4, '2024-04-15', '12:00:00', 3, 13, 'Consulta médica de rutina', 1, 2, b'0'),
+(5, '2024-04-18', '08:15:00', 2, 13, 'Consulta psicología', 2, 4, b'0'),
+(6, '2024-04-15', '11:00:00', 2, 13, 'Consulta médica de rutina', 1, 1, b'0'),
+(7, '2024-04-15', '11:00:00', 2, 13, 'Consulta médica de rutina', 2, 2, b'0'),
+(8, '2024-04-15', '11:00:00', 2, 13, 'Consulta médica de rutina', 2, 1, b'0'),
+(9, '2024-04-26', '09:00:00', 3, 39, 'Consulta médica', 2, 1, b'0'),
+(10, '2024-04-19', '14:00:00', 3, 49, 'Consulta médica', 4, 3, b'0'),
+(11, '2024-04-24', '08:30:00', 3, 43, 'Consulta médica', 2, 2, b'1'),
+(12, '2024-04-26', '09:30:00', 3, 39, 'Consulta médica', 2, 1, b'1'),
+(13, '2024-04-25', '08:30:00', 3, 50, 'Consulta médica', 1, 4, b'1'),
+(14, '2024-04-19', '08:30:00', 3, 42, 'Consulta médica', 1, 2, b'0'),
+(15, '2024-04-24', '08:30:00', 3, 41, 'Consulta médica', 4, 1, b'0'),
+(16, '2024-04-25', '08:30:00', 3, 38, 'Consulta médica', 1, 1, b'1'),
+(17, '2024-04-20', '08:30:00', 3, 50, 'Consulta médica', 1, 4, b'1'),
+(18, '2024-04-25', '13:00:00', 3, 41, 'Consulta médica', 1, 4, b'1'),
+(19, '2024-04-26', '12:30:00', 3, 59, 'Consulta médica', 6, 2, b'1'),
+(20, '2024-05-25', '09:30:00', 3, 61, 'Consulta médica', 6, 4, b'1'),
+(21, '2024-04-30', '10:00:00', 3, 62, 'Consulta médica', 7, 1, b'1'),
+(22, '2024-05-02', '09:30:00', 3, 38, 'Consulta médica', 1, 1, b'1'),
+(23, '2024-04-30', '08:30:00', 3, 62, 'Consulta médica', 7, 1, b'1'),
+(24, '2024-04-25', '08:30:00', 3, 41, 'Consulta médica', 1, 4, b'1'),
+(25, '2024-04-25', '08:00:00', 67, 42, 'Consulta médica', 2, 1, b'1'),
+(26, '2024-04-30', '08:00:00', 67, 41, 'Consulta médica', 1, 4, b'1'),
+(27, '2024-04-26', '08:00:00', 67, 50, 'Consulta médica', 4, 1, b'0'),
+(28, '2024-04-26', '08:00:00', 3, 50, 'Consulta médica', 4, 1, b'0'),
+(29, '2024-04-24', '10:30:00', 3, 55, 'Consulta médica', 5, 2, b'1'),
+(30, '2024-05-10', '12:00:00', 70, 44, 'Consulta de medicina interna', 2, 3, b'1');
 
 -- --------------------------------------------------------
 
@@ -106,6 +116,94 @@ INSERT INTO `consultorio` (`IDCONSULTORIO`, `NOMBRECONSULTORIO`, `ESTADO`) VALUE
 (2, 'FISIOTERAPIA', b'1'),
 (3, 'MEDICINA INTERNA', b'1'),
 (4, 'PSICOLOGÍA', b'1');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historial_medico`
+--
+
+CREATE TABLE `historial_medico` (
+  `IDHISTORIAL` int(11) NOT NULL,
+  `IDPERSONA` int(11) DEFAULT NULL,
+  `FECHA` date DEFAULT NULL,
+  `OBSERVACION` text,
+  `MOTIVO_CITA` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `historial_medico`
+--
+
+INSERT INTO `historial_medico` (`IDHISTORIAL`, `IDPERSONA`, `FECHA`, `OBSERVACION`, `MOTIVO_CITA`) VALUES
+(1, 1, '2024-04-24', 'Este paciente ha sido examinado y se encuentra en buen estado de salud general.', 'Consulta médica de rutina'),
+(2, 2, '2024-04-24', 'Este paciente ha sido evaluado y no presenta problemas médicos significativos.', 'Consulta médica de rutina'),
+(3, 3, '2024-04-24', 'Este paciente ha sido revisado y se encuentra en condiciones normales de salud.', 'Consulta médica de rutina'),
+(8, 2, '2024-04-26', 'Todo en orden', 'Consulta rutinaria'),
+(9, 37, '2024-04-26', 'Todo en orden', 'Consulta rutinaria por fisioterapia');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `persona`
+--
+
+CREATE TABLE `persona` (
+  `IDPERSONA` int(11) NOT NULL,
+  `NOMBRE_COMPLETO` varchar(100) DEFAULT NULL,
+  `TIPO_SANGRE` varchar(10) DEFAULT NULL,
+  `GENERO` varchar(10) DEFAULT NULL,
+  `LUGAR_NACIMIENTO` varchar(100) DEFAULT NULL,
+  `EMAIL` varchar(100) DEFAULT NULL,
+  `NUMERO_TELEFONO` varchar(20) DEFAULT NULL,
+  `DIRECCION` varchar(200) DEFAULT NULL,
+  `OCUPACION` varchar(50) DEFAULT NULL,
+  `ESTADO_CIVIL` varchar(20) DEFAULT NULL,
+  `NUMERO_DOCUMENTO` varchar(20) DEFAULT NULL,
+  `IDUSUARIO` int(11) DEFAULT NULL,
+  `fecha_nacimiento` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `persona`
+--
+
+INSERT INTO `persona` (`IDPERSONA`, `NOMBRE_COMPLETO`, `TIPO_SANGRE`, `GENERO`, `LUGAR_NACIMIENTO`, `EMAIL`, `NUMERO_TELEFONO`, `DIRECCION`, `OCUPACION`, `ESTADO_CIVIL`, `NUMERO_DOCUMENTO`, `IDUSUARIO`, `fecha_nacimiento`) VALUES
+(1, 'María González', 'A-', 'Femenino', 'Medellín, Colombia', 'maria@example.com', '987654321', 'Avenida 456', 'Abogada', 'Casado(a)', '987654321', 2, '2018-05-11'),
+(2, 'Alexander Perez', 'AB+', 'Masculino', 'Bogotá, Colombia', 'alexander@example.com', '123456789', 'Carrera 123', 'Estudiante', 'Soltero(a)', '123456789', 3, '2006-02-27'),
+(3, 'Andres Felipe Herrera Jerez', 'O-', 'Masculino', 'Bucaramanga, Colombia', 'andres@example.com', '567890123', 'Calle 789', 'Ingeniero en Sistemas', 'Soltero(a)', '567890123', 67, '1995-03-15'),
+(4, 'Camilo Alfonso Castro Ortiz', 'A+', 'Masculino', 'Bucaramanga, Colombia', 'camilo@gmail.com', '3101234567', 'Cra. 10 #20-30', 'Ingeniero', 'Soltero(a)', '123456789', 1, '2000-05-24'),
+(5, 'Mario Rodríguez López', 'A-', 'Masculino', 'Lebrija, Colombia', 'marito@hotmail.com', '3109876543', 'Cll. 20 #30-40', 'Abogado', 'Casado(a)', '987654321', 13, '2011-09-27'),
+(6, 'Pedro García Martínez', 'AB+', 'Masculino', 'Pamplona, Colombia', 'pedro@gmail.com', '3105678901', 'Av. 30 #40-50', 'Doctor', 'Soltero(a)', '567890123', 38, '2012-04-08'),
+(7, 'Juan Pérez Gómez', 'B+', 'Masculino', 'Rionegro, Colombia', 'juan@hotmail.com', '3104561237', 'Diag. 40 #50-60', 'Profesor', 'Casado(a)', '456123789', 39, '2021-10-18'),
+(8, 'Luis Hernández Sánchez', 'O-', 'Masculino', 'Girón, Colombia', 'luis@gmail.com', '3107894561', 'Transv. 50 #60-70', 'Empresario', 'Soltero(a)', '789456123', 40, '2007-11-20'),
+(9, 'María Rodríguez Gómez', 'AB-', 'Femenino', 'Piedecuesta, Colombia', 'maria@hotmail.com', '3103216549', 'Kra. 60 #70-80', 'Ingeniera', 'Casado(a)', '321654987', 41, '2009-09-07'),
+(10, 'Ana García López', 'A+', 'Femenino', 'Bogotá, Colombia', 'ana@gmail.com', '3106549873', 'Cl. 70 #80-90', 'Arquitecta', 'Soltero(a)', '654987321', 42, '2020-06-07'),
+(11, 'Carlos Gómez Martínez', 'B-', 'Masculino', 'Cali, Colombia', 'carlos@hotmail.com', '3108523691', 'Av. 80 #90-100', 'Contador', 'Casado(a)', '852369741', 43, '2008-10-26'),
+(12, 'Elena Pérez Sánchez', 'AB+', 'Femenino', 'Medellín, Colombia', 'elena@gmail.com', '3103691478', 'Cra. 90 #100-110', 'Médica', 'Soltero(a)', '369147852', 44, '2018-06-09'),
+(13, 'Andrés Hernández Gómez', 'O+', 'Masculino', 'Barranquilla, Colombia', 'andres@hotmail.com', '3101472583', 'Trans. 100 #110-120', 'Diseñador', 'Casado(a)', '147258369', 45, '2021-06-07'),
+(14, 'Laura Rodríguez López', 'A-', 'Femenino', 'Bucaramanga, Colombia', 'laura@gmail.com', '3102583691', 'Diagonal 110 #120-130', 'Abogada', 'Soltero(a)', '258369147', 46, '2007-07-17'),
+(15, 'Santiago García Martínez', 'B+', 'Masculino', 'Lebrija, Colombia', 'santiago@hotmail.com', '3103698521', 'Carrera 120 #130-140', 'Emprendedor', 'Casado(a)', '369852147', 47, '2009-01-18'),
+(16, 'Camila Pérez Sánchez', 'O-', 'Femenino', 'Pamplona, Colombia', 'camila@gmail.com', '3108521473', 'Av. 130 #140-150', 'Profesora', 'Soltero(a)', '852147369', 48, '2018-04-18'),
+(17, 'Daniel Hernández Gómez', 'AB-', 'Masculino', 'Rionegro, Colombia', 'daniel@hotmail.com', '3107418529', 'Calle 140 #150-160', 'Ingeniero Civil', 'Casado(a)', '741852963', 49, '2020-01-08'),
+(18, 'Valentina Rodríguez López', 'A+', 'Femenino', 'Girón, Colombia', 'valentina@gmail.com', '3109638527', 'Trv. 150 #160-170', 'Músico', 'Soltero(a)', '963852741', 50, '2020-11-23'),
+(19, 'Diego García Gómez', 'B-', 'Masculino', 'Piedecuesta, Colombia', 'diego@hotmail.com', '3101593578', 'Cra. 160 #170-180', 'Estudiante', 'Casado(a)', '159357852', 51, '2020-02-07'),
+(20, 'Paula Martínez Sánchez', 'AB+', 'Femenino', 'Bogotá, Colombia', 'paula@gmail.com', '3103571598', 'Cll. 170 #180-190', 'Chef', 'Soltero(a)', '357159852', 52, '2013-07-06'),
+(21, 'Felipe Pérez López', 'O+', 'Masculino', 'Cali, Colombia', 'felipe@hotmail.com', '3104561237', 'Av. 180 #190-200', 'Empresario', 'Casado(a)', '456123789', 53, '2022-11-29'),
+(22, 'Sofía Rodríguez Martínez', 'A-', 'Femenino', 'Medellín, Colombia', 'sofia@gmail.com', '3106549873', 'Diag. 190 #200-210', 'Médica', 'Soltero(a)', '654987321', 54, '2009-09-21'),
+(23, 'Andrea Gómez Sánchez', 'B+', 'Femenino', 'Barranquilla, Colombia', 'andrea@hotmail.com', '3108523691', 'Cra. 200 #210-220', 'Ingeniera Civil', 'Casado(a)', '852369741', 55, '2015-07-13'),
+(24, 'Julián Martínez Gómez', 'O-', 'Masculino', 'Pamplona, Colombia', 'julian@gmail.com', '3103691478', 'Cll. 210 #220-230', 'Abogado', 'Soltero(a)', '369147852', 56, '2024-02-29'),
+(25, 'David Hernández López', 'AB+', 'Masculino', 'Bucaramanga, Colombia', 'david@hotmail.com', '3101472583', 'Av. 220 #230-240', 'Contador', 'Casado(a)', '147258369', 57, '2009-12-07'),
+(26, 'Isabella García Sánchez', 'A+', 'Femenino', 'Bogotá, Colombia', 'isabella@gmail.com', '3102583691', 'Trv. 230 #240-250', 'Estudiante', 'Soltero(a)', '258369147', 58, '2012-10-28'),
+(27, 'Mateo Pérez Martínez', 'B-', 'Masculino', 'Cali, Colombia', 'mateo@hotmail.com', '3103698521', 'Diag. 240 #250-260', 'Doctor', 'Casado(a)', '369852147', 59, '2010-01-01'),
+(28, 'Natalia Rodríguez López', 'O+', 'Femenino', 'Medellín, Colombia', 'natalia@gmail.com', '3108521473', 'Cra. 250 #260-270', 'Arquitecta', 'Soltero(a)', '852147369', 60, '2007-03-17'),
+(29, 'Alejandro Gómez Sánchez', 'AB-', 'Masculino', 'Barranquilla, Colombia', 'alejandro@hotmail.com', '3107418529', 'Av. 260 #270-280', 'Empresario', 'Casado(a)', '741852963', 61, '2021-09-05'),
+(30, 'Valeria García López', 'A+', 'Femenino', 'Piedecuesta, Colombia', 'valeria@gmail.com', '3109638527', 'Cll. 270 #280-290', 'Ingeniera', 'Soltero(a)', '963852741', 62, '2022-06-27'),
+(31, 'Lucas Martínez Gómez', 'B-', 'Masculino', 'Bucaramanga, Colombia', 'lucas@hotmail.com', '3101593578', 'Trv. 280 #290-300', 'Piloto', 'Casado(a)', '159357852', 63, '2023-01-29'),
+(32, 'Mariana Rodríguez Martínez', 'AB+', 'Femenino', 'Pamplona, Colombia', 'mariana@gmail.com', '3103571598', 'Av. 290 #300-310', 'Diseñadora', 'Soltero(a)', '357159852', 64, '2023-08-14'),
+(33, 'Gabriela Hernández López', 'O+', 'Femenino', 'Medellín, Colombia', 'gabriela@hotmail.com', '3104561237', 'Cra. 300 #310-320', 'Ingeniera Química', 'Casado(a)', '456123789', 65, '2004-07-18'),
+(34, 'Juan David Pérez Sánchez', 'A-', 'Masculino', 'Bogotá, Colombia', 'juandavid@gmail.com', '3106549873', 'Cll. 310 #320-330', 'Programador', 'Soltero(a)', '654987321', 66, '2007-07-06'),
+(37, 'Daniel Galvis', 'A+', 'Masculino', 'Bucaramanga, Santander', 'danielgalvis@gmail.com', '3202906144', 'Calle 3 #4-14', 'Estudiante', 'Soltero(a)', '1005762456', 70, '2003-06-11');
 
 -- --------------------------------------------------------
 
@@ -153,7 +251,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`IDUSUARIO`, `NOMBREUSUARIO`, `CLAVE`, `ESTADO`, `IDCARGO`, `ID_ESPECIALIDAD`, `ID_RESIDENCIA`) VALUES
-(1, 'CAMILO', '202cb962ac59075b964b07152d234b70', b'1', 1, NULL, NULL),
+(1, 'Camilo', '202cb962ac59075b964b07152d234b70', b'1', 1, NULL, NULL),
 (2, 'MARIOR', '250cf8b51c773f3f8dc8b4be867a9a02', b'1', 2, NULL, NULL),
 (3, 'ALEXANDER', 'bcbe3365e6ac95ea2c0343a2395834dd', b'1', 2, NULL, NULL),
 (13, 'Marito23', '698d51a19d8a121ce581499d7b701668', b'1', 3, NULL, NULL),
@@ -163,12 +261,12 @@ INSERT INTO `usuario` (`IDUSUARIO`, `NOMBREUSUARIO`, `CLAVE`, `ESTADO`, `IDCARGO
 (41, 'Maria', '15de21c670ae7c3f6f3f1f37029303c9', b'1', 3, 4, 1),
 (42, 'Ana', 'fae0b27c451c728867a567e8c1bb4e53', b'1', 3, 1, 2),
 (43, 'Carlos', 'f1c1592588411002af340cbaedd6fc33', b'1', 3, 2, 2),
-(44, 'Elena', '0a113ef6b61820daa5611c870ed8d5ee', b'1', 3, 3, 2),
+(44, 'Elena', '15de21c670ae7c3f6f3f1f37029303c9', b'1', 3, 3, 2),
 (45, 'Andres', 'b706835de79a2b4e80506f582af3676a', b'1', 3, 4, 2),
 (46, 'Laura', 'c6f057b86584942e415435ffb1fa93d4', b'1', 3, 1, 3),
 (47, 'Santiago', '698d51a19d8a121ce581499d7b701668', b'1', 3, 2, 3),
 (48, 'Camila', 'bcbe3365e6ac95ea2c0343a2395834dd', b'1', 3, 3, 3),
-(49, 'Daniel', '310dcbbf4cce62f762a2aaa148d556bd', b'1', 3, 4, 3),
+(49, 'Daniel', '202cb962ac59075b964b07152d234b70', b'1', 3, 4, 3),
 (50, 'Valentina', 'b706835de79a2b4e80506f582af3676a', b'1', 3, 1, 4),
 (51, 'Diego', '15de21c670ae7c3f6f3f1f37029303c9', b'1', 3, 2, 4),
 (52, 'Paula', 'fae0b27c451c728867a567e8c1bb4e53', b'1', 3, 3, 4),
@@ -185,7 +283,9 @@ INSERT INTO `usuario` (`IDUSUARIO`, `NOMBREUSUARIO`, `CLAVE`, `ESTADO`, `IDCARGO
 (63, 'Lucas', 'f1c1592588411002af340cbaedd6fc33', b'1', 3, 2, 7),
 (64, 'Mariana', '0a113ef6b61820daa5611c870ed8d5ee', b'1', 3, 3, 7),
 (65, 'Gabriela', 'b706835de79a2b4e80506f582af3676a', b'1', 3, 4, 7),
-(66, 'JUANDAV', 'caf1a3dfb505ffed0d024130f58c5cfa', b'1', 1, NULL, NULL);
+(66, 'JUANDAV', 'caf1a3dfb505ffed0d024130f58c5cfa', b'1', 1, NULL, NULL),
+(67, 'AndresProf', 'd9b1d7db4cd6e70935368a1efb10e377', b'1', 2, NULL, NULL),
+(70, 'Danielito', '202cb962ac59075b964b07152d234b70', b'1', 2, NULL, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -212,6 +312,20 @@ ALTER TABLE `citas`
 --
 ALTER TABLE `consultorio`
   ADD PRIMARY KEY (`IDCONSULTORIO`);
+
+--
+-- Indices de la tabla `historial_medico`
+--
+ALTER TABLE `historial_medico`
+  ADD PRIMARY KEY (`IDHISTORIAL`),
+  ADD KEY `IDPERSONA` (`IDPERSONA`);
+
+--
+-- Indices de la tabla `persona`
+--
+ALTER TABLE `persona`
+  ADD PRIMARY KEY (`IDPERSONA`),
+  ADD KEY `FK_IDUSUARIO_PERSONA` (`IDUSUARIO`);
 
 --
 -- Indices de la tabla `sede`
@@ -242,13 +356,25 @@ ALTER TABLE `cargo`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `IDCITAS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `IDCITAS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `consultorio`
 --
 ALTER TABLE `consultorio`
   MODIFY `IDCONSULTORIO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `historial_medico`
+--
+ALTER TABLE `historial_medico`
+  MODIFY `IDHISTORIAL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `persona`
+--
+ALTER TABLE `persona`
+  MODIFY `IDPERSONA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de la tabla `sede`
@@ -260,7 +386,7 @@ ALTER TABLE `sede`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `IDUSUARIO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `IDUSUARIO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- Restricciones para tablas volcadas
@@ -274,6 +400,18 @@ ALTER TABLE `citas`
   ADD CONSTRAINT `citas_ibfk_1` FOREIGN KEY (`PACIENTE_ID`) REFERENCES `usuario` (`IDUSUARIO`),
   ADD CONSTRAINT `citas_ibfk_2` FOREIGN KEY (`DOCTOR_ID`) REFERENCES `usuario` (`IDUSUARIO`),
   ADD CONSTRAINT `fk_IDSEDE` FOREIGN KEY (`IDSEDE`) REFERENCES `sede` (`IDSEDE`);
+
+--
+-- Filtros para la tabla `historial_medico`
+--
+ALTER TABLE `historial_medico`
+  ADD CONSTRAINT `historial_medico_ibfk_1` FOREIGN KEY (`IDPERSONA`) REFERENCES `persona` (`IDPERSONA`);
+
+--
+-- Filtros para la tabla `persona`
+--
+ALTER TABLE `persona`
+  ADD CONSTRAINT `FK_IDUSUARIO_PERSONA` FOREIGN KEY (`IDUSUARIO`) REFERENCES `usuario` (`IDUSUARIO`);
 
 --
 -- Filtros para la tabla `usuario`

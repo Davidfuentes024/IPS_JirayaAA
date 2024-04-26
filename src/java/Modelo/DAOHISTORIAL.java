@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +22,7 @@ public class DAOHISTORIAL extends Conexion {
                 + "OBSERVACION "
                 + "FROM HISTORIAL_MEDICO "
                 + "WHERE IDPERSONA = " + persona.getId_persona();
-        System.out.println(sql);
+        
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
@@ -44,8 +41,25 @@ public class DAOHISTORIAL extends Conexion {
             this.cerrar(false);
             throw e;
         } finally {
-        }        
+        }
         return historiales;
     }
-    
+
+    public void insertarHistorial(HistorialMedico hist) throws Exception {
+        LocalDate fechaHoy = LocalDate.now();
+        String sql = "INSERT INTO `historial_medico` "
+                + "(`IDPERSONA`, `FECHA`, `OBSERVACION`, `MOTIVO_CITA`) "
+                + "VALUES (" + hist.getPersona().getId_persona() + ", "
+                + "'" + fechaHoy + "', '" + hist.getObservacion()+ "', "
+                + "'" + hist.getMotivo_cita() + "');";
+        try {
+            this.conectar(false);
+            this.ejecutarOrden(sql);
+            this.cerrar(true);
+        } catch (Exception e) {
+            this.cerrar(false);
+            throw e;
+        }
+    }
+
 }

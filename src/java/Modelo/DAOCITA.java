@@ -45,7 +45,6 @@ public class DAOCITA extends Conexion {
                 cit.getSede().setNombreSede(rs.getString("NOMBRESEDE"));
                 cit.setConsultorio(new Consultorio());
                 cit.getConsultorio().setNombreConsultorio(rs.getString("NOMBRECONSULTORIO"));
-
                 citas.add(cit);
             }
             this.cerrar(true);
@@ -57,19 +56,14 @@ public class DAOCITA extends Conexion {
     }
 
     public void agendarCitas(Cita cit) throws Exception {
-        String sql;
-        
-                
-                
-
+        String sql;                                      
         sql = "INSERT INTO citas (FECHA, HORA, PACIENTE_ID, DOCTOR_ID, "
                 + "DESCRIPCION, IDSEDE, IDCONSULTORIO)"
                 + "VALUES ('" + cit.getFecha() + "', '" + cit.getHora()
                 + "', " + cit.getPaciente().getId_usuario() + ","
                 + cit.getDoctor().getId_usuario() + ", "
                 + "'" + cit.getDescripcion() + "', " + cit.getSede().getCodigo()
-                + ", " + cit.getConsultorio().getCodigo() + ");";
-        
+                + ", " + cit.getConsultorio().getCodigo() + ");";        
         try {
             this.conectar(false);
             this.ejecutarOrden(sql);
@@ -82,10 +76,8 @@ public class DAOCITA extends Conexion {
 
     public Cita leerCita(Cita cit) throws Exception {
         Cita cits = null;
-
         ResultSet rs = null;
-        String sql;
-        
+        String sql;        
         sql = "SELECT U.IDCITAS, U.FECHA, U.HORA, U.DESCRIPCION, U.IDSEDE, "
                 + "U.IDCONSULTORIO, C.NOMBREUSUARIO,"
                 + " D.NOMBREUSUARIO, S.NOMBRESEDE, P.NOMBRECONSULTORIO"
@@ -95,7 +87,6 @@ public class DAOCITA extends Conexion {
                 + "INNER JOIN sede S ON S.IDSEDE = U.IDSEDE "
                 + "INNER JOIN consultorio P ON P.IDCONSULTORIO = U.IDCONSULTORIO "
                 + "WHERE U.IDCITAS = " + cit.getCodigo();
-        System.out.println(sql);
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
@@ -116,8 +107,7 @@ public class DAOCITA extends Conexion {
                 cits.setConsultorio(new Consultorio());
                 cits.getConsultorio().setCodigo(rs.getInt("IDCONSULTORIO"));
                 cits.getConsultorio().setNombreConsultorio(rs.getString("NOMBRECONSULTORIO"));
-            }
-            
+            }            
             this.cerrar(true);
         } catch (Exception e) {
             this.cerrar(false);
@@ -131,7 +121,6 @@ public class DAOCITA extends Conexion {
         String sql = "UPDATE citas SET FECHA = '" + cit.getFecha() + "', "
                 + "HORA = '" + cit.getHora() + "' "                
                 + "WHERE IDCITAS = " + cit.getCodigo();
-        System.out.println(sql);
         try {
             this.conectar(false);
             this.ejecutarOrden(sql);

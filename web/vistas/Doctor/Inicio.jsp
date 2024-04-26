@@ -29,7 +29,7 @@
                 return userName.charAt(0).toUpperCase() + userName.slice(1).toLowerCase();
             }
         </script>
-        
+
     </head>
 
     <body class="hold-transition skin-blue sidebar-mini" >
@@ -37,7 +37,7 @@
 
             <!-- Main Header -->
             <header class="main-header">
-                <a href="srvUsuario?accion=inicioDoctor" class="logo">
+                <a href="srvUsuario?accion=inicio" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b></b>AA</span>
                     <!-- logo for regular state and mobile devices -->
@@ -61,7 +61,7 @@
 
                                     <img src="dist/img/59613224-el-doctor-avatar-perfil-aisló-el-icono-gráfico-del-ejemplo-del-vector.jpg" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs"><script>document.write(formatUserName('${usuario.nombreUsuario}'));</script></span>
+                                    <span class="hidden-xs">${nombre}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
@@ -104,14 +104,14 @@
                     </div>
 
                     <!-- search form (Optional) -->
-                    
+
                     <!-- /.search form -->
 
                     <!-- Sidebar Menu -->
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">INICIO</li>
                         <!-- Optionally, you can add icons to the links -->
-                        <li class="active"><a href="srvUsuario?accion=inicioDoctor"><i class="fa fa-link"></i> <span>Panel Administrativo</span></a></li>
+                        <li class="active"><a href="srvUsuario?accion=inicio"><i class="fa fa-link"></i> <span>Panel Administrativo</span></a></li>
                         <li class="treeview">
                             <a href="#"><i class="fa fa-heart"></i> <span>Citas</span>
                                 <span class="pull-right-container">
@@ -126,7 +126,7 @@
                             </ul>
                         </li>
                     </ul>
-                    
+
                     <!-- /.sidebar-menu -->
                 </section>
                 <!-- /.sidebar -->
@@ -163,14 +163,14 @@
                                 <button class="small-box-footer" style="border: none; background: none;"></button>
                             </div>
                         </div>
-                        
+
 
                         <!-- ./col -->
 
                 </section>
                 <div style="text-align: center;">
-        <img src="dist/img/logo5.png" alt="Logo" style="display: block; margin: 0 auto;">
-    </div>
+                    <img src="dist/img/logo5.png" alt="Logo" style="display: block; margin: 0 auto;">
+                </div>
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->

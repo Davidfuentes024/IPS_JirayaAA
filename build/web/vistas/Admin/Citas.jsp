@@ -60,7 +60,7 @@
                                     <!-- The user image in the navbar-->
                                     <img src="dist/img/sticker-png-login-icon-system-administrator-user-user-profile-icon-design-avatar-face-head.png" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs"> <script>document.write(formatUserName('${usuario.nombreUsuario}'));</script></span>
+                                    <span class="hidden-xs">${nombre}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
@@ -191,14 +191,14 @@
 
                                                 <td>${cit.fecha}</td>
                                                 <td>${cit.hora}</td>                                            
-                                                <td>${cit.paciente.nombreUsuario}</td>  
-                                                <td>${cit.doctor.nombreUsuario}</td>
+                                                <td><script>document.write(formatUserName('${cit.paciente.nombreUsuario}'));</script></td>  
+                                                <td><script>document.write(formatUserName('${cit.doctor.nombreUsuario}'));</script></td>  
                                                 <td>${cit.descripcion}</td>
-                                                <td>${cit.sede.nombreSede}</td>
-                                                <td>${cit.consultorio.nombreConsultorio}</td>
+                                                <td><script>document.write(formatUserName('${cit.sede.nombreSede}'));</script></td>
+                                                <td><script>document.write(formatUserName('${cit.consultorio.nombreConsultorio}'));</script></td>
                                                 <td><a 
                                                         href="<c:url value="srvUsuario">
-                                                            <c:param name="accion" value="historialMedico" />
+                                                            <c:param name="accion" value="historialMedicoPaciente" />
                                                             <c:param name="codi" value="${cit.paciente.id_usuario}" />
                                                         </c:url>"><button type="button" class="btn btn-primary" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
                                                             <i class="fa fa-clipboard"></i></button></a>
@@ -263,7 +263,7 @@
                                                 <td>${cit.consultorio.nombreConsultorio}</td>
                                                 <td><a 
                                                         href="<c:url value="srvUsuario">
-                                                            <c:param name="accion" value="historialMedico" />
+                                                            <c:param name="accion" value="historialMedicoPaciente" />
                                                             <c:param name="codi" value="${cit.paciente.id_usuario}" />
                                                         </c:url>"><button type="button" class="btn btn-primary" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
                                                             <i class="fa fa-clipboard"></i></button></a>
@@ -333,9 +333,9 @@
         <script src="swetalert/sweetalert.js" type="text/javascript"></script>
         <script src="js/funcionesUsuario.js" type="text/javascript"></script>
         <script>
-                                $(document).ready(function () {
-                                    $('#tablaCitas').DataTable();
-                                });
+                                                    $(document).ready(function () {
+                                                        $('#tablaCitas').DataTable();
+                                                    });
         </script>
         <script>
             $(document).ready(function () {

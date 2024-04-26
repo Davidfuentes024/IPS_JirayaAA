@@ -1,9 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
-
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -53,19 +48,13 @@ public class DAOUSUARIO extends Conexion {
         ResultSet rs = null;
 
         try {
-            // Cifrar la clave proporcionada por el usuario
-            String claveCifrada = cifrarClave(user.getClave());            
-            // Construir la consulta SQL con la clave cifrada
+            String claveCifrada = cifrarClave(user.getClave());
             String sql = "SELECT U.IDUSUARIO, C.NOMBRECARGO, U.IDCARGO FROM usuario "
                     + "U INNER JOIN CARGO C ON U.IDCARGO = C.IDCARGO "
                     + "WHERE U.ESTADO = 1 AND U.NOMBREUSUARIO =  '" + user.getNombreUsuario() + "'"
                     + "AND U.CLAVE = '" + claveCifrada + "'";
-
-            // Ejecutar la consulta SQL
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
-
-            // Procesar el resultado de la consulta
             if (rs.next() == true) {
                 usu = new Usuario();
                 usu.setId_usuario(rs.getInt("IDUSUARIO"));
@@ -78,7 +67,6 @@ public class DAOUSUARIO extends Conexion {
         } catch (Exception e) {
             System.out.println("Error " + e.getMessage());
         } finally {
-            // Cerrar recursos
             if (rs != null) {
                 rs.close();
             }
@@ -90,21 +78,15 @@ public class DAOUSUARIO extends Conexion {
 
     public static String cifrarClave(String clave) {
         try {
-            // Obtener la instancia del algoritmo de hash MD5
             MessageDigest md = MessageDigest.getInstance("MD5");
-            // Convertir la clave a un arreglo de bytes
             byte[] bytes = clave.getBytes();
-            // Calcular el hash de la clave
             byte[] hash = md.digest(bytes);
-            // Convertir el hash de bytes a una representación hexadecimal
             StringBuilder sb = new StringBuilder();
             for (byte b : hash) {
-                // Formatear cada byte como un dígito hexadecimal
                 sb.append(String.format("%02x", b & 0xff));
             }
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
-            // Manejar la excepción si el algoritmo MD5 no está disponible
             e.printStackTrace();
             return null;
         }
@@ -129,7 +111,6 @@ public class DAOUSUARIO extends Conexion {
                 doc.setNombreUsuario("NOMBREUSUARIO");
             }
             rs.close();
-
             this.cerrar(true);
         } catch (Exception e) {
             throw e;
@@ -145,7 +126,6 @@ public class DAOUSUARIO extends Conexion {
         String sql = "SELECT U.IDUSUARIO, U.NOMBREUSUARIO, U.CLAVE, U.ESTADO, "
                 + "C.NOMBRECARGO FROM usuario U INNER JOIN cargo C "
                 + "ON C.IDCARGO = U.IDCARGO ORDER BY U.IDUSUARIO";
-
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
@@ -160,7 +140,6 @@ public class DAOUSUARIO extends Conexion {
                 usu.getCargo().setNombreCargo(rs.getString("NOMBRECARGO"));
                 usuarios.add(usu);
             }
-
             this.cerrar(true);
         } catch (Exception e) {
             throw e;
@@ -169,7 +148,7 @@ public class DAOUSUARIO extends Conexion {
         return usuarios;
     }
 
-    public void registrarUsuarios(Usuario usu) throws Exception {
+    public Usuario registrarUsuarios(Usuario usu) throws Exception {
         String sql;
         String claveCifrada = cifrarClave(usu.getClave());
         usu.setClave(claveCifrada);
@@ -183,9 +162,26 @@ public class DAOUSUARIO extends Conexion {
             this.ejecutarOrden(sql);
             this.cerrar(true);
         } catch (Exception e) {
+            this.cerrar(false);            
+            throw e;
+        }
+        ResultSet rs = null;
+        sql = "SELECT IDUSUARIO from usuario "
+                + "where NOMBREUSUARIO = '" + usu.getNombreUsuario() + "'";
+        try {
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+            if (rs.next() == true) {
+                
+                usu.setId_usuario(rs.getInt("IDUSUARIO"));                
+            }
+            rs.close();
+            this.cerrar(true);
+        } catch (Exception e) {
             this.cerrar(false);
             throw e;
         }
+        return usu;
     }
 
     public Usuario leerUsuario(Usuario usu) throws Exception {
@@ -193,7 +189,6 @@ public class DAOUSUARIO extends Conexion {
         ResultSet rs = null;
         String sql = "SELECT U.IDUSUARIO, U.NOMBREUSUARIO, U.CLAVE, U.ESTADO, U.IDCARGO "
                 + "FROM usuario U WHERE U.IDUSUARIO = " + usu.getId_usuario();
-
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
@@ -214,8 +209,6 @@ public class DAOUSUARIO extends Conexion {
         }
         return usus;
     }
-    
-    
 
     public void actualizarUsuarios(Usuario usu) throws Exception {
         String claveCifrada = cifrarClave(usu.getClave());
@@ -235,20 +228,7 @@ public class DAOUSUARIO extends Conexion {
             this.cerrar(false);
             throw e;
         }
-    }
-
-    public void eliminarUsuario(Usuario usu) throws Exception {
-        String sql = "DELETE FROM USUARIO"
-                + " WHERE IDUSUARIO = " + usu.getId_usuario();
-        try {
-            this.conectar(false);
-            this.ejecutarOrden(sql);
-            this.cerrar(true);
-        } catch (Exception e) {
-            this.cerrar(false);
-            throw e;
-        }
-    }
+    }    
 
     public void cambiarVigencia(Usuario usus) throws Exception {
         String sql = "UPDATE usuario SET estado = "
@@ -263,5 +243,4 @@ public class DAOUSUARIO extends Conexion {
             throw e;
         }
     }
-
 }
