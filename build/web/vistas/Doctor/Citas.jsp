@@ -78,7 +78,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-right">
-                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
+                                            <a href="srvSession?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -123,9 +123,7 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <!--<li><a href="srvUsuario?accion=nuevaCita"><i class="fa fa-heart"></i>Nueva Cita</a></li>-->
-
-                                <li><a href="srvUsuario?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
+                                <li><a href="srvCita?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
 
                             </ul>
                         </li>
@@ -177,13 +175,13 @@
 
                                                 <td>${cit.fecha}</td>
                                                 <td>${cit.hora}</td>                                            
-                                                <td><script>document.write(formatUserName('${cit.paciente.nombreUsuario}'));</script></td>  
-                                                <td><script>document.write(formatUserName('${cit.doctor.nombreUsuario}'));</script></td>  
+                                                <td>${cit.paciente.nombreUsuario}</td>  
+                                                <td>${cit.doctor.nombreUsuario}</td>  
                                                 <td>${cit.descripcion}</td>
                                                 <td><script>document.write(formatUserName('${cit.sede.nombreSede}'));</script></td>
                                                 <td><script>document.write(formatUserName('${cit.consultorio.nombreConsultorio}'));</script></td>
                                                 <td><a 
-                                                        href="<c:url value="srvUsuario">
+                                                        href="<c:url value="srvHistorial">
                                                             <c:param name="accion" value="historialMedicoPaciente" />
                                                             <c:param name="codi" value="${cit.paciente.id_usuario}" />
                                                         </c:url>"><button type="button" class="btn btn-primary" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
@@ -192,12 +190,12 @@
                                                     <c:choose>
                                                         <c:when test="${cit.estado == true}">
                                                             <input type="hidden" id="item" value="${cit.codigo}">
-                                                            <a id="desactivarUsuario" href="srvUsuario?cambiarEstadoCita=desactivar&cod=${cit.codigo}" class="btn btn-success"  data-toggle="tooltip" title="Desactivar" data-original-title="Desactivar">
+                                                            <a id="desactivarUsuario" href="srvCita?cambiarEstadoCita=desactivar&cod=${cit.codigo}" class="btn btn-success"  data-toggle="tooltip" title="Desactivar" data-original-title="Desactivar">
                                                                 <i class="fa fa-check"></i></a>
                                                             </c:when>
                                                             <c:otherwise>
                                                             <input type="hidden" id="item" value="${cit.codigo}">
-                                                            <a id="activarUsuario" href="srvUsuario?cambiarEstadoCita=activar&cod=${cit.codigo}" class="btn btn-danger" data-toggle="tooltip" title="Activar" data-original-title="Activar">
+                                                            <a id="activarUsuario" href="srvCita?cambiarEstadoCita=activar&cod=${cit.codigo}" class="btn btn-danger" data-toggle="tooltip" title="Activar" data-original-title="Activar">
                                                                 <i class="fa fa-remove"></i></a>
                                                             </c:otherwise>
                                                         </c:choose>
@@ -243,12 +241,12 @@
                                                 <td>${cit.fecha}</td>
                                                 <td>${cit.hora}</td>                                            
                                                 <td>${cit.paciente.nombreUsuario}</td>  
-                                                <td>${cit.doctor.nombreUsuario}</td>
+                                                <td>${cit.doctor.nombreUsuario}</td>  
                                                 <td>${cit.descripcion}</td>
-                                                <td>${cit.sede.nombreSede}</td>
-                                                <td>${cit.consultorio.nombreConsultorio}</td>
+                                                <td><script>document.write(formatUserName('${cit.sede.nombreSede}'));</script></td>
+                                                <td><script>document.write(formatUserName('${cit.consultorio.nombreConsultorio}'));</script></td>
                                                 <td><a 
-                                                        href="<c:url value="srvUsuario">
+                                                        href="<c:url value="srvHistorial">
                                                             <c:param name="accion" value="historialMedicoPaciente" />
                                                             <c:param name="codi" value="${cit.paciente.id_usuario}" />
                                                         </c:url>"><button type="button" class="btn btn-primary" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
@@ -257,12 +255,12 @@
                                                     <c:choose>
                                                         <c:when test="${cit.estado == true}">
                                                             <input type="hidden" id="item" value="${cit.codigo}">
-                                                            <a id="desactivarUsuario" href="srvUsuario?cambiarEstadoCita=desactivar&cod=${cit.codigo}" class="btn btn-success"  data-toggle="tooltip" title="Desactivar" data-original-title="Desactivar">
+                                                            <a id="desactivarUsuario" href="srvCita?cambiarEstadoCita=desactivar&cod=${cit.codigo}" class="btn btn-success"  data-toggle="tooltip" title="Desactivar" data-original-title="Desactivar">
                                                                 <i class="fa fa-check"></i></a>
                                                             </c:when>
                                                             <c:otherwise>
                                                             <input type="hidden" id="item" value="${cit.codigo}">
-                                                            <a id="activarUsuario" href="srvUsuario?cambiarEstadoCita=activar&cod=${cit.codigo}" class="btn btn-danger" data-toggle="tooltip" title="Activar" data-original-title="Activar">
+                                                            <a id="activarUsuario" href="srvCita?cambiarEstadoCita=activar&cod=${cit.codigo}" class="btn btn-danger" data-toggle="tooltip" title="Activar" data-original-title="Activar">
                                                                 <i class="fa fa-remove"></i></a>
                                                             </c:otherwise>
                                                         </c:choose>
@@ -313,9 +311,9 @@
         <script src="swetalert/sweetalert.js" type="text/javascript"></script>
         <script src="js/funcionesUsuario.js" type="text/javascript"></script>
         <script>
-                                $(document).ready(function () {
-                                    $('#tablaCitas').DataTable();
-                                });
+                                                    $(document).ready(function () {
+                                                        $('#tablaCitas').DataTable();
+                                                    });
         </script>
         <script>
             $(document).ready(function () {

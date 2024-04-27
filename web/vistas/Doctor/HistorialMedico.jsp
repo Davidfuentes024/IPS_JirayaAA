@@ -87,7 +87,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-right">
-                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
+                                            <a href="srvSession?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -134,7 +134,7 @@
                             <ul class="treeview-menu">
                                 <!--<li><a href="srvUsuario?accion=nuevaCita"><i class="fa fa-heart"></i>Nueva Cita</a></li>-->
 
-                                <li><a href="srvUsuario?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
+                                <li><a href="srvCita?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
 
                             </ul>
                         </li>
@@ -233,12 +233,14 @@
                                             <tbody>
                                                 <!-- Aquí iteramos sobre la lista de historiales -->
                                                 <c:forEach var="historial" items="${historiales}">
-                                                    <tr>
+                                                    <c:if test="${historial.estado eq true}">
+                                                        <tr>
 
-                                                        <td>${historial.fecha}</td>
-                                                        <td>${historial.motivo_cita}</td>
-                                                        <td>${historial.observacion}</td>
-                                                    </tr>
+                                                            <td>${historial.fecha}</td>
+                                                            <td>${historial.motivo_cita}</td>
+                                                            <td>${historial.observacion}</td>
+                                                        </tr>
+                                                    </c:if>
                                                 </c:forEach>
                                             </tbody>
                                         </table>
@@ -246,7 +248,7 @@
                                 </div>
                             </div>
 
-                            <form action="srvUsuario?accion=insertarHistorial" method="post">    
+                            <form action="srvHistorial?accion=insertarHistorial" method="post">    
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">Motivo de la Cita</h3>
@@ -267,7 +269,7 @@
                                 <input type="hidden" name="codigo" value="${personaN.id_persona}">
                                 <input type="hidden" name="codig" value="${personaN.usuario.id_usuario}">
                                 <button type="submit" class="btn btn-primary">Agregar Historial Médico</button>
-                                <a href="srvUsuario?accion=listarCitas" class="btn btn-default">
+                                <a href="srvCita?accion=listarCitas" class="btn btn-default">
                                     <i></i> Ver listado</a> 
                             </form>
                         </div>

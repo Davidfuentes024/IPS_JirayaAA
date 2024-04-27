@@ -75,7 +75,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-right">
-                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
+                                            <a href="srvSession?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -117,7 +117,7 @@
                             </a>
                             <ul class="treeview-menu">                                
                                 <li><a href="srvUsuario?accion=listarUsuarios"><i class="fa fa-address-card"></i>Administrar Usuarios</a></li>
-                                <li><a href="srvUsuario?accion=listarPersonas"><i class="fa fa-users"></i>Administrar Personas</a></li>
+                                <li><a href="srvPersona?accion=listarPersonas"><i class="fa fa-users"></i>Administrar Personas</a></li>
                                 <li><a href="srvUsuario?accion=nuevo"><i class="fa fa-user-plus"></i>Nuevo Usuario</a></li>
                             </ul>
 
@@ -134,7 +134,7 @@
 
                                 <!-- Mostrar enlace "Nueva Cita" solo para Pacientes -->                                
 
-                                <li><a href="srvUsuario?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
+                                <li><a href="srvCita?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
 
                             </ul>
                         </li>
@@ -197,7 +197,7 @@
                                             <td>${persona.estado_civil}</td>
                                             <td>${persona.numero_documento}</td>
                                             <td>
-                                                <a href="<c:url value="srvUsuario">
+                                                <a href="<c:url value="srvPersona">
                                                        <c:param name="accion" value="leerPersona" />
                                                        <c:param name="cod" value="${persona.usuario.id_usuario}" />
                                                    </c:url>"><button type="button" class="btn btn-warning" data-toggle="tooltip"  title="Editar" data-original-title="Editar">

@@ -14,7 +14,6 @@ public class DAOUSUARIO extends Conexion {
 
     public Usuario identificar(Usuario user) throws Exception {
         Usuario usu = null;
-
         ResultSet rs = null;
         String sql = "SELECT U.IDUSUARIO, C.NOMBRECARGO, U.IDCARGO FROM usuario "
                 + "U INNER JOIN CARGO C ON U.IDCARGO = C.IDCARGO "

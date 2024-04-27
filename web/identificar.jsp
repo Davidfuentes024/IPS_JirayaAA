@@ -42,7 +42,7 @@
                 <div class="login-box-body">
                     <p class="login-box-msg">Iniciar Sesión</p>
 
-                    <form action="srvUsuario?accion=verificar" method="POST">
+                    <form action="srvSession?accion=verificar" method="POST">
                         <div class="form-group has-feedback">
                             <input type="text" name="txtUsu" id="txtUsu" value="" class="form-control"  placeholder="Usuario">
                             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

@@ -76,7 +76,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-right">
-                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
+                                            <a href="srvSession?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -121,7 +121,7 @@
                             <ul class="treeview-menu">
                                 <!--<li><a href="srvUsuario?accion=nuevaCita"><i class="fa fa-heart"></i>Nueva Cita</a></li>-->
 
-                                <li><a href="srvUsuario?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
+                                <li><a href="srvCita?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
 
                             </ul>
                         </li>
@@ -149,7 +149,7 @@
                 <section class="content">
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
-                        <div class="col-lg-3 col-xs-6" style="cursor: pointer;" onclick="window.location.href = 'srvUsuario?accion=listarCitas'">
+                        <div class="col-lg-3 col-xs-6" style="cursor: pointer;" onclick="window.location.href = 'srvCita?accion=listarCitas'">
                             <!-- small box -->
                             <div class="small-box bg-aqua">
                                 <div class="inner">

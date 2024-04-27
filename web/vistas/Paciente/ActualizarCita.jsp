@@ -76,10 +76,10 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-right">
-                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default">Cerrar Sesion</a>
+                                            <a href="srvSession?accion=cerrar" class="btn btn-default">Cerrar Sesion</a>
                                         </div>
                                         <div class="pull-left">
-                                            <a href="<c:url value="srvUsuario">
+                                            <a href="<c:url value="srvHistorial">
                                                    <c:param name="accion" value="historialMedicoPaciente" />
                                                    <c:param name="codi" value="${usuario.id_usuario}" />
                                                </c:url>" class="btn btn-primary ">Ver mi Perfil</a>                                             
@@ -129,9 +129,9 @@
                                 <!-- Mostrar enlace "Nueva Cita" solo para Pacientes -->
 
                                 <!-- Mostrar enlace "Nueva Cita" solo para Pacientes -->
-                                <li><a href="srvUsuario?accion=nuevaCita"><i class="fa fa-heart"></i>Nueva Cita</a></li>
+                                <li><a href="srvCita?accion=nuevaCita"><i class="fa fa-heart"></i>Nueva Cita</a></li>
 
-                                <li><a href="srvUsuario?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
+                                <li><a href="srvCita?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
 
                             </ul>
                         </li>
@@ -183,7 +183,7 @@
                             }
                         </script>
 
-                        <form class="form-horizontal" action="srvUsuario?accion=actualizarCita" method="post">
+                        <form class="form-horizontal" action="srvCita?accion=actualizarCita" method="post">
                             <input type="hidden" name="idCita" value="${citN.codigo}">
                             <div class="box-body">
                                 <div class="form-group" style="">
@@ -231,7 +231,7 @@
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <a href="srvUsuario?accion=listarCitas" class="btn btn-danger"><i class="fa fa-close red"></i>Cancelar</a>
+                                <a href="srvCita?accion=listarCitas" class="btn btn-danger"><i class="fa fa-close red"></i>Cancelar</a>
                                 <button type="submit" id="" name="btnRegistrar" value="Registrar" class="btn btn-success" onclick="return validarFormulario();"><i class="fa fa-floppy-o"></i> Actualizar</button>
                             </div>
                     </div>
@@ -265,7 +265,7 @@
                                     }
                                 }
                             };
-                            xhr.open('GET', 'srvUsuario?accion=cargarHoras&fecha=' + fechaSeleccionada + '&sede=' + sedeSeleccionada + '&consultorio=' + consultorioSeleccionado);
+                            xhr.open('GET', 'srvCita?accion=cargarHoras&fecha=' + fechaSeleccionada + '&sede=' + sedeSeleccionada + '&consultorio=' + consultorioSeleccionado);
                             xhr.send();
                         }
 

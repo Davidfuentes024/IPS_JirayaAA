@@ -77,7 +77,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-right">
-                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
+                                            <a href="srvSession?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -119,7 +119,7 @@
                             </a>
                             <ul class="treeview-menu">                                
                                 <li><a href="srvUsuario?accion=listarUsuarios"><i class="fa fa-address-card"></i>Administrar Usuarios</a></li>
-                                <li><a href="srvUsuario?accion=listarPersonas"><i class="fa fa-users"></i>Administrar Personas</a></li>
+                                <li><a href="srvPersona?accion=listarPersonas"><i class="fa fa-users"></i>Administrar Personas</a></li>
                                 <li><a href="srvUsuario?accion=nuevo"><i class="fa fa-user-plus"></i>Nuevo Usuario</a></li>
                             </ul>
 
@@ -136,7 +136,7 @@
 
                                 <!-- Mostrar enlace "Nueva Cita" solo para Pacientes -->                                
 
-                                <li><a href="srvUsuario?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
+                                <li><a href="srvCita?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
 
                             </ul>
                         </li>
@@ -161,7 +161,7 @@
                 </section>
 
                 <section class="content">
-                    <a href="srvUsuario?accion=listarCitas" class="btn btn-default">
+                    <a href="srvCita?accion=listarCitas" class="btn btn-default">
                         <i class="fa fa-align-justify"></i> Ver listado</a> 
                     <div class="form-group">
                     </div>
@@ -251,11 +251,12 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Historiales Médicos</h3>
+                                    <h3 class="panel-title">Historiales Médicos activos</h3>
                                 </div>
                                 <div class="panel-body">
                                     <div class="table-responsive">
@@ -266,17 +267,33 @@
                                                     <th data-defaultsort="asc">Fecha</th>
                                                     <th>Motivo de la Cita</th>
                                                     <th>Observación</th>
+                                                    <th>Acciones</th> 
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <!-- Aquí iteramos sobre la lista de historiales -->
                                                 <c:forEach var="historial" items="${historiales}">
-                                                    <tr>
+                                                    <c:if test="${historial.estado eq true}">
+                                                        <tr>
 
-                                                        <td>${historial.fecha}</td>
-                                                        <td>${historial.motivo_cita}</td>
-                                                        <td>${historial.observacion}</td>
-                                                    </tr>
+                                                            <td>${historial.fecha}</td>
+                                                            <td>${historial.motivo_cita}</td>
+                                                            <td>${historial.observacion}</td>
+                                                            <td>
+
+
+                                                                <input type="hidden" value="${historial.id_historial}">
+                                                                   
+                                                                <a href="srvHistorial?cambiarEstadoHistorial=desactivar&id=${historial.id_historial}&codig=${personaN.usuario.id_usuario}&codigo=${personaN.id_persona}" class="btn btn-success" data-toggle="tooltip" title="Desactivar" data-original-title="Desactivar">
+                                                                    <i class="fa fa-check"></i>
+                                                                </a>
+
+
+
+
+                                                            </td>
+                                                        </tr>
+                                                    </c:if>
                                                 </c:forEach>
                                             </tbody>
                                         </table>
@@ -285,10 +302,54 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Historiales Médicos inactivos</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table id="historial-table-inactivos" class="table table-bordered table-striped table-sortable">
+                                            <thead>
+                                                <tr>
+
+                                                    <th data-defaultsort="asc">Fecha</th>
+                                                    <th>Motivo de la Cita</th>
+                                                    <th>Observación</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Aquí iteramos sobre la lista de historiales -->
+                                                <c:forEach var="historial" items="${historiales}">
+                                                    <c:if test="${historial.estado eq false}">
+                                                        <tr>
+
+                                                            <td>${historial.fecha}</td>
+                                                            <td>${historial.motivo_cita}</td>
+                                                            <td>${historial.observacion}</td>
+                                                            <td>
 
 
+                                                                <input type="hidden" value="${historial.id_historial}">
+                                                                <a href="srvHistorial?cambiarEstadoHistorial=activar&id=${historial.id_historial}&codig=${personaN.usuario.id_usuario}&codigo=${personaN.id_persona}" class="btn btn-danger" data-toggle="tooltip" title="Activar" data-original-title="Activar">
+                                                                    <i class="fa fa-remove"></i>
+                                                                </a>
+
+
+                                                            </td>
+                                                        </tr>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </section>
-
             </div>
             <!-- /.content-wrapper -->
 
@@ -322,6 +383,7 @@
         <script>
                                 $(document).ready(function () {
                                     $('#historial-table').DataTable();
+                                    $('#historial-table-inactivos').DataTable();
                                 });
         </script>
         <!-- Optionally, you can add Slimscroll and FastClick plugins.

@@ -80,10 +80,10 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-right">
-                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default">Cerrar Sesion</a>
+                                            <a href="srvSession?accion=cerrar" class="btn btn-default">Cerrar Sesion</a>
                                         </div>
                                         <div class="pull-left">
-                                            <a href="<c:url value="srvUsuario">
+                                            <a href="<c:url value="srvHistorial">
                                                             <c:param name="accion" value="historialMedicoPaciente" />
                                                             <c:param name="codi" value="${usuario.id_usuario}" />
                                                         </c:url>" class="btn btn-primary ">Ver mi Perfil</a>                                             
@@ -137,9 +137,9 @@
                                 <!-- Mostrar enlace "Nueva Cita" solo para Pacientes -->
 
                                 <!-- Mostrar enlace "Nueva Cita" solo para Pacientes -->
-                                <li><a href="srvUsuario?accion=nuevaCita"><i class="fa fa-heart"></i>Nueva Cita</a></li>
+                                <li><a href="srvCita?accion=nuevaCita"><i class="fa fa-heart"></i>Nueva Cita</a></li>
 
-                                <li><a href="srvUsuario?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
+                                <li><a href="srvCita?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
 
                             </ul>
                         </li>
@@ -156,7 +156,7 @@
                 </section>
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <a href="srvUsuario?accion=nuevaCita" class="btn btn-success">
+                    <a href="srvCita?accion=nuevaCita" class="btn btn-success">
                         <i class="fa fa-plus"></i> Nueva Cita </a>
 
                     <ol class="breadcrumb">
@@ -194,18 +194,18 @@
 
                                                 <td>${cit.fecha}</td>
                                                 <td>${cit.hora}</td>                                            
-                                                <td><script>document.write(formatUserName('${cit.paciente.nombreUsuario}'));</script></td>  
-                                                <td><script>document.write(formatUserName('${cit.doctor.nombreUsuario}'));</script></td>  
+                                                <td>${cit.paciente.nombreUsuario}</td>  
+                                                <td>${cit.doctor.nombreUsuario}</td>  
                                                 <td>${cit.descripcion}</td>
                                                 <td><script>document.write(formatUserName('${cit.sede.nombreSede}'));</script></td>
                                                 <td><script>document.write(formatUserName('${cit.consultorio.nombreConsultorio}'));</script></td>
-                                                <td><a href="<c:url value="srvUsuario">
+                                                <td><a href="<c:url value="srvCita">
                                                            <c:param name="accion" value="leerCita" />
                                                            <c:param name="cod" value="${cit.codigo}" />
                                                        </c:url>"><button type="button" class="btn btn-warning" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
                                                             <i class="fa fa-pencil"></i></button></a>
                                                     <a 
-                                                        href="<c:url value="srvUsuario">
+                                                        href="<c:url value="srvHistorial">
                                                             <c:param name="accion" value="historialMedicoPaciente" />
                                                             <c:param name="codi" value="${cit.paciente.id_usuario}" />
                                                         </c:url>"><button type="button" class="btn btn-primary" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
@@ -267,12 +267,14 @@
                                                 <td>${cit.paciente.nombreUsuario}</td>  
                                                 <td>${cit.doctor.nombreUsuario}</td>
                                                 <td>${cit.descripcion}</td>
-                                                <td>${cit.sede.nombreSede}</td>
-                                                <td>${cit.consultorio.nombreConsultorio}</td>
+                                                <td><script>document.write(formatUserName('${cit.sede.nombreSede}'));</script></td>
+                                                <td><script>document.write(formatUserName('${cit.consultorio.nombreConsultorio}'));</script></td>
                                                 <td><a 
-                                                        href="srvUsuario?accion=historialMedicoPaciente"><button type="button" class="btn btn-primary" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
+                                                        href="<c:url value="srvHistorial">
+                                                            <c:param name="accion" value="historialMedicoPaciente" />
+                                                            <c:param name="codi" value="${cit.paciente.id_usuario}" />
+                                                        </c:url>"><button type="button" class="btn btn-primary" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
                                                             <i class="fa fa-clipboard"></i></button></a>
-                                                    <!-- DESACTIVAR / ACTIVAR CITAS -->
                                                     <c:choose>
                                                         <c:when test="${cit.estado == true}">
                                                             <input type="hidden" id="item" value="${cit.codigo}">

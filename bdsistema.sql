@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 26-04-2024 a las 07:54:52
+-- Tiempo de generación: 27-04-2024 a las 09:30:57
 -- Versión del servidor: 8.0.17
 -- Versión de PHP: 7.3.10
 
@@ -69,7 +69,7 @@ INSERT INTO `citas` (`IDCITAS`, `FECHA`, `HORA`, `PACIENTE_ID`, `DOCTOR_ID`, `DE
 (3, '2024-04-15', '10:00:00', 2, 13, 'Consulta médica de rutina', 1, 2, b'0'),
 (4, '2024-04-15', '12:00:00', 3, 13, 'Consulta médica de rutina', 1, 2, b'0'),
 (5, '2024-04-18', '08:15:00', 2, 13, 'Consulta psicología', 2, 4, b'0'),
-(6, '2024-04-15', '11:00:00', 2, 13, 'Consulta médica de rutina', 1, 1, b'0'),
+(6, '2024-04-15', '11:00:00', 2, 13, 'Consulta médica de rutina', 1, 1, b'1'),
 (7, '2024-04-15', '11:00:00', 2, 13, 'Consulta médica de rutina', 2, 2, b'0'),
 (8, '2024-04-15', '11:00:00', 2, 13, 'Consulta médica de rutina', 2, 1, b'0'),
 (9, '2024-04-26', '09:00:00', 3, 39, 'Consulta médica', 2, 1, b'0'),
@@ -80,9 +80,9 @@ INSERT INTO `citas` (`IDCITAS`, `FECHA`, `HORA`, `PACIENTE_ID`, `DOCTOR_ID`, `DE
 (14, '2024-04-19', '08:30:00', 3, 42, 'Consulta médica', 1, 2, b'0'),
 (15, '2024-04-24', '08:30:00', 3, 41, 'Consulta médica', 4, 1, b'0'),
 (16, '2024-04-25', '08:30:00', 3, 38, 'Consulta médica', 1, 1, b'1'),
-(17, '2024-04-20', '08:30:00', 3, 50, 'Consulta médica', 1, 4, b'1'),
+(17, '2024-04-20', '08:30:00', 3, 50, 'Consulta médica', 1, 4, b'0'),
 (18, '2024-04-25', '13:00:00', 3, 41, 'Consulta médica', 1, 4, b'1'),
-(19, '2024-04-26', '12:30:00', 3, 59, 'Consulta médica', 6, 2, b'1'),
+(19, '2024-04-26', '12:30:00', 3, 59, 'Consulta médica', 6, 2, b'0'),
 (20, '2024-05-25', '09:30:00', 3, 61, 'Consulta médica', 6, 4, b'1'),
 (21, '2024-04-30', '10:00:00', 3, 62, 'Consulta médica', 7, 1, b'1'),
 (22, '2024-05-02', '09:30:00', 3, 38, 'Consulta médica', 1, 1, b'1'),
@@ -93,7 +93,9 @@ INSERT INTO `citas` (`IDCITAS`, `FECHA`, `HORA`, `PACIENTE_ID`, `DOCTOR_ID`, `DE
 (27, '2024-04-26', '08:00:00', 67, 50, 'Consulta médica', 4, 1, b'0'),
 (28, '2024-04-26', '08:00:00', 3, 50, 'Consulta médica', 4, 1, b'0'),
 (29, '2024-04-24', '10:30:00', 3, 55, 'Consulta médica', 5, 2, b'1'),
-(30, '2024-05-10', '12:00:00', 70, 44, 'Consulta de medicina interna', 2, 3, b'1');
+(30, '2024-05-10', '12:00:00', 70, 44, 'Consulta de medicina interna', 2, 3, b'1'),
+(31, '2024-04-27', '08:00:00', 72, 59, 'Consulta de fisioterapia', 6, 2, b'0'),
+(32, '2024-05-01', '14:30:00', 74, 39, 'Consulta de fisioterapia', 1, 2, b'1');
 
 -- --------------------------------------------------------
 
@@ -128,19 +130,30 @@ CREATE TABLE `historial_medico` (
   `IDPERSONA` int(11) DEFAULT NULL,
   `FECHA` date DEFAULT NULL,
   `OBSERVACION` text,
-  `MOTIVO_CITA` varchar(100) DEFAULT NULL
+  `MOTIVO_CITA` varchar(100) DEFAULT NULL,
+  `estado` bit(1) DEFAULT b'1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `historial_medico`
 --
 
-INSERT INTO `historial_medico` (`IDHISTORIAL`, `IDPERSONA`, `FECHA`, `OBSERVACION`, `MOTIVO_CITA`) VALUES
-(1, 1, '2024-04-24', 'Este paciente ha sido examinado y se encuentra en buen estado de salud general.', 'Consulta médica de rutina'),
-(2, 2, '2024-04-24', 'Este paciente ha sido evaluado y no presenta problemas médicos significativos.', 'Consulta médica de rutina'),
-(3, 3, '2024-04-24', 'Este paciente ha sido revisado y se encuentra en condiciones normales de salud.', 'Consulta médica de rutina'),
-(8, 2, '2024-04-26', 'Todo en orden', 'Consulta rutinaria'),
-(9, 37, '2024-04-26', 'Todo en orden', 'Consulta rutinaria por fisioterapia');
+INSERT INTO `historial_medico` (`IDHISTORIAL`, `IDPERSONA`, `FECHA`, `OBSERVACION`, `MOTIVO_CITA`, `estado`) VALUES
+(1, 1, '2024-04-24', 'Este paciente ha sido examinado y se encuentra en buen estado de salud general.', 'Consulta médica de rutina', b'1'),
+(2, 2, '2024-04-24', 'Este paciente ha sido evaluado y no presenta problemas médicos significativos.', 'Consulta médica de rutina', b'1'),
+(3, 3, '2024-04-24', 'Este paciente ha sido revisado y se encuentra en condiciones normales de salud.', 'Consulta médica de rutina', b'1'),
+(8, 2, '2024-04-26', 'Todo en orden', 'Consulta rutinaria', b'1'),
+(9, 37, '2024-04-26', 'Todo en orden', 'Consulta rutinaria por fisioterapia', b'0'),
+(10, 2, '2024-04-26', 'Todo en orden', 'Consulta rutinaria', b'0'),
+(11, 2, '2024-04-26', 'Todo en orden', 'Consulta rutinaria	', b'0'),
+(12, 2, '2024-04-26', 'Todo en orden', 'Consulta rutinaria	', b'0'),
+(13, 39, '2024-04-26', 'Todo en orden', 'Cita Rutinaria', b'1'),
+(14, 2, '2024-04-26', 'Todo en orden', 'Consulta mÃ©dica de rutina', b'0'),
+(15, 2, '2024-04-26', 'Todo en orden\r\n', 'Consulta mÃ©dica de rutina	', b'0'),
+(16, 2, '2024-04-26', 'Todo en orden', 'Consulta mÃ©dica de rutina	', b'0'),
+(17, 2, '2024-04-26', 'Todo en orden\r\n', 'Consulta mÃ©dica de rutina	', b'0'),
+(18, 2, '2024-04-26', 'Todo en orden\r\n', 'Consulta médica de rutina	', b'0'),
+(19, 2, '2024-04-27', 'éeeeeeéééé', 'éeeeeeéééé', b'0');
 
 -- --------------------------------------------------------
 
@@ -197,13 +210,17 @@ INSERT INTO `persona` (`IDPERSONA`, `NOMBRE_COMPLETO`, `TIPO_SANGRE`, `GENERO`, 
 (26, 'Isabella García Sánchez', 'A+', 'Femenino', 'Bogotá, Colombia', 'isabella@gmail.com', '3102583691', 'Trv. 230 #240-250', 'Estudiante', 'Soltero(a)', '258369147', 58, '2012-10-28'),
 (27, 'Mateo Pérez Martínez', 'B-', 'Masculino', 'Cali, Colombia', 'mateo@hotmail.com', '3103698521', 'Diag. 240 #250-260', 'Doctor', 'Casado(a)', '369852147', 59, '2010-01-01'),
 (28, 'Natalia Rodríguez López', 'O+', 'Femenino', 'Medellín, Colombia', 'natalia@gmail.com', '3108521473', 'Cra. 250 #260-270', 'Arquitecta', 'Soltero(a)', '852147369', 60, '2007-03-17'),
-(29, 'Alejandro Gómez Sánchez', 'AB-', 'Masculino', 'Barranquilla, Colombia', 'alejandro@hotmail.com', '3107418529', 'Av. 260 #270-280', 'Empresario', 'Casado(a)', '741852963', 61, '2021-09-05'),
+(29, 'Alejandro Gomez Sanchez', 'AB-', 'Masculino', 'Barranquilla, Colombia', 'alejandro@hotmail.com', '3107418529', 'Av. 260 #270-280', 'Empresario', 'Casado(a)', '741852963', 61, '2002-06-08'),
 (30, 'Valeria García López', 'A+', 'Femenino', 'Piedecuesta, Colombia', 'valeria@gmail.com', '3109638527', 'Cll. 270 #280-290', 'Ingeniera', 'Soltero(a)', '963852741', 62, '2022-06-27'),
 (31, 'Lucas Martínez Gómez', 'B-', 'Masculino', 'Bucaramanga, Colombia', 'lucas@hotmail.com', '3101593578', 'Trv. 280 #290-300', 'Piloto', 'Casado(a)', '159357852', 63, '2023-01-29'),
 (32, 'Mariana Rodríguez Martínez', 'AB+', 'Femenino', 'Pamplona, Colombia', 'mariana@gmail.com', '3103571598', 'Av. 290 #300-310', 'Diseñadora', 'Soltero(a)', '357159852', 64, '2023-08-14'),
 (33, 'Gabriela Hernández López', 'O+', 'Femenino', 'Medellín, Colombia', 'gabriela@hotmail.com', '3104561237', 'Cra. 300 #310-320', 'Ingeniera Química', 'Casado(a)', '456123789', 65, '2004-07-18'),
 (34, 'Juan David Pérez Sánchez', 'A-', 'Masculino', 'Bogotá, Colombia', 'juandavid@gmail.com', '3106549873', 'Cll. 310 #320-330', 'Programador', 'Soltero(a)', '654987321', 66, '2007-07-06'),
-(37, 'Daniel Galvis', 'A+', 'Masculino', 'Bucaramanga, Santander', 'danielgalvis@gmail.com', '3202906144', 'Calle 3 #4-14', 'Estudiante', 'Soltero(a)', '1005762456', 70, '2003-06-11');
+(37, 'Daniel Galvis', 'A+', 'Masculino', 'Bucaramanga, Santander', 'danielgalvis@gmail.com', '3202906144', 'Calle 3 #4-14', 'Estudiante', 'Soltero(a)', '1005762456', 70, '2003-06-11'),
+(38, 'Lucas Pato', 'AB-', 'Masculino', 'Lebrija, Santander', 'luquitas@gmail.com', '3102106144', 'Calle 4 #4-30', 'Ninguno', 'Soltero(a)', '23123321', 71, '2024-02-13'),
+(39, 'Andres Rincon', 'A-', 'Masculino', 'Piedecuesta, Santander', 'andresrincon@gmail.com', '3122345144', 'Calle 10 #29-27', 'Estudiante', 'Soltero(a)', '2313122111', 72, '2005-06-29'),
+(40, 'Jesús Nieves', 'A+', 'Masculino', 'Rionegro, Santander', 'jesus@gmail.com', '3122345144', 'Calle 10 #29-27', 'Físico', 'Soltero(a)', '2313122111', 73, '2017-02-26'),
+(41, 'Wilson Manuel López Mendoza', 'A+', 'Masculino', 'Pasto, Colombia', 'wilson@gmail.com', '123891283', 'Calle 22 #17-140', 'Enfermero', 'Viudo(a)', '10051726342', 74, '2000-01-07');
 
 -- --------------------------------------------------------
 
@@ -276,7 +293,7 @@ INSERT INTO `usuario` (`IDUSUARIO`, `NOMBREUSUARIO`, `CLAVE`, `ESTADO`, `IDCARGO
 (56, 'Julian', 'c6f057b86584942e415435ffb1fa93d4', b'1', 3, 3, 5),
 (57, 'David', '698d51a19d8a121ce581499d7b701668', b'1', 3, 4, 5),
 (58, 'Isabella', 'bcbe3365e6ac95ea2c0343a2395834dd', b'1', 3, 1, 6),
-(59, 'Mateo', '310dcbbf4cce62f762a2aaa148d556bd', b'1', 3, 2, 6),
+(59, 'Mateo', '202cb962ac59075b964b07152d234b70', b'1', 3, 2, 6),
 (60, 'Natalia', '550a141f12de6341fba65b0ad0433500', b'1', 3, 3, 6),
 (61, 'Alejandro', '15de21c670ae7c3f6f3f1f37029303c9', b'1', 3, 4, 6),
 (62, 'Valeria', 'fae0b27c451c728867a567e8c1bb4e53', b'1', 3, 1, 7),
@@ -284,8 +301,12 @@ INSERT INTO `usuario` (`IDUSUARIO`, `NOMBREUSUARIO`, `CLAVE`, `ESTADO`, `IDCARGO
 (64, 'Mariana', '0a113ef6b61820daa5611c870ed8d5ee', b'1', 3, 3, 7),
 (65, 'Gabriela', 'b706835de79a2b4e80506f582af3676a', b'1', 3, 4, 7),
 (66, 'JUANDAV', 'caf1a3dfb505ffed0d024130f58c5cfa', b'1', 1, NULL, NULL),
-(67, 'AndresProf', 'd9b1d7db4cd6e70935368a1efb10e377', b'1', 2, NULL, NULL),
-(70, 'Danielito', '202cb962ac59075b964b07152d234b70', b'1', 2, NULL, NULL);
+(67, 'AndresProf', 'caf1a3dfb505ffed0d024130f58c5cfa', b'1', 2, NULL, NULL),
+(70, 'Danielito', '202cb962ac59075b964b07152d234b70', b'1', 2, NULL, NULL),
+(71, 'LucasXD', 'caf1a3dfb505ffed0d024130f58c5cfa', b'1', 2, NULL, NULL),
+(72, 'AndresRincon', '202cb962ac59075b964b07152d234b70', b'1', 2, NULL, NULL),
+(73, 'Jesús', '202cb962ac59075b964b07152d234b70', b'1', 2, NULL, NULL),
+(74, 'WilsonL', '15de21c670ae7c3f6f3f1f37029303c9', b'1', 2, NULL, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -356,7 +377,7 @@ ALTER TABLE `cargo`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `IDCITAS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `IDCITAS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `consultorio`
@@ -368,13 +389,13 @@ ALTER TABLE `consultorio`
 -- AUTO_INCREMENT de la tabla `historial_medico`
 --
 ALTER TABLE `historial_medico`
-  MODIFY `IDHISTORIAL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `IDHISTORIAL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `IDPERSONA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `IDPERSONA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `sede`
@@ -386,7 +407,7 @@ ALTER TABLE `sede`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `IDUSUARIO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `IDUSUARIO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- Restricciones para tablas volcadas

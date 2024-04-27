@@ -19,7 +19,8 @@ public class DAOHISTORIAL extends Conexion {
                 + "IDPERSONA, "
                 + "FECHA, "
                 + "MOTIVO_CITA, "
-                + "OBSERVACION "
+                + "OBSERVACION, "
+                + "estado "
                 + "FROM HISTORIAL_MEDICO "
                 + "WHERE IDPERSONA = " + persona.getId_persona();
         
@@ -34,8 +35,19 @@ public class DAOHISTORIAL extends Conexion {
                 historial.setFecha(rs.getDate("FECHA"));
                 historial.setMotivo_cita(rs.getString("MOTIVO_CITA"));
                 historial.setObservacion(rs.getString("OBSERVACION"));
+                historial.setEstado(rs.getBoolean("estado"));
                 historiales.add(historial);
             }
+//            for (HistorialMedico historiale : historiales) {
+//                System.out.println("----------------------------------");
+//                System.out.println(historiale.getId_historial());
+//                System.out.println(historiale.getPersona().getId_persona());
+//                System.out.println(historiale.getMotivo_cita());
+//                System.out.println(historiale.getObservacion());
+//                System.out.println(historiale.getFecha());
+//                System.out.println(historiale.isEstado());
+//                System.out.println("----------------------------------");
+//            }
             this.cerrar(true);
         } catch (Exception e) {
             this.cerrar(false);
@@ -61,5 +73,17 @@ public class DAOHISTORIAL extends Conexion {
             throw e;
         }
     }
-
+    public void cambiarVigencia(HistorialMedico hist) throws Exception {
+        String sql = "UPDATE historial_medico SET estado = "
+                + (hist.isEstado() == true ? "1" : "0")
+                + " WHERE IDHISTORIAL = " + hist.getId_historial();
+        try {
+            this.conectar(false);
+            this.ejecutarOrden(sql);
+            this.cerrar(true);
+        } catch (Exception e) {
+            this.cerrar(false);
+            throw e;
+        }
+    }
 }

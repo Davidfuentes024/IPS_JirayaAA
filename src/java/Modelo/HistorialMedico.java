@@ -47,9 +47,18 @@ public class HistorialMedico {
     public void setObservacion(String observacion) {
         this.observacion = observacion;
     }
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+    
     private int id_historial;
     private Persona persona;
     private Date fecha;
     private String motivo_cita;
-    private String observacion;
+    private String observacion;    
+    private boolean estado;
 }

@@ -84,13 +84,13 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-right">
-                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default">Cerrar Sesion</a>
+                                            <a href="srvSession?accion=cerrar" class="btn btn-default">Cerrar Sesion</a>
                                         </div>
                                         <div class="pull-left">
-                                            <a href="<c:url value="srvUsuario">
-                                                            <c:param name="accion" value="historialMedicoPaciente" />
-                                                            <c:param name="codi" value="${usuario.id_usuario}" />
-                                                        </c:url>" class="btn btn-primary ">Ver mi Perfil</a>                                             
+                                            <a href="<c:url value="srvHistorial">
+                                                   <c:param name="accion" value="historialMedicoPaciente" />
+                                                   <c:param name="codi" value="${usuario.id_usuario}" />
+                                               </c:url>" class="btn btn-primary ">Ver mi Perfil</a>                                             
                                         </div>
                                     </li>
 
@@ -141,9 +141,9 @@
                                 <!-- Mostrar enlace "Nueva Cita" solo para Pacientes -->
 
                                 <!-- Mostrar enlace "Nueva Cita" solo para Pacientes -->
-                                <li><a href="srvUsuario?accion=nuevaCita"><i class="fa fa-heart"></i>Nueva Cita</a></li>
+                                <li><a href="srvCita?accion=nuevaCita"><i class="fa fa-heart"></i>Nueva Cita</a></li>
 
-                                <li><a href="srvUsuario?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
+                                <li><a href="srvCita?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
 
                             </ul>
                         </li>
@@ -166,7 +166,7 @@
                 </section>
 
                 <section class="content">
-                    <a href="srvUsuario?accion=listarCitas" class="btn btn-default">
+                    <a href="srvCita?accion=listarCitas" class="btn btn-default">
                         <i class="fa fa-align-justify"></i> Ver listado</a> 
                     <div class="form-group">
                     </div>
@@ -267,8 +267,8 @@
                                         <table id="historial-table" class="table table-bordered table-striped table-sortable">
                                             <thead>
                                                 <tr>
-                                                    
-                                                    <th data-defaultsort="asc">Fecha</th>
+
+                                                    <th>Fecha</th>
                                                     <th>Motivo de la Cita</th>
                                                     <th>Observación</th>
                                                 </tr>
@@ -276,12 +276,14 @@
                                             <tbody>
                                                 <!-- Aquí iteramos sobre la lista de historiales -->
                                                 <c:forEach var="historial" items="${historiales}">
-                                                    <tr>
-                                                        
-                                                        <td>${historial.fecha}</td>
-                                                        <td>${historial.motivo_cita}</td>
-                                                        <td>${historial.observacion}</td>
-                                                    </tr>
+                                                    <c:if test="${historial.estado eq true}">
+                                                        <tr>
+
+                                                            <td>${historial.fecha}</td>
+                                                            <td>${historial.motivo_cita}</td>
+                                                            <td>${historial.observacion}</td>
+                                                        </tr>
+                                                    </c:if>
                                                 </c:forEach>
                                             </tbody>
                                         </table>

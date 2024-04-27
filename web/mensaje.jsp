@@ -30,7 +30,7 @@
                     Error 500
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="srvUsuario?accion=verificar"><i class="fa fa-dashboard"></i> Inicio</a></li>
+                    <li><a href="srvSession?accion=verificar"><i class="fa fa-dashboard"></i> Inicio</a></li>
                     <li class="active"><a href="#">Error 500</a></li>
                 </ol>
             </section>

@@ -75,7 +75,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-right">
-                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
+                                            <a href="srvSession?accion=cerrar" class="btn btn-default btn-flat">Cerrar Sesion</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -114,7 +114,7 @@
                             </a>
                             <ul class="treeview-menu">                                
                                 <li><a href="srvUsuario?accion=listarUsuarios"><i class="fa fa-address-card"></i>Administrar Usuarios</a></li>
-                                <li><a href="srvUsuario?accion=listarPersonas"><i class="fa fa-users"></i>Administrar Personas</a></li>
+                                <li><a href="srvPersona?accion=listarPersonas"><i class="fa fa-users"></i>Administrar Personas</a></li>
                                 <li><a href="srvUsuario?accion=nuevo"><i class="fa fa-user-plus"></i>Nuevo Usuario</a></li>
                             </ul>
 
@@ -131,7 +131,7 @@
 
                                 <!-- Mostrar enlace "Nueva Cita" solo para Pacientes -->                                
 
-                                <li><a href="srvUsuario?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
+                                <li><a href="srvCita?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
 
                             </ul>
                         </li>
@@ -157,7 +157,7 @@
                         <div class="box-header with-border">
                             <i class="fa fa-edit"></i> <h3 class="box-title">Registrar Nuevo Usuario y Persona</h3>  
                         </div>
-                        <form class="form-horizontal" action="srvUsuario?accion=actualizarPersona" method="post">
+                        <form class="form-horizontal" action="srvPersona?accion=actualizarPersona" method="post">
                             <input type="hidden" name="codigo" value="${personaN.id_persona}">
                             <div class="box-body">                               
                                 <!-- Campos para la Persona -->
@@ -261,7 +261,7 @@
 
                             </div>
                             <div class="box-footer">
-                                <a href="srvUsuario?accion=actualizarPersona" class="btn btn-danger"><i class="fa fa-close red"></i> Cancelar</a>                                
+                                <a href="srvPersona?accion=listarPersonas" class="btn btn-danger"><i class="fa fa-close red"></i>Cancelar</a>                                
                                 <button type="submit" id="" name="btnRegistrar" value="Actualizar" class="btn btn-success" onclick="return validarFormulario();"><i class="fa fa-floppy-o" ></i> Actualizar</button>
                             </div>
                         </form>

@@ -77,10 +77,10 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-right">
-                                            <a href="srvUsuario?accion=cerrar" class="btn btn-default">Cerrar Sesion</a>
+                                            <a href="srvSession?accion=cerrar" class="btn btn-default">Cerrar Sesion</a>
                                         </div>
                                         <div class="pull-left">
-                                            <a href="<c:url value="srvUsuario">
+                                            <a href="<c:url value="srvHistorial">
                                                             <c:param name="accion" value="historialMedicoPaciente" />
                                                             <c:param name="codi" value="${usuario.id_usuario}" />
                                                         </c:url>" class="btn btn-primary ">Ver mi Perfil</a>                                             
@@ -128,9 +128,9 @@
                                 <!-- Mostrar enlace "Nueva Cita" solo para Pacientes -->
 
                                 <!-- Mostrar enlace "Nueva Cita" solo para Pacientes -->
-                                <li><a href="srvUsuario?accion=nuevaCita"><i class="fa fa-heart"></i>Nueva Cita</a></li>
+                                <li><a href="srvCita?accion=nuevaCita"><i class="fa fa-heart"></i>Nueva Cita</a></li>
 
-                                <li><a href="srvUsuario?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
+                                <li><a href="srvCita?accion=listarCitas"><i class="fa fa-heart-o"></i>Administrar Cita</a></li>
 
                             </ul>
                         </li>
@@ -157,7 +157,7 @@
                 <section class="content">
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
-                        <div class="col-lg-3 col-xs-6" style="cursor: pointer;" onclick="window.location.href = 'srvUsuario?accion=listarCitas'">
+                        <div class="col-lg-3 col-xs-6" style="cursor: pointer;" onclick="window.location.href = 'srvCita?accion=listarCitas'">
                             <!-- small box -->
                             <div class="small-box bg-aqua">
                                 <div class="inner">
