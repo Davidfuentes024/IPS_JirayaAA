@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
@@ -68,7 +69,7 @@
 
                                         <p>                    
                                             Bienvenido - <script>document.write(formatUserName('${usuario.nombreUsuario}'));</script>
-                                            <small>Usted es,<script>document.write(formatUserName('${usuario.cargo.nombreCargo}'));</script> </small>
+                                            <small>Usted es, <script>document.write(formatUserName('${usuario.cargo.nombreCargo}'));</script> </small>
                                         </p>
                                     </li>
                                     <!-- Menu Footer-->
@@ -225,7 +226,7 @@
                                     <label class="col-sm-2 control-label">Fecha de Nacimiento</label>
                                     <div class="col-sm-4 input-group">
                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        <input id="fechaNacimiento" type="date" class="form-control" name="txtFechaNacimiento" required>
+                                        <input id="fechaNacimiento" type="date" class="form-control" name="txtFechaNacimiento" max="<%= LocalDate.now() %>" required>
                                     </div>
                                 </div>
                                 <!-- Otros campos para la Persona -->

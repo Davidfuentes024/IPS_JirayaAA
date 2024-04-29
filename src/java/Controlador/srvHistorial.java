@@ -176,20 +176,16 @@ public class srvHistorial extends HttpServlet {
     private void cambiarEstadoHistorial(HttpServletRequest request, HttpServletResponse response) {
         DAOHISTORIAL dao;
         HistorialMedico hist;
-        System.out.println(request.getParameter("id"));
         try {
             dao = new DAOHISTORIAL();
             hist = new HistorialMedico();
             if (request.getParameter("cambiarEstadoHistorial").equals("activar")) {
                 hist.setEstado(true);
-                System.out.println(hist.isEstado());
             } else {
                 hist.setEstado(false);
-                System.out.println(hist.isEstado());
             }
             if (request.getParameter("id") != null) {
                 hist.setId_historial(Integer.parseInt(request.getParameter("id")));
-                System.out.println(hist.isEstado());
                 dao.cambiarVigencia(hist);
             } else {
                 request.setAttribute("msje", "No se obtuvo el id de la cita");

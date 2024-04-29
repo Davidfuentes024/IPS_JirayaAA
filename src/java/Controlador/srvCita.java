@@ -177,16 +177,29 @@ public class srvCita extends HttpServlet {
         List<Hora> tim = null;
         Date date = null;
         Consultorio consul = new Consultorio();
+        DAOUSUARIO daoUsu = new DAOUSUARIO();
+        Usuario doctor = null;
         Sede sed = new Sede();
         if (request.getParameter("fecha") != null) {
             date = Date.valueOf(request.getParameter("fecha"));
             consul.setCodigo(Integer.parseInt(request.getParameter("consultorio")));
             sed.setCodigo(Integer.parseInt(request.getParameter("sede")));
             try {
-                tim = dao.listarHoras(date, consul, sed);
+                try {
+
+                    doctor = daoUsu.obtenerDoctor(consul.getCodigo(), sed.getCodigo());
+                } catch (Exception e) {
+                    doctor = null;
+                }
+                tim = dao.listarHoras(date, consul, sed, doctor);
                 StringBuilder htmlBuilder = new StringBuilder();
-                htmlBuilder.append("<select name=\"hora\">");
-                htmlBuilder.append("<option value=\"0\">Seleccione una hora</option>");
+                if (doctor == null) {
+                    htmlBuilder.append("<select name=\"hora\">");
+                    htmlBuilder.append("<option value=\"0\">No hay doctores disponibles para esa sede y ese consultorio</option>");
+                } else {
+                    htmlBuilder.append("<select name=\"hora\">");
+                    htmlBuilder.append("<option value=\"0\">Seleccione una hora</option>");
+                }
                 for (Hora hora : tim) {
                     if (hora.isEstado()) {
                         htmlBuilder.append("<option value=\"").append(hora.getNombre()).append("\">").append(hora.getNombre()).append("</option>");

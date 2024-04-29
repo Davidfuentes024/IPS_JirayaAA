@@ -99,8 +99,8 @@ public class DAOUSUARIO extends Conexion {
                 + "WHERE IDCARGO = 3 "
                 + "AND ID_ESPECIALIDAD = " + Especialidad + " "
                 + "AND ID_RESIDENCIA = " + Residencia + " "
+                + "AND ESTADO "
                 + "LIMIT 1";
-        System.out.println(sql);
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);

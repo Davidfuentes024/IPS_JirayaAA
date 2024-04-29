@@ -15,19 +15,22 @@ import java.util.List;
  */
 public class DAOHORA extends Conexion {
 
-    public List<Hora> listarHoras(Date date, Consultorio consultorio, Sede sede) throws Exception {
+    public List<Hora> listarHoras(Date date, Consultorio consultorio, Sede sede, Usuario Doctor) throws Exception {
         List<Hora> horasOcupadas;
         Hora tim;
         ResultSet rs = null;
         if (sede.getCodigo() == 0 || consultorio.getCodigo() == 0) {
             return new ArrayList<>();
         }
+        if (Doctor == null) {
+            return new ArrayList<>();
+        }
         String sql = "SELECT C.HORA FROM citas C "
                 + "WHERE C.FECHA = '" + date + "' "
                 + "AND C.IDSEDE = '" + sede.getCodigo() + "' "
                 + "AND C.IDCONSULTORIO = '" + consultorio.getCodigo() + "' "
-                + "AND C.ESTADO";       
-        System.out.println(sql);
+                + "AND C.DOCTOR_ID = '" + Doctor.getId_usuario() + "' "
+                + "AND C.ESTADO";
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
@@ -41,10 +44,6 @@ public class DAOHORA extends Conexion {
                 tim.setNombre(tim.getHora().toString());
                 horasOcupadas.add(tim);
             }
-            
-            for (Hora c : horasOcupadas) {
-                System.out.println(c.getHora().toString());
-            }
             this.cerrar(true);
         } catch (Exception e) {
             throw e;
@@ -53,7 +52,7 @@ public class DAOHORA extends Conexion {
 
         // Crear una lista para almacenar los tiempos
         List<Hora> horasDisponibles = new ArrayList<>();
-        
+
         // Crear un objeto Calendar para manejar las horas
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 8); // Establecer la hora inicial
@@ -62,7 +61,7 @@ public class DAOHORA extends Conexion {
         LocalDate localDate = date.toLocalDate();
         DayOfWeek diaSemana = localDate.getDayOfWeek();
         if (diaSemana == DayOfWeek.SUNDAY) {
-            
+
         } else if (diaSemana == DayOfWeek.SATURDAY) {
             // Crear un bucle para agregar horas a la lista
             int count = 0;

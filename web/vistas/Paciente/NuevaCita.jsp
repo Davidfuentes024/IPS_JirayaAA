@@ -66,7 +66,6 @@
                                     <!-- The user image in the menu -->
                                     <li class="user-header">
                                         <img src="dist/img/1430453.png" class="img-circle" alt="User Image">
-
                                         <p>                    
                                             Bienvenido - <script>document.write(formatUserName('${usuario.nombreUsuario}'));</script>
                                             <small>Usted es, <script>document.write(formatUserName('${usuario.cargo.nombreCargo}'));</script></small>

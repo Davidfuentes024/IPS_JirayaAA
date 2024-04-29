@@ -163,7 +163,6 @@ public class srvUsuario extends HttpServlet {
             usu.setCargo(carg);
             usu.setEstado(true);
             Persona persona = new Persona();
-            // Ajustamos la codificación de los parámetros para nombre completo, lugar de nacimiento, dirección y ocupación
             String nombreCompleto = new String(request.getParameter("txtNombreCompleto").getBytes("ISO8859_1"), "UTF-8");
             String lugarNacimiento = new String(request.getParameter("txtLugarNacimiento").getBytes("ISO8859_1"), "UTF-8");
             String direccion = new String(request.getParameter("txtDireccion").getBytes("ISO8859_1"), "UTF-8");
@@ -237,7 +236,6 @@ public class srvUsuario extends HttpServlet {
 
             usus = new Usuario();
             usus.setId_usuario(Integer.parseInt(request.getParameter("hCodigo")));
-            // Ajustamos la codificación de los parámetros
             String nombreUsuario = new String(request.getParameter("txtNombre").getBytes("ISO8859_1"), "UTF-8");
             usus.setNombreUsuario(nombreUsuario);
             String clave = new String(request.getParameter("txtClave").getBytes("ISO8859_1"), "UTF-8");

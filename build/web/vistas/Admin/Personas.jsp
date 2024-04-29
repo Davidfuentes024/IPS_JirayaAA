@@ -69,7 +69,7 @@
 
                                         <p>                    
                                             Bienvenido - <script>document.write(formatUserName('${usuario.nombreUsuario}'));</script>
-                                            <small>Usted es,<script>document.write(formatUserName('${usuario.cargo.nombreCargo}'));</script> </small>
+                                            <small>Usted es, <script>document.write(formatUserName('${usuario.cargo.nombreCargo}'));</script> </small>
                                         </p>
                                     </li>
                                     <!-- Menu Footer-->
@@ -148,7 +148,7 @@
             <!-- Content Wrapper. Contains page content -->
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
-                
+
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>Página Personas</h1>
@@ -202,6 +202,12 @@
                                                        <c:param name="cod" value="${persona.usuario.id_usuario}" />
                                                    </c:url>"><button type="button" class="btn btn-warning" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
                                                         <i class="fa fa-pencil"></i></button></a>
+                                                <a 
+                                                    href="<c:url value="srvHistorial">
+                                                        <c:param name="accion" value="historialMedicoPaciente" />
+                                                        <c:param name="codi" value="${persona.usuario.id_usuario}" />
+                                                    </c:url>"><button type="button" class="btn btn-primary" data-toggle="tooltip"  title="Editar" data-original-title="Editar">
+                                                        <i class="fa fa-clipboard"></i></button></a>
 
                                             </td>
                                         </tr>                                                    

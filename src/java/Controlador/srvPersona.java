@@ -110,7 +110,6 @@ public class srvPersona extends HttpServlet {
     private void actualizarPersona(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         Persona persona = new Persona();
         persona.setId_persona(Integer.parseInt(request.getParameter("codigo")));
-        // Ajustamos la codificación de los parámetros
         String nombreCompleto = new String(request.getParameter("txtNombreCompleto").getBytes("ISO8859_1"), "UTF-8");
         persona.setNombre_completo(nombreCompleto);
         String lugarNacimiento = new String(request.getParameter("txtLugarNacimiento").getBytes("ISO8859_1"), "UTF-8");

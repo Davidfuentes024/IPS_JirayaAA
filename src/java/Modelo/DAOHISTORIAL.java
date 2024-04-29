@@ -38,16 +38,6 @@ public class DAOHISTORIAL extends Conexion {
                 historial.setEstado(rs.getBoolean("estado"));
                 historiales.add(historial);
             }
-//            for (HistorialMedico historiale : historiales) {
-//                System.out.println("----------------------------------");
-//                System.out.println(historiale.getId_historial());
-//                System.out.println(historiale.getPersona().getId_persona());
-//                System.out.println(historiale.getMotivo_cita());
-//                System.out.println(historiale.getObservacion());
-//                System.out.println(historiale.getFecha());
-//                System.out.println(historiale.isEstado());
-//                System.out.println("----------------------------------");
-//            }
             this.cerrar(true);
         } catch (Exception e) {
             this.cerrar(false);

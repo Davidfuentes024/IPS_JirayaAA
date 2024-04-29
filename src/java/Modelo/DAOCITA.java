@@ -27,8 +27,7 @@ public class DAOCITA extends Conexion {
             sql += "WHERE DOCTOR_ID = '" + usu.getId_usuario() + "'";
         } else {
 
-        }
-        System.out.println(sql);
+        }        
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);

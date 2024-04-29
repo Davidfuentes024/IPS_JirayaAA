@@ -71,7 +71,7 @@
 
                                         <p>                    
                                             Bienvenido - <script>document.write(formatUserName('${usuario.nombreUsuario}'));</script>
-                                            <small>Usted es,<script>document.write(formatUserName('${usuario.cargo.nombreCargo}'));</script> </small>
+                                            <small>Usted es, <script>document.write(formatUserName('${usuario.cargo.nombreCargo}'));</script> </small>
                                         </p>
                                     </li>
                                     <!-- Menu Footer-->
