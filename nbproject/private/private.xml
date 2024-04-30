@@ -13,6 +13,7 @@
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/DAOCARGO.java</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Admin/Inicio.jsp</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Paciente/Citas.jsp</file>
+            <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/Cita.java</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Admin/HistorialMedico.jsp</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Admin/Citas.jsp</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Controlador/srvPersona.java</file>
@@ -31,6 +32,7 @@
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/DAOCITA.java</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Doctor/HistorialMedico.jsp</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/DAOUSUARIO.java</file>
+            <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/src/java/Modelo/Conexion.java</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Admin/Personas.jsp</file>
             <file>file:/C:/Users/caki-/OneDrive/Documents/NetBeansProjects/IPSPRO/web/vistas/Doctor/Inicio.jsp</file>
         </group>

@@ -10,7 +10,7 @@ public class DAOCARGO extends Conexion {
         List<Cargo> cargos;
         Cargo car;
         ResultSet rs = null;
-        String sql = "SELECT C.IDCARGO, C.NOMBRECARGO, C.ESTADO FROM CARGO C "
+        String sql = "SELECT C.IDCARGO, C.NOMBRECARGO, C.ESTADO FROM cargo C "
                 + "ORDER BY C.IDCARGO";
 
         try {

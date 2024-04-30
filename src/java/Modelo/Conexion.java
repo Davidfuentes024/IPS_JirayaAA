@@ -1,6 +1,5 @@
 package Modelo;
 
-
 import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -17,6 +16,21 @@ public class Conexion {
         return conexion;
     }
 
+//    protected void conectar(boolean wTransaccion) throws Exception {
+//        MysqlConnectionPoolDataSource ds = new MysqlConnectionPoolDataSource();
+//        ds.setServerName("database-1.cxc8ockwyjox.us-east-2.rds.amazonaws.com");
+//        ds.setPort(3306);
+//        ds.setDatabaseName("bdsistema");
+//        conexion = ds.getConnection("admin", "12345678");
+//
+//        if (wTransaccion == true) {
+//            this.conexion.setAutoCommit(false);
+//            this.transaccionIniciada = true;
+//        } else {
+//            this.conexion.setAutoCommit(true);
+//            this.transaccionIniciada = false;
+//        }
+//    }
     protected void conectar(boolean wTransaccion) throws Exception {
         MysqlConnectionPoolDataSource ds = new MysqlConnectionPoolDataSource();
         ds.setServerName("localhost");

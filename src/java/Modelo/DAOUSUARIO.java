@@ -12,35 +12,7 @@ import java.util.List;
  */
 public class DAOUSUARIO extends Conexion {
 
-    public Usuario identificar(Usuario user) throws Exception {
-        Usuario usu = null;
-        ResultSet rs = null;
-        String sql = "SELECT U.IDUSUARIO, C.NOMBRECARGO, U.IDCARGO FROM usuario "
-                + "U INNER JOIN CARGO C ON U.IDCARGO = C.IDCARGO "
-                + "WHERE U.ESTADO = 1 AND U.NOMBREUSUARIO =  '" + user.getNombreUsuario() + "'"
-                + "AND U.CLAVE = '" + user.getClave() + "'";
-        try {
-
-            this.conectar(false);
-            rs = this.ejecutarOrdenDatos(sql);
-            if (rs.next() == true) {
-                usu = new Usuario();
-                usu.setId_usuario(rs.getInt("IDUSUARIO"));
-                usu.setNombreUsuario(user.getNombreUsuario());
-                usu.setCargo(new Cargo());
-                usu.getCargo().setNombreCargo(rs.getString("NOMBRECARGO"));
-                usu.getCargo().setCodigo(rs.getInt("IDCARGO"));
-                usu.setEstado(true);
-            }
-            rs.close();
-        } catch (Exception e) {
-            System.out.println("Error " + e.getMessage());
-        } finally {
-            this.cerrar(false);
-        }
-        return usu;
-
-    }
+    
 
     public Usuario identificarConCifrado(Usuario user) throws Exception {
         Usuario usu = null;
@@ -49,9 +21,10 @@ public class DAOUSUARIO extends Conexion {
         try {
             String claveCifrada = cifrarClave(user.getClave());
             String sql = "SELECT U.IDUSUARIO, C.NOMBRECARGO, U.IDCARGO FROM usuario "
-                    + "U INNER JOIN CARGO C ON U.IDCARGO = C.IDCARGO "
+                    + "U INNER JOIN cargo C ON U.IDCARGO = C.IDCARGO "
                     + "WHERE U.ESTADO = 1 AND U.NOMBREUSUARIO =  '" + user.getNombreUsuario() + "'"
                     + "AND U.CLAVE = '" + claveCifrada + "'";
+            System.out.println(sql);
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
             if (rs.next() == true) {
@@ -151,7 +124,7 @@ public class DAOUSUARIO extends Conexion {
         String sql;
         String claveCifrada = cifrarClave(usu.getClave());
         usu.setClave(claveCifrada);
-        sql = "INSERT INTO Usuario (NOMBREUSUARIO, CLAVE, ESTADO, IDCARGO) "
+        sql = "INSERT INTO usuario (NOMBREUSUARIO, CLAVE, ESTADO, IDCARGO) "
                 + "VALUES ('" + usu.getNombreUsuario() + "', '"
                 + usu.getClave() + "', "
                 + (usu.isEstado() == true ? "1" : "0")
@@ -232,7 +205,7 @@ public class DAOUSUARIO extends Conexion {
     public void cambiarVigencia(Usuario usus) throws Exception {
         String sql = "UPDATE usuario SET estado = "
                 + (usus.isEstado() == true ? "1" : "0")
-                + " WHERE idusuario = " + usus.getId_usuario();
+                + " WHERE IDUSUARIO = " + usus.getId_usuario();
         try {
             this.conectar(false);
             this.ejecutarOrden(sql);

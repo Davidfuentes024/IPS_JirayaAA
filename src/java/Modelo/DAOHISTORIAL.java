@@ -21,9 +21,9 @@ public class DAOHISTORIAL extends Conexion {
                 + "MOTIVO_CITA, "
                 + "OBSERVACION, "
                 + "estado "
-                + "FROM HISTORIAL_MEDICO "
+                + "FROM historial_medico "
                 + "WHERE IDPERSONA = " + persona.getId_persona();
-        
+        System.out.println(sql);
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);

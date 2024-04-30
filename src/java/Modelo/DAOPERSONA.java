@@ -27,8 +27,9 @@ public class DAOPERSONA extends Conexion {
                 + "u.OCUPACION, "
                 + "u.ESTADO_CIVIL, "
                 + "u.NUMERO_DOCUMENTO "
-                + "FROM PERSONA u "
-                + "WHERE U.IDUSUARIO = " + usu.getUsuario().getId_usuario();
+                + "FROM persona u "
+                + "WHERE u.IDUSUARIO = " + usu.getUsuario().getId_usuario();
+        System.out.println(sql);
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
@@ -75,7 +76,7 @@ public class DAOPERSONA extends Conexion {
                 + "p.OCUPACION, "
                 + "p.ESTADO_CIVIL, "
                 + "p.NUMERO_DOCUMENTO "
-                + "FROM PERSONA p";
+                + "FROM persona p";
 
         try {
             this.conectar(false);
@@ -112,8 +113,9 @@ public class DAOPERSONA extends Conexion {
         String nombreCompleto = null;
         ResultSet rs = null;
         String sql = "SELECT NOMBRE_COMPLETO "
-                + "FROM PERSONA "
+                + "FROM persona "
                 + "WHERE IDUSUARIO = " + usuario.getId_usuario();
+        System.out.println(sql);
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
@@ -132,7 +134,7 @@ public class DAOPERSONA extends Conexion {
     public void registrarPersonas(Persona persona) throws Exception {
         String sql;
 
-        sql = "INSERT INTO Persona (nombre_completo, tipo_sangre, genero, fecha_nacimiento, lugar_nacimiento, "
+        sql = "INSERT INTO persona (nombre_completo, tipo_sangre, genero, fecha_nacimiento, lugar_nacimiento, "
                 + "email, numero_telefono, direccion, ocupacion, estado_civil, numero_documento, IDUSUARIO) "
                 + "VALUES ('" + persona.getNombre_completo() + "', '" + persona.getTipo_sangre() + "', '"
                 + persona.getGenero() + "', '" + persona.getEdad() + "', '"
@@ -152,7 +154,7 @@ public class DAOPERSONA extends Conexion {
     }
 
     public void actualizarPersona(Persona persona) throws Exception {
-        String sql = "UPDATE Persona SET "
+        String sql = "UPDATE persona SET "
                 + "nombre_completo='" + persona.getNombre_completo() + "', "
                 + "tipo_sangre='" + persona.getTipo_sangre() + "', "
                 + "genero='" + persona.getGenero() + "', "
