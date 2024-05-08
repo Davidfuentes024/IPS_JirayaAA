@@ -12,8 +12,6 @@ import java.util.List;
  */
 public class DAOUSUARIO extends Conexion {
 
-    
-
     public Usuario identificarConCifrado(Usuario user) throws Exception {
         Usuario usu = null;
         ResultSet rs = null;
@@ -24,7 +22,6 @@ public class DAOUSUARIO extends Conexion {
                     + "U INNER JOIN cargo C ON U.IDCARGO = C.IDCARGO "
                     + "WHERE U.ESTADO = 1 AND U.NOMBREUSUARIO =  '" + user.getNombreUsuario() + "'"
                     + "AND U.CLAVE = '" + claveCifrada + "'";
-            System.out.println(sql);
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
             if (rs.next() == true) {
@@ -124,17 +121,29 @@ public class DAOUSUARIO extends Conexion {
         String sql;
         String claveCifrada = cifrarClave(usu.getClave());
         usu.setClave(claveCifrada);
-        sql = "INSERT INTO usuario (NOMBREUSUARIO, CLAVE, ESTADO, IDCARGO) "
-                + "VALUES ('" + usu.getNombreUsuario() + "', '"
-                + usu.getClave() + "', "
-                + (usu.isEstado() == true ? "1" : "0")
-                + ", " + usu.getCargo().getCodigo() + ")";
+        if (usu.getCargo().getCodigo() == 3) {
+            sql = "INSERT INTO usuario (NOMBREUSUARIO, CLAVE, ESTADO, IDCARGO, "
+                    + "ID_ESPECIALIDAD, ID_RESIDENCIA) "
+                    + "VALUES ('" + usu.getNombreUsuario() + "', '"
+                    + usu.getClave() + "', "
+                    + (usu.isEstado() == true ? "1" : "0")
+                    + ", " + usu.getCargo().getCodigo() + ", " 
+                    + usu.getId_especialidad() + ", " 
+                    + usu.getId_residencia() + ")";
+        } else {
+            sql = "INSERT INTO usuario (NOMBREUSUARIO, CLAVE, ESTADO, IDCARGO) "
+                    + "VALUES ('" + usu.getNombreUsuario() + "', '"
+                    + usu.getClave() + "', "
+                    + (usu.isEstado() == true ? "1" : "0")
+                    + ", " + usu.getCargo().getCodigo() + ")";
+        }
+
         try {
             this.conectar(false);
             this.ejecutarOrden(sql);
             this.cerrar(true);
         } catch (Exception e) {
-            this.cerrar(false);            
+            this.cerrar(false);
             throw e;
         }
         ResultSet rs = null;
@@ -144,8 +153,8 @@ public class DAOUSUARIO extends Conexion {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
             if (rs.next() == true) {
-                
-                usu.setId_usuario(rs.getInt("IDUSUARIO"));                
+
+                usu.setId_usuario(rs.getInt("IDUSUARIO"));
             }
             rs.close();
             this.cerrar(true);
@@ -200,7 +209,7 @@ public class DAOUSUARIO extends Conexion {
             this.cerrar(false);
             throw e;
         }
-    }    
+    }
 
     public void cambiarVigencia(Usuario usus) throws Exception {
         String sql = "UPDATE usuario SET estado = "

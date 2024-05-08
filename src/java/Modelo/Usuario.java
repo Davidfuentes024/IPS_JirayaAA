@@ -11,6 +11,24 @@ public class Usuario {
     private boolean estado;
     private Cargo cargo;
 
+    public int getId_especialidad() {
+        return id_especialidad;
+    }
+
+    public void setId_especialidad(int id_especialidad) {
+        this.id_especialidad = id_especialidad;
+    }
+
+    public int getId_residencia() {
+        return id_residencia;
+    }
+
+    public void setId_residencia(int id_residencia) {
+        this.id_residencia = id_residencia;
+    }
+    private int id_especialidad;
+    private int id_residencia;
+
     public int getId_usuario() {
         return id_usuario;
     }

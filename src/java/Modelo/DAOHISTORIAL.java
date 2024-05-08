@@ -23,7 +23,6 @@ public class DAOHISTORIAL extends Conexion {
                 + "estado "
                 + "FROM historial_medico "
                 + "WHERE IDPERSONA = " + persona.getId_persona();
-        System.out.println(sql);
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);

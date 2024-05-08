@@ -21,7 +21,6 @@ public class DAOCITA extends Conexion {
                 + "INNER JOIN consultorio P ON P.IDCONSULTORIO = U.IDCONSULTORIO \n"
                 + "INNER JOIN persona PC ON PC.IDUSUARIO = U.PACIENTE_ID \n"
                 + "INNER JOIN persona PD ON PD.IDUSUARIO = U.DOCTOR_ID ";
-        System.out.println(sql);
         if (usu.getCargo().getCodigo() == 2) {
             sql += "WHERE PACIENTE_ID = '" + usu.getId_usuario() + "'";
         } else if (usu.getCargo().getCodigo() == 3) {

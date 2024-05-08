@@ -161,6 +161,10 @@ public class srvUsuario extends HttpServlet {
             carg = new Cargo();
             carg.setCodigo(Integer.parseInt(request.getParameter("cboCargo")));
             usu.setCargo(carg);
+            if (usu.getCargo().getCodigo() == 3) {
+                usu.setId_especialidad(Integer.parseInt(request.getParameter("cboEspecialidad")));
+                usu.setId_residencia(Integer.parseInt(request.getParameter("cboLugarNacimiento")));
+            }
             usu.setEstado(true);
             Persona persona = new Persona();
             String nombreCompleto = new String(request.getParameter("txtNombreCompleto").getBytes("ISO8859_1"), "UTF-8");

@@ -30,6 +30,23 @@
                 return userName.charAt(0).toUpperCase() + userName.slice(1).toLowerCase();
             }
         </script>
+        <script>
+            function cambiarCampos() {
+                var tipoUsuario = document.getElementById("comboCargo").value;
+                var ocupacionFormGroup = document.getElementById("ocupacionFormGroup");
+                var lugarNacimientoFormGroup = document.getElementById("lugarNacimientoFormGroup");
+
+                if (tipoUsuario === "3") { // Si el tipo de usuario es Doctor
+                    ocupacionFormGroup.style.display = "block"; // Mostrar el campo de Ocupación
+                    lugarNacimientoFormGroup.style.display = "block"; // Mostrar el campo de Lugar de Nacimiento
+                } else {
+                    ocupacionFormGroup.style.display = "none"; // Ocultar el campo de Ocupación
+                    lugarNacimientoFormGroup.style.display = "none"; // Ocultar el campo de Lugar de Nacimiento
+                }
+            }
+
+        </script>
+
     </head>
 
     <body class="hold-transition skin-blue sidebar-mini">
@@ -182,7 +199,7 @@
                                     <label class="col-sm-2 control-label">Cargo</label>
                                     <div class="col-sm-4 input-group">
                                         <span class="input-group-addon"><i class="fa fa-tags"></i></span>
-                                        <select class="form-control" name="cboCargo" autofocus="" required>
+                                        <select class="form-control" id="comboCargo" name="cboCargo" autofocus="" onchange="cambiarCampos()" required>
                                             <option value="0">Seleccione un cargo</option>
                                             <c:forEach items="${cargos}" var="car">
                                                 <option value="${car.codigo}"  
@@ -193,8 +210,39 @@
                                             </c:forEach>
                                         </select>
                                     </div>                                  
+                                </div>                              
+                                <div id="ocupacionFormGroup" class="form-group" style="display: none;">
+                                    <label class="col-sm-2 control-label">Especialidad</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
+                                        <select class="form-control" name="cboEspecialidad" required>
+                                            <option value="">Seleccione la especialidad</option>
+                                            <option value="1">Medicina Familiar</option>
+                                            <option value="2">Fisioterapia</option>
+                                            <option value="3">Medicina Interna</option>
+                                            <option value="4">Psicología</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                
+
+                                <div id="lugarNacimientoFormGroup" class="form-group" style="display: none;">
+                                    <label class="col-sm-2 control-label">Lugar de Trabajo</label>
+                                    <div class="col-sm-4 input-group">
+                                        <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                        <select class="form-control" name="cboLugarNacimiento" required>
+                                            <option value="0">Seleccione el lugar de trabajo</option>
+                                            <option value="1">Bucaramanga</option>
+                                            <option value="2">Lebrija</option>
+                                            <option value="3">Pamplona</option>
+                                            <option value="4">Rionegro</option>
+                                            <option value="5">Piedecuesta</option>
+                                            <option value="6">Giron</option>
+                                            <option value="7">Floridablanca</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
 
                                 <!-- Campos para la Persona -->
                                 <div class="form-group">
@@ -226,10 +274,13 @@
                                     <label class="col-sm-2 control-label">Fecha de Nacimiento</label>
                                     <div class="col-sm-4 input-group">
                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        <input id="fechaNacimiento" type="date" class="form-control" name="txtFechaNacimiento" max="<%= LocalDate.now() %>" required>
+                                        <input id="fechaNacimiento" type="date" class="form-control" name="txtFechaNacimiento" max="<%= LocalDate.now()%>" required>
                                     </div>
                                 </div>
                                 <!-- Otros campos para la Persona -->
+
+
+
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Lugar de Nacimiento</label>
                                     <div class="col-sm-4 input-group">
@@ -258,6 +309,7 @@
                                         <input id="direccion" type="text" class="form-control" placeholder="Ejemplo: Calle 123 #456" name="txtDireccion" maxlength="100">
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Ocupación</label>
                                     <div class="col-sm-4 input-group">

@@ -29,7 +29,6 @@ public class DAOPERSONA extends Conexion {
                 + "u.NUMERO_DOCUMENTO "
                 + "FROM persona u "
                 + "WHERE u.IDUSUARIO = " + usu.getUsuario().getId_usuario();
-        System.out.println(sql);
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
@@ -115,7 +114,6 @@ public class DAOPERSONA extends Conexion {
         String sql = "SELECT NOMBRE_COMPLETO "
                 + "FROM persona "
                 + "WHERE IDUSUARIO = " + usuario.getId_usuario();
-        System.out.println(sql);
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
